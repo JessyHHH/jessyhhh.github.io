@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="description" content="Notes on keeping small releases legible when a project grows across repos and deploy targets."><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Calm release notes for a changing codebase | Jessy Huang</title><link rel="stylesheet" href="/_astro/BaseLayout.kYN34k6I.css"></head> <body> <div class="shell"> <header class="site-header"> <a class="brand" href="/">Jessy Huang</a> <nav class="site-nav" aria-label="Primary"> <a href="/projects/">Projects</a> <a href="/blog/">Writing</a> <a href="https://github.com/JessyHHH">GitHub</a><a href="https://github.com/JessyHHH/BlogSync">BlogSync</a> </nav> </header> </div> <main>  <div class="shell"> <header class="article-head"> <a href="/blog/">Back to writing</a> <h1>Calm release notes for a changing codebase</h1> <p class="lead">Notes on keeping small releases legible when a project grows across repos and deploy targets.</p> <div class="card-footer"> <time class="meta" datetime="2026-06-12T00:00:00.000Z"> 2026-06-12 </time> <span class="tag">Release engineering</span><span class="tag">Go</span><span class="tag">Astro</span> </div> </header> <article class="content"> <p>The best release notes are not a summary of everything that changed. They are a trace of the decisions that matter to the person reading them a week later.</p>
+<p>In practice, that means separating signal from motion:</p>
+<ul>
+<li>what changed in the public shape of the system,</li>
+<li>what changed in the operating path,</li>
+<li>what changed in the failure model.</li>
+</ul>
+<p>When those three are explicit, a release log becomes a small operational artifact instead of a marketing recap.</p>
+<h2 id="keep-the-audience-narrow">Keep the audience narrow</h2>
+<p>I write for the person who has to answer a question at 9:00 a.m. with only the repo and the deploy log in front of them. That audience does not need adjectives. It needs names, paths, and a clean sequence.</p>
+<h2 id="prefer-one-source-of-truth">Prefer one source of truth</h2>
+<p>If a publishing pipeline writes content into one repository and deploys from another, the public URL, content directory, and deployment target must all be named in one place. Split ownership is fine. Split knowledge is not.</p>
+<h2 id="end-with-a-stable-sentence">End with a stable sentence</h2>
+<p>My favorite release note ends with a sentence that can be copied into an incident review later:</p>
+<blockquote>
+<p>The deployment path is now explicit, content lives in the source repo, and the public site is rebuilt from the same static output every time.</p>
+</blockquote> </article> </div>  </main> <div class="shell"> <footer class="site-footer"> <span>Shanghai</span> <span aria-hidden="true"> · </span> <span>Notes on backend systems, publishing tools, and durable product infrastructure.</span> </footer> </div> </body></html>
