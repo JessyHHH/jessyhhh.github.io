@@ -2,7 +2,6 @@ backend:
   name: github
   repo: JessyHHH/JessyHome
   branch: main
-  base_url: https://decapcms-oauth.vercel.app
 
 media_folder: 'src/assets/images'
 public_folder: '/_astro'
