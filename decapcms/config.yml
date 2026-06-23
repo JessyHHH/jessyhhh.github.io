@@ -13,19 +13,20 @@ collections:
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Excerpt', name: 'excerpt', widget: 'string' }
-      - { label: 'Category', name: 'category', widget: 'string' }
+      - { label: 'Excerpt', name: 'excerpt', widget: 'string', required: false }
+      - { label: 'Category', name: 'category', widget: 'string', required: false }
       - {
           label: 'Tags',
           name: 'tags',
           widget: 'list',
+          required: false,
           allow_add: true,
           allow_delete: true,
           collapsed: false,
           field: { label: 'Tag', name: 'tag', widget: 'string' },
         }
-      - { label: 'Image', name: 'image', widget: 'string' }
+      - { label: 'Image', name: 'image', widget: 'string', required: false }
       - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
-      - { label: 'Author', name: 'author', widget: 'string' }
+      - { label: 'Author', name: 'author', widget: 'string', required: false }
       - { label: 'Draft', name: 'draft', widget: 'boolean', default: false, required: false }
       - { label: 'Content', name: 'body', widget: 'markdown' }
