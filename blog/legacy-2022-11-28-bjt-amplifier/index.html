@@ -1,0 +1,362 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>BJT amplifier | jessy</title> <meta name="description" content="BJT-Amplifier"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-11-28-bjt-amplifier/"> <meta property="og:title" content="BJT amplifier"> <meta property="og:description" content="BJT-Amplifier"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-11-28-bjt-amplifier/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="BJT amplifier"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="BJT amplifier"> <meta name="twitter:description" content="BJT-Amplifier"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="BJT amplifier"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-11-28T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-11-28-bjt-amplifier" aria-current="page" data-astro-cid-wv7whodv> BJT amplifier </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-11-25-好用大合集" data-icon-button data-dir="prev" aria-label="上一篇：网站软件推荐" title="网站软件推荐" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2022-11-29-keras-model-in-coral-accelerator" data-icon-button data-dir="next" aria-label="下一篇：Keras model in Coral accelerator" title="Keras model in Coral accelerator" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>BJT amplifier</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">BJT amplifier</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#什么是bjt-amplifier" data-astro-cid-p33bl5ka>什么是BJT-amplifier</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#根据小信号模型可以知道输入阻抗和输出阻抗的构成" data-astro-cid-p33bl5ka>根据小信号模型可以知道输入阻抗和输出阻抗的构成：</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#impedance-at--base基极偏置" data-astro-cid-p33bl5ka>Impedance at  base(基极偏置):</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#impedance-at-collector集电极偏置" data-astro-cid-p33bl5ka>Impedance at collector(集电极偏置)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#impedance-at-emitter发射集偏置" data-astro-cid-p33bl5ka>Impedance at Emitter(发射集偏置)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#three-master-rules-of-transistor-impedance-结论" data-astro-cid-p33bl5ka>Three Master rules of Transistor Impedance (结论)</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#如何构成一个bjt--amplifier" data-astro-cid-p33bl5ka>如何构成一个BJT- amplifier</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#bjt三种偏置的ic输出" data-astro-cid-p33bl5ka>BJT三种偏置的Ic输出</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#1-biasing-with-base-resistor" data-astro-cid-p33bl5ka>1. Biasing with Base Resistor</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#2-emitter-degeneration-biasing" data-astro-cid-p33bl5ka>2. Emitter Degeneration Biasing</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#3-self-biasing-techniquecollector-feedback-biasing" data-astro-cid-p33bl5ka>3. Self-Biasing technique/collector-Feedback biasing</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#pnp-偏置图" data-astro-cid-p33bl5ka>PNP 偏置图</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#study-of-common-emitterce-topology" data-astro-cid-p33bl5ka>Study Of Common-Emitter(CE) Topology</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#1analysis-ce-coreinclusion-of-early-effect" data-astro-cid-p33bl5ka>1.Analysis CE core(inclusion of Early Effect)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#2-emitter-degeneration" data-astro-cid-p33bl5ka>2. Emitter Degeneration</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#3-ce-stage" data-astro-cid-p33bl5ka>3. CE-stage</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#common-basecb-amplifier" data-astro-cid-p33bl5ka>Common Base(CB) amplifier</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#cb-core" data-astro-cid-p33bl5ka>CB core</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#impedance" data-astro-cid-p33bl5ka>Impedance</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#bace-with-resistance" data-astro-cid-p33bl5ka>Bace with Resistance</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#example" data-astro-cid-p33bl5ka>Example</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#common-collectorcc-amplifier" data-astro-cid-p33bl5ka>Common Collector(CC) amplifier</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#not-early-effect" data-astro-cid-p33bl5ka>Not early effect</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#early-effect" data-astro-cid-p33bl5ka>early effect</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#current-gain" data-astro-cid-p33bl5ka>Current Gain</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#cc-with-base-biasing" data-astro-cid-p33bl5ka>CC with base biasing</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#amplifier-example" data-astro-cid-p33bl5ka>Amplifier Example</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#example1" data-astro-cid-p33bl5ka>Example1</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#example2" data-astro-cid-p33bl5ka>Example2</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-11-28-bjt-amplifier" data-title="BJT amplifier | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>BJT amplifier</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-11-28T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年11月28日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Micro_system" data-astro-cid-vvdrgdaw>#Micro_system</a><a href="/tags/微电子电路" data-astro-cid-vvdrgdaw>#微电子电路</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>BJT-Amplifier</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="bjt-amplifier">BJT-Amplifier</h1>
+<h2 id="什么是bjt-amplifier">什么是BJT-amplifier<a data-heading-anchor="" href="#什么是bjt-amplifier" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>中文简称：BJT放大器，如电压放大器等</p>
+<p><img src="https://i.imgur.com/vKDSS1R.png" alt="image-20221128134542174"></p>
+<p><strong>上图是一个电压放大器，理想状态下，它的输入阻抗为无限大，输出阻抗为0，但现实中，输入阻抗和输出阻抗会偏离理想值！</strong></p>
+<p><img src="https://i.imgur.com/tgfaVDk.png" alt="image-20221128134846273"></p>
+<p>x可以是input也可以是output，公式是通用的。</p>
+<h3 id="根据小信号模型可以知道输入阻抗和输出阻抗的构成">根据小信号模型可以知道输入阻抗和输出阻抗的构成：<a data-heading-anchor="" href="#根据小信号模型可以知道输入阻抗和输出阻抗的构成" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h3 id="impedance-at--base基极偏置">Impedance at  base(基极偏置):<a data-heading-anchor="" href="#impedance-at--base基极偏置" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/MyIZptE.png" alt="image-20221128135938002"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/629ghGO.png" alt="image-20221128140254967"></p>
+</blockquote>
+<h3 id="impedance-at-collector集电极偏置">Impedance at collector(集电极偏置)<a data-heading-anchor="" href="#impedance-at-collector集电极偏置" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/rhTaCsc.png" alt="image-20221128140422686"></p>
+<ul>
+<li>这个结果是在早期影响下(Early effect)</li>
+</ul>
+<h3 id="impedance-at-emitter发射集偏置">Impedance at Emitter(发射集偏置)<a data-heading-anchor="" href="#impedance-at-emitter发射集偏置" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/UdJCkew.png" alt="image-20221128140635049"></p>
+<ul>
+<li>发射集偏执阻抗 Rout = beta/gm</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/0WSba0k.png" alt="image-20221128141222796"></p>
+<p><img src="https://i.imgur.com/EkElIMx.png" alt="image-20221128141320048"></p>
+</blockquote>
+<h3 id="three-master-rules-of-transistor-impedance-结论">Three Master rules of Transistor Impedance (结论)<a data-heading-anchor="" href="#three-master-rules-of-transistor-impedance-结论" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><em>（原始图片未随旧博客仓库保存，未在此迁移。）</em></p>
+<blockquote>
+<ol>
+<li>
+<p>基极接电源，如果发射集ac(交流)接地，则Rout = r<em>π</em></p>
+</li>
+<li>
+<p>集电极接电源，如果发射集ac接地，则Rout = r<em>π</em></p>
+</li>
+<li>
+<p>发射集接电源，如果基极ac接地并且早期影响被忽略，则Rout = 1/gm.</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="如何构成一个bjt--amplifier">如何构成一个BJT- amplifier<a data-heading-anchor="" href="#如何构成一个bjt--amplifier" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><strong>晶体管和电路必须有偏置，有两个原因：</strong></p>
+<blockquote>
+<ul>
+<li>晶体管必须在有源区工作</li>
+<li>小信号模型参数取决于偏置条件</li>
+</ul>
+<p><img src="https://i.imgur.com/bNiAgsc.png" alt="image-20221128143755007"></p>
+</blockquote>
+<h3 id="bjt三种偏置的ic输出">BJT三种偏置的Ic输出<a data-heading-anchor="" href="#bjt三种偏置的ic输出" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h4 id="1-biasing-with-base-resistor">1. Biasing with Base Resistor<a data-heading-anchor="" href="#1-biasing-with-base-resistor" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/SbnVn3o.png" alt="image-20221128144135852"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/DXivggD.png" alt="image-20221128144330622"></p>
+<p>但是，偏置点对β的变化很敏感。</p>
+</blockquote>
+<h4 id="2-emitter-degeneration-biasing">2. Emitter Degeneration Biasing<a data-heading-anchor="" href="#2-emitter-degeneration-biasing" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/RkxUXlE.png" alt="image-20221128144706500"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/HNQKQgp.png" alt="image-20221128145103388"></p>
+<ul>
+<li>Re的存在利于吸收Vx的误差，因此保持Vbe相对稳定</li>
+<li>这种偏置技术（I1 &gt;&gt; Ib）和Vbe的变化不敏感。</li>
+</ul>
+<p><img src="https://i.imgur.com/5vAhOhG.png" alt="image-20221128145242472"></p>
+</blockquote>
+<h4 id="3-self-biasing-techniquecollector-feedback-biasing">3. Self-Biasing technique/collector-Feedback biasing<a data-heading-anchor="" href="#3-self-biasing-techniquecollector-feedback-biasing" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/8GBcBog.png" alt="image-20221128153230354"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/hRGgAmw.png" alt="image-20221128153625619"></p>
+<ul>
+<li>这种方法利用集电极电压来提供必要的Vx和Ib</li>
+<li>一个重要的特点是集电极的电位高于基极，从而保证了晶体管的主动行动。<img src="https://i.imgur.com/fbiPzwX.png" alt="image-20221128154851027"></li>
+</ul>
+</blockquote>
+<h4 id="pnp-偏置图">PNP 偏置图<a data-heading-anchor="" href="#pnp-偏置图" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/dXopmJX.png" alt="image-20221128155045396"></p>
+<h3 id="study-of-common-emitterce-topology">Study Of Common-Emitter(CE) Topology<a data-heading-anchor="" href="#study-of-common-emitterce-topology" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h4 id="1analysis-ce-coreinclusion-of-early-effect">1.Analysis CE core(inclusion of Early Effect)<a data-heading-anchor="" href="#1analysis-ce-coreinclusion-of-early-effect" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="ignore-early-effect">Ignore Early effect<a data-heading-anchor="" href="#ignore-early-effect" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/0HeDEBD.png" alt="image-20221128161823868"></p>
+<p><img src="https://i.imgur.com/Jhwd6VK.png" alt="image-20221128161843610"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/OiRD8io.png" alt="image-20221128162402769"></p>
+<ul>
+<li>由公式可知，Vc是Vcc和Vbe之间的电位差，Vce不能低于Vbe，使晶体管处于有效区</li>
+</ul>
+<p><img src="https://i.imgur.com/Gfxt8nr.png" alt="image-20221128162647367"></p>
+</blockquote>
+<ul>
+<li>CE输入或输出阻抗</li>
+</ul>
+<p><img src="https://i.imgur.com/veR6ZPG.png" alt="image-20221128163101975"></p>
+<blockquote>
+<p>测量输出阻抗时，输入端口必须接地。</p>
+</blockquote>
+<ul>
+<li>CE阶段的权衡</li>
+</ul>
+<p><img src="https://i.imgur.com/QzkKLZd.png" alt="image-20221128163253024"></p>
+<h5 id="inclusion-of-early-effect">Inclusion of Early Effect<a data-heading-anchor="" href="#inclusion-of-early-effect" aria-label="Link to this section" tabindex="-1"></a></h5>
+<ul>
+<li>由于早期影响，Transistor 内会有一个ro。</li>
+</ul>
+<p>小信号模型</p>
+<p><img src="https://i.imgur.com/1w6Jqu5.png" alt="image-20221128163929576"></p>
+<p><img src="https://i.imgur.com/sCo6SkA.png" alt="image-20221128164003538"></p>
+<blockquote>
+<p>早期影响会降低放大器的增益，因为它是和Rc并联出线的。</p>
+</blockquote>
+<h4 id="2-emitter-degeneration">2. Emitter Degeneration<a data-heading-anchor="" href="#2-emitter-degeneration" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="ignore-early-effect-1">Ignore Early Effect<a data-heading-anchor="" href="#ignore-early-effect-1" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p>发射集退化(恶化)</p>
+<p><img src="https://i.imgur.com/0S73x6X.png" alt="image-20221128164149998"></p>
+<p><img src="https://i.imgur.com/nspWi79.png" alt="image-20221128164517877"></p>
+<blockquote>
+<ul>
+<li>
+<p>通过在发射集上串联一个电阻，我们会使CE退化</p>
+</li>
+<li>
+<p>这种拓扑结构会降低放大器的增益，但会改善其他方面，如线性度和输入阻抗</p>
+</li>
+</ul>
+<p>Relationship:</p>
+<p><img src="https://i.imgur.com/LVS6QpZ.png" alt="image-20221128170442589"></p>
+</blockquote>
+<ul>
+<li>小信号模型</li>
+</ul>
+<p><img src="https://i.imgur.com/5MJvLDP.png" alt="image-20221128165247074"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/zLFjW6V.png" alt="image-20221128170037580"></p>
+</blockquote>
+<ul>
+<li>Example1</li>
+</ul>
+<p><img src="https://i.imgur.com/BWfTt5t.png" alt="image-20221128170821609"></p>
+<p><img src="https://i.imgur.com/HQXFX5c.png" alt="image-20221128170931717"></p>
+<p><img src="https://i.imgur.com/L4i52lK.png" alt="image-20221128170953887"></p>
+<blockquote>
+<p>Q2的输入阻抗Rin2可与Re并联，产生一个等效阻抗，使Q1退化。</p>
+</blockquote>
+<ul>
+<li>Example2</li>
+</ul>
+<p><img src="https://i.imgur.com/LfMyuTK.png" alt="image-20221128171128141"></p>
+<p><img src="https://i.imgur.com/bB7gV06.png" alt="image-20221128171231434"></p>
+<p><img src="https://i.imgur.com/pAsXPnR.png" alt="image-20221128171251419"></p>
+<blockquote>
+<p>在这个例子中，Q2的输入阻抗可与Rc并联，可产生一个对地的等效集电极阻抗。</p>
+</blockquote>
+<ul>
+<li>退化CE阶段的输入阻抗</li>
+</ul>
+<p><img src="https://i.imgur.com/lbESONJ.png" alt="image-20221128171711426"></p>
+<p><img src="https://i.imgur.com/00MoKXN.png" alt="image-20221128171752082"></p>
+<blockquote>
+<p>Rin的公式相同。</p>
+<p><img src="https://i.imgur.com/l2jKEdx.png" alt="image-20221128171844488"></p>
+<p><img src="https://i.imgur.com/tEa8KL8.png" alt="image-20221128171939723"></p>
+<p>随着发射集退化，输入阻抗从r<em>π</em>到r<em>π</em>+(1+gmRE)+RE，这是一个理想的效果。</p>
+</blockquote>
+<ul>
+<li>退化的CE阶段的输出阻抗</li>
+</ul>
+<p><img src="https://i.imgur.com/Uk5cFyL.png" alt="image-20221128172305431"></p>
+<p><img src="https://i.imgur.com/B4USTQr.png" alt="image-20221128172607807"></p>
+<p><img src="https://i.imgur.com/gbbeIf4.png" alt="image-20221128172626578"></p>
+<blockquote>
+<p>集电极退化不改变输出阻抗</p>
+</blockquote>
+<ul>
+<li>Capacitor at Emitter</li>
+</ul>
+<p><img src="https://i.imgur.com/55TPi4O.png" alt="image-20221128172830257"></p>
+<p><img src="https://i.imgur.com/EtVkmVB.png" alt="image-20221128172848220"></p>
+<blockquote>
+<p>在直流时，电容是开路的，电流源对放大器进行偏置</p>
+<p>在交流时，电容是短路的，放大器是由RE退化的。</p>
+</blockquote>
+<ul>
+<li>Example</li>
+</ul>
+<p><img src="https://i.imgur.com/S5VZY8G.png" alt="image-20221128173205579"></p>
+<blockquote>
+<p>Gm&lt;gm</p>
+<p>如果gmRE大于统一，则Gm是更线性的。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/USxvOqk.png" alt="image-20221128173454899"></p>
+<ul>
+<li>带基极电阻的CE阶段。</li>
+</ul>
+<p><img src="https://i.imgur.com/DZvLEZY.png" alt="image-20221128173634850"></p>
+<p><img src="https://i.imgur.com/l1W86qI.png" alt="image-20221128173828183"></p>
+<p><img src="https://i.imgur.com/K0lXAQu.png" alt="image-20221128173920438"></p>
+<p><img src="https://i.imgur.com/yYVuMrR.png" alt="image-20221128174102605"></p>
+<p><img src="https://i.imgur.com/RjOhpcB.png" alt="image-20221128174143441"></p>
+<blockquote>
+<p>Rin1更重要，因为是在前阶段的输出阻抗。</p>
+</blockquote>
+<ul>
+<li>Example</li>
+</ul>
+<p><img src="https://i.imgur.com/AuUj38K.png" alt="image-20221128174321532"></p>
+<p><img src="https://i.imgur.com/8s3gS67.png" alt="image-20221128174621557"></p>
+<h5 id="inclusion-of-early-effect-1">Inclusion Of Early Effect<a data-heading-anchor="" href="#inclusion-of-early-effect-1" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/9ZZhy7K.png" alt="image-20221129013438425"></p>
+<p><img src="https://i.imgur.com/PIS0GNs.png" alt="image-20221129014105210"></p>
+<p><img src="https://i.imgur.com/GzB52tW.png" alt="image-20221129013851137"></p>
+<p><img src="https://i.imgur.com/I40Z1gp.png" alt="image-20221202110724427"></p>
+<blockquote>
+<ul>
+<li>发射集退化，导致输出阻抗增加</li>
+<li>提高了放大增益，让这个电路成为更好的电流源。</li>
+</ul>
+</blockquote>
+<ul>
+<li>Analysis by inspection</li>
+</ul>
+<p><img src="https://i.imgur.com/2aUHOpI.png" alt="image-20221202111010652"></p>
+<p><img src="https://i.imgur.com/qsVwtBD.png" alt="image-20221202111201543"></p>
+<p><img src="https://i.imgur.com/jSEAexO.png" alt="image-20221202111422695"></p>
+<blockquote>
+<ul>
+<li>电路被简化</li>
+<li>电容器会对地产生一个交流短路，然后将电路转化成一个已知地拓扑结构。</li>
+</ul>
+</blockquote>
+<ul>
+<li>Example: Degeneration by another system</li>
+</ul>
+<p><img src="https://i.imgur.com/PQiEPbI.png" alt="image-20221202111644422"></p>
+<p><img src="https://i.imgur.com/Yy8A3lw.png" alt="image-20221202111935195"></p>
+<p><img src="https://i.imgur.com/HpPoUyl.png" alt="image-20221202112013210"></p>
+<blockquote>
+<ul>
+<li>称为联极，具有很多优点。　</li>
+</ul>
+</blockquote>
+<h4 id="3-ce-stage">3. CE-stage<a data-heading-anchor="" href="#3-ce-stage" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="ignore-early-effect-2">Ignore Early Effect<a data-heading-anchor="" href="#ignore-early-effect-2" aria-label="Link to this section" tabindex="-1"></a></h5>
+<ul>
+<li>Complete CE stage</li>
+</ul>
+<p><img src="https://i.imgur.com/YrbHDHp.png" alt="image-20221202113119389"></p>
+<p><img src="https://i.imgur.com/hrM3U2C.png" alt="image-20221202113956585"></p>
+<p><img src="https://i.imgur.com/SA7sGjf.png" alt="image-20221202114016469"></p>
+<h3 id="common-basecb-amplifier">Common Base(CB) amplifier<a data-heading-anchor="" href="#common-basecb-amplifier" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/bLyXaV5.png" alt="image-20221202114800152"></p>
+<p><img src="https://i.imgur.com/jMpsefJ.png" alt="image-20221202115503851"></p>
+<blockquote>
+<ul>
+<li>发射极为输入信号</li>
+<li>集电极为输出信号</li>
+<li>基极固定电压偏置</li>
+</ul>
+</blockquote>
+<h4 id="cb-core">CB core<a data-heading-anchor="" href="#cb-core" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/THWjqBU.png" alt="image-20221202115714111"></p>
+<p><img src="https://i.imgur.com/xNa49sY.png" alt="image-20221202115825424"></p>
+<p><img src="https://i.imgur.com/86rT2l3.png" alt="image-20221202115849832"></p>
+<p><img src="https://i.imgur.com/JoLXwjW.png" alt="image-20221202120624037"></p>
+<p><img src="https://i.imgur.com/OCkJuk8.png" alt="image-20221202120649873"></p>
+<p><img src="https://i.imgur.com/pQe9wSW.png" alt="image-20221202120731151"></p>
+<blockquote>
+<p>为了保持晶体管的不处于饱和状态，RC上的最大压降不能超过Vcc - Vbe.</p>
+</blockquote>
+<h4 id="impedance">Impedance<a data-heading-anchor="" href="#impedance" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="input-impedance-of-cb">Input Impedance of CB<a data-heading-anchor="" href="#input-impedance-of-cb" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/UtfiRj5.png" alt="image-20221204213722779"></p>
+<p><img src="https://i.imgur.com/Id1b50R.png" alt="image-20221204214102304"></p>
+<h5 id="output-impedance-of-cb">Output Impedance of CB<a data-heading-anchor="" href="#output-impedance-of-cb" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/nPSHnTT.png" alt="image-20221204214321400"></p>
+<p>n</p>
+<h5 id="cb-stage-with-source-resistance">CB stage with source resistance<a data-heading-anchor="" href="#cb-stage-with-source-resistance" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/En6fTwu.png" alt="image-20221204215004088"></p>
+<p><img src="https://i.imgur.com/xkaSm33.png" alt="image-20221204215211890"></p>
+<p><img src="https://i.imgur.com/oABhKEk.png" alt="image-20221204215021377"></p>
+<p><img src="https://i.imgur.com/5JGwYt0.png" alt="image-20221204215231060"></p>
+<blockquote>
+<ul>
+<li>由于加入了源电阻，输入信号到达发射极之前就被衰减了，所以我们看到了一个较低的电压增益。</li>
+<li>这相当于CE发射极的退化，只是相位颠倒了。</li>
+</ul>
+</blockquote>
+<h5 id="realistic-output-impedance-of-cb-stage">Realistic Output Impedance of CB stage<a data-heading-anchor="" href="#realistic-output-impedance-of-cb-stage" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/EbSOHQE.png" alt="image-20221204215552180"></p>
+<p><img src="https://i.imgur.com/KNiA71X.png" alt="image-20221204215748878"></p>
+<p><img src="https://i.imgur.com/UgnnGTH.png" alt="image-20221204215812521"></p>
+<blockquote>
+<p>CB的输出阻抗等于Rc并联集电极下面的阻抗</p>
+</blockquote>
+<h4 id="bace-with-resistance">Bace with Resistance<a data-heading-anchor="" href="#bace-with-resistance" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="cb-with-bace-resistance">CB with Bace Resistance<a data-heading-anchor="" href="#cb-with-bace-resistance" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/7fRB2cp.png" alt="image-20221204220722471"></p>
+<p><img src="https://i.imgur.com/ksy4Hj6.png" alt="image-20221204221216607"></p>
+<p><img src="https://i.imgur.com/P8ksntH.png" alt="image-20221204220905972"></p>
+<p><img src="https://i.imgur.com/sIzrPSO.png" alt="image-20221204221955155"></p>
+<blockquote>
+<p>随着基极电阻的增加，电压增益下降。</p>
+</blockquote>
+<h5 id="comparison-of-ce-and-cb-stage-with-base-resistance">Comparison of CE and CB Stage with Base Resistance<a data-heading-anchor="" href="#comparison-of-ce-and-cb-stage-with-base-resistance" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/gerTLOu.png" alt="image-20221205203806094"></p>
+<blockquote>
+<p>带基极电阻的CB放大器的电压增益与带基极电阻和发射极退化的CE极安全相同，<strong>只是符号为负。</strong></p>
+</blockquote>
+<h5 id="input-impedance-of-cb-stage-with-base-resistance">Input Impedance of CB stage with base Resistance<a data-heading-anchor="" href="#input-impedance-of-cb-stage-with-base-resistance" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p><img src="https://i.imgur.com/2uAdsSZ.png" alt="image-20221205204931662"></p>
+<p><img src="https://i.imgur.com/gajW0gM.png" alt="image-20221205205130635"></p>
+<p><img src="https://i.imgur.com/g5A5IQc.png" alt="image-20221205205221881"></p>
+<p>In CE</p>
+<p><img src="https://i.imgur.com/ZR05UFZ.png" alt="image-20221205205443390"></p>
+<p><img src="https://i.imgur.com/M2a6YcY.png" alt="image-20221205205457348"></p>
+<h4 id="example">Example<a data-heading-anchor="" href="#example" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/nGaJ2aA.png" alt="image-20221205205514042"></p>
+<p><img src="https://i.imgur.com/kYufGt6.png" alt="image-20221205210202723"></p>
+<ul>
+<li>CB proper(适当)偏置</li>
+</ul>
+<p><img src="https://i.imgur.com/TXW7BVw.png" alt="image-20221205210409787"></p>
+<p><img src="https://i.imgur.com/CN1w4FQ.png" alt="image-20221205211142322"></p>
+<h3 id="common-collectorcc-amplifier">Common Collector(CC) amplifier<a data-heading-anchor="" href="#common-collectorcc-amplifier" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/7zm3gZM.png" alt="image-20221205211500712"></p>
+<h4 id="not-early-effect">Not early effect<a data-heading-anchor="" href="#not-early-effect" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/tuSiJGA.png" alt="image-20221205211603379"></p>
+<p><img src="https://i.imgur.com/ZjxqZAP.png" alt="image-20221205211906651"></p>
+<p><img src="https://i.imgur.com/l8Rjlkb.png" alt="image-20221205212200331"></p>
+<h4 id="early-effect">early effect<a data-heading-anchor="" href="#early-effect" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/iLyfsdD.png" alt="image-20221205212616667"></p>
+<p><img src="https://i.imgur.com/opfMwvc.png" alt="image-20221205212938599"></p>
+<h4 id="current-gain">Current Gain<a data-heading-anchor="" href="#current-gain" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/v4JqEXO.png" alt="image-20221205213013411"></p>
+<p><img src="https://i.imgur.com/7DFCnSp.png" alt="image-20221205213135343"></p>
+<h4 id="cc-with-base-biasing">CC with base biasing<a data-heading-anchor="" href="#cc-with-base-biasing" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/N5HaQKH.png" alt="image-20221205213239778"></p>
+<p><img src="https://i.imgur.com/8sc820u.png" alt="image-20221205213515230"></p>
+<h2 id="amplifier-example">Amplifier Example<a data-heading-anchor="" href="#amplifier-example" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h4 id="example1">Example1<a data-heading-anchor="" href="#example1" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/7xsTT2n.png" alt="image-20221205213627825"></p>
+<p><img src="https://i.imgur.com/VNrq6eF.png" alt="image-20221205214415363"></p>
+<p><img src="https://i.imgur.com/ZcOJeze.png" alt="image-20221205214634806"></p>
+<h4 id="example2">Example2<a data-heading-anchor="" href="#example2" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/jKaq2EU.png" alt="image-20221205214529866"></p>
+<p><img src="https://i.imgur.com/1FlSo3X.png" alt="image-20221205215110579"></p>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

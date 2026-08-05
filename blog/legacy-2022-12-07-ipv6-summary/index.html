@@ -1,0 +1,902 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>IPv6 summary | jessy</title> <meta name="description" content="IPv6"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-12-07-ipv6-summary/"> <meta property="og:title" content="IPv6 summary"> <meta property="og:description" content="IPv6"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-12-07-ipv6-summary/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="IPv6 summary"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="IPv6 summary"> <meta name="twitter:description" content="IPv6"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="IPv6 summary"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-12-07T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-12-07-ipv6-summary" aria-current="page" data-astro-cid-wv7whodv> IPv6 summary </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-12-06-分析keras使用方法" data-icon-button data-dir="prev" aria-label="上一篇：分析Keras使用方法" title="分析Keras使用方法" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2022-12-07-analysis-result" data-icon-button data-dir="next" aria-label="下一篇：analysis result" title="analysis result" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>IPv6 summary</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">IPv6 summary</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#introduction" data-astro-cid-p33bl5ka>Introduction</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#ip-address-planning" data-astro-cid-p33bl5ka>Ip address planning</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-ipv4-and-ipv6-overall" data-astro-cid-p33bl5ka>1. IPv4 and IPv6 overall</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-questions" data-astro-cid-p33bl5ka>2. Questions</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#structure" data-astro-cid-p33bl5ka>Structure</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-address" data-astro-cid-p33bl5ka>1. Address</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-ipv4-vs-ipv6-fields" data-astro-cid-p33bl5ka>2. IPv4 vs IPv6 fields</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-ipv4-vs-ipv6-header" data-astro-cid-p33bl5ka>3. IPv4 vs IPv6 header</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-prefix-terminology" data-astro-cid-p33bl5ka>4. Prefix Terminology</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#5-link-local-addresslla" data-astro-cid-p33bl5ka>5. Link Local Address(LLA)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#6-multicast" data-astro-cid-p33bl5ka>6. Multicast</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#1-scope-and-ground" data-astro-cid-p33bl5ka>1. Scope and ground</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#2-mac" data-astro-cid-p33bl5ka>2. MAC</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#3-solicited-node-multicast-address-snma" data-astro-cid-p33bl5ka>3. Solicited-Node Multicast Address (SNMA)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#7-ipv6-assigned-prefixes" data-astro-cid-p33bl5ka>7. IPv6 Assigned Prefixes</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#ipv6-application" data-astro-cid-p33bl5ka>IPv6 application</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#neighbour-dicoverynd" data-astro-cid-p33bl5ka>Neighbour Dicovery(ND)</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#slaac-process" data-astro-cid-p33bl5ka>SLAAC process</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#process" data-astro-cid-p33bl5ka>process</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#ra-flags" data-astro-cid-p33bl5ka>RA Flags</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#llasnma-generation" data-astro-cid-p33bl5ka>LLA&amp;SNMA generation</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#lla" data-astro-cid-p33bl5ka>LLA</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#snma" data-astro-cid-p33bl5ka>SNMA</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#question-ask" data-astro-cid-p33bl5ka>Question ask</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#question-and-summary" data-astro-cid-p33bl5ka>Question and summary</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-questions" data-astro-cid-p33bl5ka>1. Questions</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-summary" data-astro-cid-p33bl5ka>2. Summary:</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#rarouter-advertisement" data-astro-cid-p33bl5ka>RA(Router advertisement)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#rsrouter-solicitation" data-astro-cid-p33bl5ka>RS(Router Solicitation)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#nsneighbour-solicitation" data-astro-cid-p33bl5ka>NS(Neighbour Solicitation)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-cisco-routes" data-astro-cid-p33bl5ka>3. Cisco Routes</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-12-07-ipv6-summary" data-title="IPv6 summary | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>IPv6 summary</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-12-07T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年12月7日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/computer network" data-astro-cid-vvdrgdaw>#computer network</a><a href="/tags/计算机网络学习博客" data-astro-cid-vvdrgdaw>#计算机网络学习博客</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>IPv6</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="ipv6">IPv6</h1>
+<h2 id="introduction">Introduction<a data-heading-anchor="" href="#introduction" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>same function with IPv4 but stucture is different.</p>
+<ul>
+<li>
+<p><strong>why IPv6</strong></p>
+<ul>
+<li>
+<p>IPv4 address exhaustion</p>
+<blockquote>
+<p>IPv4耗尽</p>
+</blockquote>
+</li>
+<li>
+<p>IPv6 <strong>Much larger address space</strong></p>
+<blockquote>
+<p>更大的地址空间</p>
+</blockquote>
+</li>
+<li>
+<p>Multicast</p>
+<blockquote>
+<p>多播</p>
+</blockquote>
+</li>
+<li>
+<p>Jumbograms</p>
+</li>
+<li>
+<p>Faster routing.</p>
+<blockquote>
+<p>更快的路径</p>
+</blockquote>
+</li>
+<li>
+<p>Network Layer Security</p>
+<blockquote>
+<p>更安全的网络层</p>
+</blockquote>
+</li>
+<li>
+<p>Mobility.</p>
+<blockquote>
+<p>流动性，移动</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>IPv6 security</strong></p>
+<ul>
+<li>
+<p>Security features are standardised and mandated, i.e. all implementation must offer them.</p>
+<blockquote>
+<p>安全功能是标准化的，也是强制性的，即所有的设施必须提供这些功能。</p>
+</blockquote>
+</li>
+<li>
+<p>Extension of RFC-2401 Security Architecture for the Internet Protocol (IPSec)</p>
+<blockquote>
+<p>RFC-2401互联网协议安全架构（IPSec）的扩展</p>
+</blockquote>
+</li>
+<li>
+<p>Authentication and Encryption.</p>
+<blockquote>
+<p>认证和加密。</p>
+</blockquote>
+</li>
+<li>
+<p>Invisible to applications as it operates within the IP layer.</p>
+<blockquote>
+<p>由于它在IP层内运行，对应用程序来说是不可见的。</p>
+</blockquote>
+</li>
+<li>
+<p>It protects all upper layer protocols.</p>
+<blockquote>
+<p>它保护所有上层协议。</p>
+</blockquote>
+</li>
+<li>
+<p>It protects both end-to-end and router-to-router communication (secure gateway).</p>
+<blockquote>
+<p>它既能保护端到端的通信，又能保护路由器到路由器的通信（安全网关）。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>IPv6 address scope</p>
+<blockquote>
+<p>IPv6地址范围</p>
+</blockquote>
+<ul>
+<li>
+<p>Unicast addressing</p>
+<ul>
+<li>Link-local Addresses (LLA)</li>
+<li>loopback address</li>
+</ul>
+<blockquote>
+<p>Link-local Addresses (LLA) and the loopback address have link-local scope, which means they are to be used in the directly attached network (link) only.</p>
+<p>链接本地地址（LLA）和回环地址具有链接本地范围，这意味着它们只能在直接连接的网络（链接）中使用。</p>
+</blockquote>
+</li>
+<li>
+<p>other addresses</p>
+<ul>
+<li>Global Unicast Addresses (GUA)</li>
+</ul>
+<blockquote>
+<p>including Global Unicast Addresses (GUA), have global (or universal) scope, which means they are globally routable.</p>
+<p>包括全局单播地址（GUA），具有全局（或通用）范围，这意味着它们是全球可路由的。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>mobile IPv6</p>
+<ul>
+<li>
+<p>IPv6 was designed to support mobility.</p>
+<blockquote>
+<p>IPv6是被设计成支持移动的</p>
+</blockquote>
+</li>
+<li>
+<p>IPv6 ND and SLAAC allow hosts to operate in any locations without any special support.</p>
+<blockquote>
+<p>IPv6 ND(neighbor) 和 SLAAC(Stateless Address Auto-configuration) 允许主机在任何地方运行，不需要任何特殊支持。</p>
+</blockquote>
+</li>
+<li>
+<p>It is more scalable and the performance is better because less traffic passes through the home link and less redirection and less rerouting.</p>
+<blockquote>
+<p>它的可扩展性更强，性能也更好，因为通过主链路的流量更少，重定向和重路由更少。</p>
+</blockquote>
+</li>
+<li>
+<p>No single point of failure.</p>
+<blockquote>
+<p>没有单点故障。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>IANA</strong>(Internet Assigned Numbers Authority) responsible for the entire IPv6 address space and they assign certain prefixes to the RIRs (Regional Internet Registry).</p>
+<blockquote>
+<p>IANA(互联网号码分配局)机构负责整个IPv6地址空间并且他们分配了前缀给<strong>RIRs</strong>（区域互联网注册机构）</p>
+</blockquote>
+<ul>
+<li>RIRs
+<ul>
+<li>ARIN 北美</li>
+<li>LACNIC 南美</li>
+<li>RIPE 欧洲和亚洲北部</li>
+<li>APNIC 亚洲</li>
+<li>AFRINIC 非洲</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>RIPE issued the block <strong>2001:4000::/23</strong> by IANA</p>
+<blockquote>
+<p>IANA: 2000::/3</p>
+<p>RIPE 通过 IANA发布了区块 2001:4000::/23 欧洲和亚洲北部</p>
+<ul>
+<li>
+<p>ISP(Internet service provider) 2001:41f0::/32</p>
+<blockquote>
+<p>ISP互联网服务供应商</p>
+</blockquote>
+<ul>
+<li>Customer :2001:41f0:4060::/48</li>
+</ul>
+</li>
+</ul>
+<p>ARIN北美 2001:0400::/23</p>
+</blockquote>
+</li>
+<li>
+<p>only global routing-prefix or site-prefix is /48, otherwise interface ID all would be /64</p>
+<blockquote>
+<p>只要全局路由前缀和站点前缀是/48，其他的接口ID都是/64</p>
+</blockquote>
+</li>
+<li>
+<p>We can use 16bits to create subnet</p>
+<blockquote>
+<p>剩下16位可以创建子网</p>
+<p><img src="https://i.imgur.com/PyMWPon.png" alt="image-20221207170502205"></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="ip-address-planning">Ip address planning<a data-heading-anchor="" href="#ip-address-planning" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-ipv4-and-ipv6-overall">1. IPv4 and IPv6 overall<a data-heading-anchor="" href="#1-ipv4-and-ipv6-overall" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/dfrd6GK.png" alt="image-20221207175318074"></p>
+<p><img src="https://i.imgur.com/9LHyHxr.png" alt="image-20221207175800161"></p>
+<ul>
+<li>如上图所示，IPv6需要一次性完成4bits的分配，而且直接使用该范围内分配，不需要利用出事分配规模来计算</li>
+</ul>
+<p><strong>如下图所示</strong></p>
+<p><img src="https://i.imgur.com/HmS2DlO.png" alt="image-20221207180135757"></p>
+<p><img src="https://i.imgur.com/tCPas0n.png" alt="image-20221207180155695"></p>
+<h3 id="2-questions">2. Questions<a data-heading-anchor="" href="#2-questions" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/58o7VqU.png" alt="image-20221207180512110"></p>
+<p><img src="https://i.imgur.com/9PE4wdH.png" alt="image-20221207180537539"></p>
+<h2 id="structure">Structure<a data-heading-anchor="" href="#structure" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-address">1. Address<a data-heading-anchor="" href="#1-address" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>
+<p><strong>Address format</strong></p>
+<blockquote>
+<p><img src="https://i.imgur.com/7zkCKvj.png" alt="image-20221207183734639"></p>
+<ul>
+<li>
+<p>Contiguous groups of ‘0‘ can be replaced with ‘::’</p>
+</li>
+<li>
+<p>Only one double colon used in an address.</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/baF1lsg.png" alt="image-20221207183820075"></p>
+</blockquote>
+<ul>
+<li>prefix</li>
+</ul>
+<blockquote>
+<p>前缀</p>
+</blockquote>
+<ul>
+<li>Interface</li>
+<li>Character must be represented in lowercase.</li>
+</ul>
+<blockquote>
+<p>必须用小写a-f.</p>
+</blockquote>
+</li>
+<li>
+<p>Anycast type</p>
+<ul>
+<li>Unicast</li>
+<li>multicast</li>
+<li>anycast</li>
+</ul>
+<blockquote>
+<p>IPv4 Broadcast concept disappears –Replaced by All hosts multicast.</p>
+<p>IPv4广播概念消失 -被所有主机多播取代。</p>
+</blockquote>
+</li>
+<li>
+<p>IPv6 Network Notation</p>
+<blockquote>
+<p>网络标记</p>
+</blockquote>
+<ul>
+<li><img src="https://i.imgur.com/x0laFlN.png" alt="image-20221207185133437"></li>
+</ul>
+</li>
+<li>
+<p>Special address</p>
+<ul>
+<li>
+<p>Unspecial address</p>
+<blockquote>
+<p>::</p>
+</blockquote>
+</li>
+<li>
+<p>Default route address</p>
+<blockquote>
+<p><img src="https://i.imgur.com/b6I1wvX.png" alt="image-20221207185340439"></p>
+</blockquote>
+</li>
+<li>
+<p>Loopback</p>
+<blockquote>
+<p><img src="https://i.imgur.com/5NIJjaW.png" alt="image-20221207185406820"></p>
+</blockquote>
+</li>
+<li>
+<p>Link-local IPv6 Address (LLA)</p>
+<blockquote>
+<p><img src="https://i.imgur.com/W1szVaG.png" alt="image-20221207185431202"></p>
+<ul>
+<li><strong>LLA prefix must be fe80</strong>::</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-ipv4-vs-ipv6-fields">2. IPv4 vs IPv6 fields<a data-heading-anchor="" href="#2-ipv4-vs-ipv6-fields" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/L5X9w6W.png" alt="image-20221207185708000"></p>
+<ul>
+<li><strong>Similar and evolving fields</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/TjySRw4.png" alt="image-20221207185845245"></p>
+<ul>
+<li><strong>remove fields</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/5B8oHTN.png" alt="image-20221207185811509"></p>
+<h3 id="3-ipv4-vs-ipv6-header">3. IPv4 vs IPv6 header<a data-heading-anchor="" href="#3-ipv4-vs-ipv6-header" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/VoS2JZP.png" alt="image-20221207191953074"></p>
+<ul>
+<li>
+<p>IPv6 extension headers</p>
+<ul>
+<li>
+<p>Hop by Hop options header.</p>
+</li>
+<li>
+<p>Destination options header.</p>
+</li>
+<li>
+<p>Routing header.</p>
+</li>
+<li>
+<p>Fragment header.</p>
+</li>
+<li>
+<p>Authentication header (AH).</p>
+</li>
+<li>
+<p>Encapsulation security payload (ESP) header.</p>
+<blockquote>
+<p>封装安全有效载荷（ESP）头。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-prefix-terminology">4. <strong>Prefix Terminology</strong><a data-heading-anchor="" href="#4-prefix-terminology" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>Prefix terms</li>
+</ul>
+<p><img src="https://i.imgur.com/6OcreEv.png" alt="image-20221207192219414"></p>
+<ul>
+<li>IPv6 Relative Network Sizes</li>
+</ul>
+<p><img src="https://i.imgur.com/SRUuoN0.png" alt="image-20221207192243621"></p>
+<ul>
+<li>
+<p><strong>Prefix assignments</strong></p>
+<ul>
+<li>Provider Aggregatable (PA) Assignments</li>
+</ul>
+<blockquote>
+<p>集体提供者（PA）的分配</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>
+<p>From LIR(Local internet registry) allocation (minimum /32)</p>
+</li>
+<li>
+<p>Register by LIR in RIR(Regional Internet Registry) IRRDB(Internet router registry data base).</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>Provider Independent (PI) Assignments</li>
+</ul>
+<blockquote>
+<p>独立提供者（PI）的任务</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>Minimum size is /48</li>
+<li>Cannot be sub-assigned.</li>
+</ul>
+</blockquote>
+<ul>
+<li>Exercise:</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/ayKnRgF.png" alt="image-20221207193719288"></p>
+<h3 id="5-link-local-addresslla">5. Link Local Address(LLA)<a data-heading-anchor="" href="#5-link-local-addresslla" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/CzYK4Bs.png" alt="image-20221207194009495"></p>
+<ul>
+<li>
+<p>EUI-48 :34ed:8432</p>
+</li>
+<li>
+<p>EUI-64: 36ed:84ff:fe32</p>
+</li>
+<li>
+<p>LLA IPv6 Host ID: fe80::36ed:84ff:fe32</p>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<ul>
+<li>EUI-48 to EUI-64</li>
+</ul>
+<p><img src="https://i.imgur.com/zHFd7sY.png" alt="image-20221207194234087"></p>
+<h3 id="6-multicast">6. Multicast<a data-heading-anchor="" href="#6-multicast" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h4 id="1-scope-and-ground">1. Scope and ground<a data-heading-anchor="" href="#1-scope-and-ground" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ul>
+<li>IPv6 multicast flags</li>
+</ul>
+<p><img src="https://i.imgur.com/wPWujAV.png" alt="image-20221207195258769"></p>
+<p><img src="https://i.imgur.com/hCNzzdf.png" alt="image-20221207195327245"></p>
+<ul>
+<li>IPv6 multicast Scope</li>
+</ul>
+<p><img src="https://i.imgur.com/VjeGsHp.png" alt="image-20221207195424182"></p>
+<p><img src="https://i.imgur.com/80iGbCw.png" alt="image-20221207195440924"></p>
+<p><img src="https://i.imgur.com/EjSXtDe.png" alt="image-20221207195516064"></p>
+<p><img src="https://i.imgur.com/Vhep9oJ.png" alt="image-20221207195533174"></p>
+<p><img src="https://i.imgur.com/6UyGtZ0.png" alt="image-20221207195546597"></p>
+<blockquote>
+<p>Ff02:: is link local address prefix, which is importance.</p>
+</blockquote>
+<ul>
+<li>Multicast Group ID</li>
+</ul>
+<p><img src="https://i.imgur.com/M5k5xgA.png" alt="image-20221207195712549"></p>
+<p><img src="https://i.imgur.com/3ezuwTA.png" alt="image-20221207195731971"></p>
+<p>每个GroupID的含义在Link local</p>
+<p>每个GroupID的含义在site local</p>
+<h4 id="2-mac">2. MAC<a data-heading-anchor="" href="#2-mac" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ul>
+<li>Multicast MAC is associated with each multicast address.</li>
+</ul>
+<blockquote>
+<p>多播MAC与每个多播地址相关。</p>
+</blockquote>
+<ul>
+<li>For IPv6 multicast addresses, the last 32 bits of the IPv6 address are OR’d with 33:33:00:00:00.</li>
+</ul>
+<blockquote>
+<p>对于IPv6组播地址，IPv6地址的最后32位与33:33:00:00:00’d</p>
+</blockquote>
+<ul>
+<li>Example</li>
+</ul>
+<p><img src="https://i.imgur.com/PgXRLbb.png" alt="image-20221207200301723"></p>
+<blockquote>
+<p>Multicast ip address: ff02::1</p>
+<p>mac address : 33:33:00:00:00</p>
+</blockquote>
+<h4 id="3-solicited-node-multicast-address-snma">3. <strong>Solicited-Node Multicast Address (SNMA)</strong><a data-heading-anchor="" href="#3-solicited-node-multicast-address-snma" aria-label="Link to this section" tabindex="-1"></a></h4>
+<blockquote>
+<p>Solicited-Node Multicast Address(被请求的节点多播地址)</p>
+</blockquote>
+<ul>
+<li>Every device that uses an IPv6 address will also compute and join a SNMA group for each IPv6 address.</li>
+</ul>
+<blockquote>
+<p>每个使用IPv6地址的设备也将为每个IPv6地址计算并加入一个SNMA组。</p>
+</blockquote>
+<ul>
+<li>
+<p>This address is required for the IPv6 NDP(Neighbor Discovery Protocol).</p>
+</li>
+<li>
+<p>Example</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/g6gqDYz.png" alt="image-20221207200818110"></p>
+<blockquote>
+<ul>
+<li>last 24 bits of Interface ID, interface ID : 32</li>
+<li>Ff02::1 SNMA</li>
+</ul>
+</blockquote>
+<h3 id="7-ipv6-assigned-prefixes">7. <strong>IPv6 Assigned Prefixes</strong><a data-heading-anchor="" href="#7-ipv6-assigned-prefixes" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>Address Type indicated by Format Prefix (FP).</li>
+</ul>
+<blockquote>
+<p>由格式前缀（FP）表示的地址类型。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/SIh3Mlo.png" alt="image-20221207201412743"></p>
+<ul>
+<li>Anycast addresses allocated from unicast prefixes.</li>
+</ul>
+<blockquote>
+<p>从单播前缀分配的任播地址。</p>
+<ul>
+<li>Assigning a unicast address to more than one interface turns a unicast address into an anycast address.</li>
+</ul>
+<blockquote>
+<p>将一个单播地址分配给一个以上的接口，会使单播地址变成任播地址。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>Exercise</li>
+</ul>
+<p><img src="https://i.imgur.com/zel2ivo.png" alt="image-20221207201925835"></p>
+<h2 id="ipv6-application">IPv6 application<a data-heading-anchor="" href="#ipv6-application" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li>
+<p>DHCP(Dynamic Host Configuration Protocol)v6</p>
+<ul>
+<li>Stateless - &gt; Used with SLAAC(Stateless Address Auto-configuration).</li>
+<li>Stateful -&gt; Similar to DHCP use in IPv4.</li>
+</ul>
+</li>
+<li>
+<p>DNS(Domain Name System)v6</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/SP85R18.png" alt="image-20221207203226594"></p>
+<p><img src="https://i.imgur.com/VBDA0bZ.png" alt="image-20221207203249764"></p>
+<ul>
+<li>ICMP(Internet Control Message Protocol)v6
+<ul>
+<li>Much more important than ICMP</li>
+<li>Critical to the operation of IPv6.</li>
+</ul>
+</li>
+</ul>
+<h2 id="neighbour-dicoverynd">Neighbour Dicovery(ND)<a data-heading-anchor="" href="#neighbour-dicoverynd" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li>
+<p><strong>IPv6 Neighbour Discovery (ND)</strong></p>
+<ul>
+<li>
+<p>For <strong>Nodes</strong></p>
+<ul>
+<li>Address configuration (SLAAC)</li>
+<li>Link-layer address resolution</li>
+<li>Link-layer address change notification</li>
+<li>Neighbour Unreachability Detection (NUD)</li>
+</ul>
+</li>
+<li>
+<p>For <strong>Hosts</strong>:</p>
+<ul>
+<li>Router discovery</li>
+<li>Parameter discovery (MTU, prefixes, hop limits).</li>
+</ul>
+</li>
+<li>
+<p>For <strong>Routers</strong>:</p>
+<ul>
+<li>Advertise their presence &amp; parameters</li>
+<li>Advertise on-link prefixes</li>
+<li>Determine next hops</li>
+<li>Redirect hosts to better next hops.</li>
+</ul>
+</li>
+<li>
+<p>Stateless auto-configuration (SLAAC)</p>
+<ul>
+<li>Creation of Global Unique Address (GUA)</li>
+<li>Based in ICMPv6 (ND protocol).</li>
+<li>Creation of Link-local Address (LLA)
+<ul>
+<li>Assumes that each interface can provide a unique identifier.</li>
+<li>Use Duplicate Address Detection (DAD).</li>
+<li>Plug &amp; play.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Stateful auto-configuration</p>
+<ul>
+<li>Use of Stateful DHCPv6.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="slaac-process">SLAAC process<a data-heading-anchor="" href="#slaac-process" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="process">process<a data-heading-anchor="" href="#process" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>
+<p>Host creates a <strong>Solicited-Node Multicast Address (SNMA)</strong></p>
+</li>
+<li>
+<p>Host registers a <strong>Multicast Listener Report</strong>(<strong>MLR</strong>) for SNMA address to join group</p>
+<ul>
+<li>from ( :: ) to ff02::16 Multicast Listener Discovery (MLD)</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/ClRPtzv.png" alt="image-20221207204451342"></p>
+<p>左边发送到右边</p>
+<ul>
+<li>Destination Mac : ::</li>
+<li>Source Mac: ff02::16</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>Host creates a <strong>Link Local Address (LLA)</strong></p>
+<ul>
+<li>Sends <strong>Neighbour Solicitation (NS)</strong> (135) from ( :: ) to SNMA with LLA target</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/eqBjzSz.png" alt="image-20221207210314214"></p>
+<ul>
+<li>Source mac is ::</li>
+<li>Destination mac is ff02::1:ffaa</li>
+</ul>
+<blockquote>
+<p>ff02::1 which mean all node on the link local</p>
+</blockquote>
+<ul>
+<li>No Neighbour Advertisement (136) is received</li>
+<li>No duplicate(重复) for LLA detected</li>
+</ul>
+</blockquote>
+<ul>
+<li>If <strong>Neighbour Advertisement (NA)</strong> (136) received auto-configuration stops.</li>
+</ul>
+</li>
+<li>
+<p>Host registers a <strong>Multicast Listener Report</strong> for SNMA address to join group</p>
+<ul>
+<li>from LLA to ff02::16 MLD</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/4a8PLMN.png" alt="image-20221207210759968"></p>
+<ul>
+<li>source mac fe80::200:ff:feaa</li>
+</ul>
+<blockquote>
+<p>fe80:: link local address</p>
+</blockquote>
+<ul>
+<li>Destination mac is ff02::16</li>
+</ul>
+<blockquote>
+<p><strong>ff02::16 Multicast Listener Discovery (MLD)</strong></p>
+</blockquote>
+</blockquote>
+</li>
+<li>
+<p>Host sends <strong>Router Solicitation (RS)</strong> (133) to ff02::2 ‘<em>All routers</em>’ from LLA</p>
+</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/LrMGDFF.png" alt="image-20221207211003765"></p>
+<ul>
+<li>Source Mac is fe80::200:ff:feaa</li>
+<li>Destination Mac is ff02::2</li>
+</ul>
+<blockquote>
+<p>Ff02::2 all router on link local</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>Router sends <strong>Router Advertisement (RA)</strong> (134) to ff02::1 ‘<em>All nodes</em>’ from its LLA with prefix</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/qcolzIr.png" alt="image-20221207211235848"></p>
+<ul>
+<li>source Mac : Fe80::200:ff:feaa</li>
+<li>Destination Mac : ff02::1</li>
+</ul>
+<blockquote>
+<p>ff02::1 all node on link local</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>Host creates <strong>Globally Unique Address (GUA)</strong> from prefix and MAC
+<ul>
+<li>Sends NS (135) from ( :: ) to SNMA with GUA target</li>
+<li>If NA (136) received auto-configuration stops.</li>
+</ul>
+</li>
+<li>Finish SLAAC.</li>
+</ul>
+<h3 id="ra-flags">RA Flags<a data-heading-anchor="" href="#ra-flags" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/qWEpqqK.png" alt=""></p>
+<blockquote>
+<p>如果M标志被设置为0，O标志被设置为1，则使用DHCPv6来获得额外的配置参数。</p>
+</blockquote>
+<ul>
+<li>example</li>
+</ul>
+<p><img src="https://i.imgur.com/2TrqNS0.png" alt=""></p>
+<blockquote>
+<p>M DHCPv6 stateful(有状态)</p>
+<p>M and O SLAAC &amp; DHCPv6 stateless(无状态)。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/kDXCTQD.png" alt=""></p>
+<blockquote>
+<p>M and O RDNSS(Recursive DNS server), DNSSL(DNS Search List Option)</p>
+<p>RDNSS ;DNSSL</p>
+</blockquote>
+<h2 id="llasnma-generation">LLA&amp;SNMA generation<a data-heading-anchor="" href="#llasnma-generation" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="lla">LLA<a data-heading-anchor="" href="#lla" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li><strong>IPv6</strong> – Neighbor Discovery Protocol (NDP)</li>
+</ul>
+<p><img src="https://i.imgur.com/ce673Sh.png" alt="image-20221207212249164"></p>
+<blockquote>
+<ul>
+<li>
+<p>第一步检查邻居的缓存表里是否有PC2</p>
+<ul>
+<li>如果有，则直接创建Link local frame，然后PC2的MAC address就是目标address</li>
+<li>无，则第二步</li>
+</ul>
+</li>
+<li>
+<p>第二步</p>
+<ul>
+<li>发送neighbour discovery (ND) 向PC2询问它的MAC地址</li>
+<li>Neighbor Request(NR)邻居请求被发送到PC 2的被(SNMA)请求节点组播地址上</li>
+</ul>
+</li>
+<li>
+<p>ff02::1 is SNMA</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>IPv6</strong> – Link Local address (LLA)</li>
+</ul>
+<p><img src="https://i.imgur.com/V66CSem.png" alt="image-20221207213814416"></p>
+<blockquote>
+<ul>
+<li>一旦为接口分配了IPv6地址（或启用了IPv6），操作系统就会自动分配一个LLA。</li>
+<li>LLA可以由管理员静态分配。</li>
+<li>路由器将不转发以LLA为目的地的数据包。</li>
+<li>LLA地址fe80::/10 - fe80::eui-64或静态分配fe80::和最重要的64位。- fe80:: 是link local address</li>
+<li>静态分配的LLA将优先于自动生成的LLA。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Link Local Address (LLA) automatic assignment</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/vpQAtan.png" alt="image-20221207214200194"></p>
+<blockquote>
+<ul>
+<li>第一步，检查带有FF：FE的64 bit</li>
+<li>第二步，将EUI-64变回EUI-48, 020c:cffff:fec1 -&gt; 00:0c:cf:c1:26</li>
+<li>所以MAC address 是00:0c:cf:c1:26</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Link Local Address (LLA) Static assignment</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/wtFM1jl.png" alt="image-20221207214740999"></p>
+<h3 id="snma">SNMA<a data-heading-anchor="" href="#snma" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li><strong>IPv6</strong> – Solicited Node Multicast Address (SNMA)</li>
+</ul>
+<p><img src="https://i.imgur.com/mTrLPBs.png" alt="image-20221207215023117"></p>
+<blockquote>
+<ul>
+<li>一个被请求的节点多播地址(SNMA)是通过获取单播或任播地址中最不重要的24位并将其附加到前缀ff02::1:ff00/104来创建的。</li>
+<li>每个放在接口上的IPv6地址都会产生一个SNMA。</li>
+<li>该接口加入了一个请求节点多播组地址(SNMA)。(它监听以IPv6征求节点多播地址为目的地的流量）。</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/hHt9guN.png" alt="image-20221207235638858"></p>
+<blockquote>
+<ul>
+<li>第一步，找到SNMA</li>
+<li>第二步，mac 是33:33:fe:30:96</li>
+</ul>
+</blockquote>
+<ul>
+<li>Mapping Solicited Node Multicast Addresses to MAC addresses</li>
+</ul>
+<p><img src="https://i.imgur.com/xBw8nGY.png" alt="image-20221208002039150"></p>
+<p><img src="https://i.imgur.com/eRRTbzA.png" alt="image-20221208003158659"></p>
+<ul>
+<li>PC X performs a ND for PC A</li>
+</ul>
+<p><img src="https://i.imgur.com/7IuWW6f.png" alt="image-20221208003407221"></p>
+<h3 id="question-ask">Question ask<a data-heading-anchor="" href="#question-ask" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/4VeC8KT.png" alt="image-20221208003821447"></p>
+<h2 id="question-and-summary">Question and summary<a data-heading-anchor="" href="#question-and-summary" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-questions">1. Questions<a data-heading-anchor="" href="#1-questions" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>Question 1</li>
+</ul>
+<p><img src="https://i.imgur.com/kfiPU3e.png" alt="image-20221208004242595"></p>
+<blockquote>
+<p>SNMA</p>
+<p><img src="https://i.imgur.com/3ezuwTA.png" alt="image-20221207195731971"></p>
+<ul>
+<li>Destination MAC is <code>33:33:00:00:00:02</code> Which means all routers on the Linklocal</li>
+<li>Source IP is <code>::</code></li>
+<li>Destination IP is <code>ff02::2</code></li>
+<li>Router IP link local :<code> fe80::210:ffff:ffd6:58c0</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>Question 2</li>
+</ul>
+<p><img src="https://i.imgur.com/EOnQuT9.png" alt="image-20221208005231463"></p>
+<blockquote>
+<p>SNMA, DAD</p>
+<p>destination MAC: <code>33:33:FE:23:47:33</code></p>
+<p>Source address: <code>::</code></p>
+<p>Destination address: <code>ff02::1:ff:23:4733</code></p>
+</blockquote>
+<ul>
+<li>question 3</li>
+</ul>
+<p><img src="https://i.imgur.com/4jcohvc.png" alt="image-20221208010034478"></p>
+<blockquote>
+<p>Router advertisement</p>
+<ul>
+<li>Destination MAC: <code>33:33:00:00:00:01</code></li>
+<li>Source address: <code>fe80::210:ffff:fed6:58c0</code></li>
+<li>Destination address:<code> ff02::01</code></li>
+<li>source Link-layer address is<code> fe80::210:ffff:fed6:58c0</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>question 4</li>
+</ul>
+<p><img src="https://i.imgur.com/KrWKLCw.png" alt="image-20221208010718243"></p>
+<blockquote>
+<p>snma</p>
+<ul>
+<li>Destination Mac:<code> 33:33:ff:23:47:33</code></li>
+<li>source address is <code>fec0:0:0:f282:210:ffff:fed6:58c0  -site local address</code></li>
+<li>Destination address is <code>ff02::1:ff:23:47:33</code></li>
+<li>Host A IP:<code>fec0::f282:2b0:d0ff:fe23:4733</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>question5</li>
+</ul>
+<p><img src="https://i.imgur.com/EJ16BrR.png" alt="image-20221208012557092"></p>
+<blockquote>
+<ul>
+<li>Destination MAC is <code>33:33:ff:23:47:33</code></li>
+<li>Source address: <code>3ff3:2900:d005:f282:210:ffff:fed6:58c0</code></li>
+<li>destination address is <code>3ffe:2900:d0005:f282:2b0:d0ff:fe23:4733</code></li>
+</ul>
+</blockquote>
+<h3 id="2-summary">2. Summary:<a data-heading-anchor="" href="#2-summary" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h4 id="rarouter-advertisement">RA(Router advertisement)<a data-heading-anchor="" href="#rarouter-advertisement" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ul>
+<li>Ethernet Header:</li>
+</ul>
+<p>MAC <code>33:33:00:00:00:01</code></p>
+<ul>
+<li>IPv6</li>
+</ul>
+<p>Source address: <code>fe80:: EUI-64 from route</code>, LLA</p>
+<p>Destination address: <code>ff02::1</code> all node on Link local</p>
+<p>source Link layer: <code>fe80:: EUI-64 from router</code></p>
+<h4 id="rsrouter-solicitation">RS(Router Solicitation)<a data-heading-anchor="" href="#rsrouter-solicitation" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ul>
+<li>Ethernet Header:</li>
+</ul>
+<p>MAC<code>33:33:00:00:00:02</code></p>
+<ul>
+<li>IPv6</li>
+</ul>
+<p>Source address: <code>fe80:: EUI-64 from router</code> LLA</p>
+<p>Destination address: <code>ff02::2</code></p>
+<h4 id="nsneighbour-solicitation">NS(Neighbour Solicitation)<a data-heading-anchor="" href="#nsneighbour-solicitation" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ul>
+<li>Ethernet Header:</li>
+</ul>
+<p>MAC :<code>33:33: last 32bit from EUI-64 </code></p>
+<ul>
+<li>IP v6 if there are DAD(duplicate )ip address process</li>
+</ul>
+<p>Source address: <code>::</code></p>
+<p>Destination address: <code>ff02::1:ff:last24bit from SNMA</code></p>
+<ul>
+<li>Ipv6 if there are duplicate ip address process</li>
+</ul>
+<p>source address:<code>::</code></p>
+<p>destination address: <code>fe80:: EUI-64</code></p>
+<ul>
+<li>ipv6 if host use GUA prefix</li>
+</ul>
+<p>Follow that.</p>
+<h3 id="3-cisco-routes">3. Cisco Routes<a data-heading-anchor="" href="#3-cisco-routes" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/aqWTfv6.png" alt=""></p>
+<p><img src="https://i.imgur.com/ecUWK8l.png" alt=""></p>
+<p><img src="https://i.imgur.com/tClSRVg.png" alt=""></p>
+<p><img src="https://i.imgur.com/XZfjZQm.png" alt=""></p>
+<p><img src="https://i.imgur.com/QMnmvop.png" alt=""></p>
+<blockquote>
+<p>Generate ipv6 LLA:</p>
+<p><code>ipv6 address fe80::1 link-local</code></p>
+</blockquote>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

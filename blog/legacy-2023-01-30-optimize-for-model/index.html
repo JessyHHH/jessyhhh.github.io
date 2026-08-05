@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>optimize for model | jessy</title> <meta name="description" content="HandOut"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2023-01-30-optimize-for-model/"> <meta property="og:title" content="optimize for model"> <meta property="og:description" content="HandOut"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2023-01-30-optimize-for-model/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="optimize for model"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="optimize for model"> <meta name="twitter:description" content="HandOut"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="optimize for model"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2023-01-30T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2023-01-30-optimize-for-model" aria-current="page" data-astro-cid-wv7whodv> optimize for model </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2023-01-20-linux-cli" data-icon-button data-dir="prev" aria-label="上一篇：Linux CLI" title="Linux CLI" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2023-01-30-mobilenet" data-icon-button data-dir="next" aria-label="下一篇：MobileNet" title="MobileNet" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>optimize for model</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">optimize for model</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#batch-size" data-astro-cid-p33bl5ka>Batch size</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第一次测试-batch_size-16" data-astro-cid-p33bl5ka>第一次测试 batch_size =16</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第二次测试-batch_size-17" data-astro-cid-p33bl5ka>第二次测试 batch_size =17</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第三次测试-batch_size15" data-astro-cid-p33bl5ka>第三次测试 batch_size=15</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第四次测试-batch_size-18" data-astro-cid-p33bl5ka>第四次测试 batch_size =18</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第五次测试-batch_size14" data-astro-cid-p33bl5ka>第五次测试 batch_size=14</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第六次测试-batch_size-19" data-astro-cid-p33bl5ka>第六次测试 batch_size =19</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第七次测试-batch_size--13" data-astro-cid-p33bl5ka>第七次测试 batch_size = 13</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第八次测试-batch_size-20" data-astro-cid-p33bl5ka>第八次测试 batch_size =20</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第九次测试-batch_size--12" data-astro-cid-p33bl5ka>第九次测试 batch_size = 12</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第十次测试-batch_size21" data-astro-cid-p33bl5ka>第十次测试 batch_size=21</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第十一次测试-batch_size--22" data-astro-cid-p33bl5ka>第十一次测试 batch_size = 22</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#第十二次测试-batch_size--23" data-astro-cid-p33bl5ka>第十二次测试 batch_size = 23</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#batch_size--24" data-astro-cid-p33bl5ka>Batch_size = 24</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#batch_size--25" data-astro-cid-p33bl5ka>Batch_size = 25</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#batch_size--26" data-astro-cid-p33bl5ka>Batch_size = 26</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#batch_size--27" data-astro-cid-p33bl5ka>Batch_size = 27</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#conclusion" data-astro-cid-p33bl5ka>Conclusion</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#learning_rate" data-astro-cid-p33bl5ka>Learning_rate</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate-008--batch_size--17" data-astro-cid-p33bl5ka>Learning_rate =0.08 , batch_size = 17</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--008-batch_size--22" data-astro-cid-p33bl5ka>Learning_rate = 0.08 batch_size = 22</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--007-batch_size--22" data-astro-cid-p33bl5ka>Learning_rate = 0.07 batch_size = 22</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--006-batch_size--22" data-astro-cid-p33bl5ka>Learning_rate = 0.06 ,batch_size = 22</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--007-batch_size--17" data-astro-cid-p33bl5ka>Learning_rate = 0.07 batch_size = 17</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--006-batch_size--17" data-astro-cid-p33bl5ka>Learning_rate = 0.06 batch_size = 17</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#learning_rate--005-batch_size--22" data-astro-cid-p33bl5ka>Learning_rate = 0.05 batch_size = 22</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#rebegin-for-learning_rate-step--7000-batch_size" data-astro-cid-p33bl5ka>rebegin for learning_rate step = 7000 batch_size</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#lr--008" data-astro-cid-p33bl5ka>Lr = 0.08</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#lr--10" data-astro-cid-p33bl5ka>Lr = 1.0</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#lr--12" data-astro-cid-p33bl5ka>Lr = 1.2</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#lr--014" data-astro-cid-p33bl5ka>Lr = 0.14</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2023-01-30-optimize-for-model" data-title="optimize for model | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>optimize for model</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2023-01-30T00:00:00.000Z" data-astro-cid-vvdrgdaw>2023年1月30日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Tensorflow2.0" data-astro-cid-vvdrgdaw>#Tensorflow2.0</a><a href="/tags/项目研究博客" data-astro-cid-vvdrgdaw>#项目研究博客</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>HandOut</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="handout">HandOut</h1>
+<p><a href="https://colab.research.google.com/drive/1lEaVa9ytsXUaDaUoPWkUydHJs5MCtEae" target="_blank" rel="nofollow noreferrer noopener">fruit image classification model</a></p>
+<p><a href="https://colab.research.google.com/drive/1AqSvKwfaom2rLnPpSWrFJhnFCPg4iyxN" target="_blank" rel="nofollow noreferrer noopener">object detection model</a></p>
+<p><a href="https://playground.tensorflow.org/#activation=relu&amp;batchSize=10&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4,2&amp;seed=0.57608&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false" target="_blank" rel="nofollow noreferrer noopener">palyGround</a></p>
+<p><a href="https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi" target="_blank" rel="nofollow noreferrer noopener">youtube - GitHub - tputflite </a></p>
+<p><a href="https://github.com/google-research/tuning_playbook" target="_blank" rel="nofollow noreferrer noopener">optimize book</a></p>
+<p><a href="https://www.youtube.com/watch?v=hfMk-kjRv4c" target="_blank" rel="nofollow noreferrer noopener">optimize - youtube</a></p>
+<p><a href="https://blog.roboflow.com/mean-average-precision/" target="_blank" rel="nofollow noreferrer noopener">about mAP blog</a></p>
+<h1 id="analysis-hyparameter">Analysis Hyparameter</h1>
+<p>根据初学者而言，训练卷积神经模型可以很简单也可以很复杂，简单是只要把参数代进去就好，而困难的是该如何调整这些参数到合适的位置，我将会分享我的学习内容并教您该如何优化自己的模型。</p>
+<ol>
+<li>Model: SSD with Mobilenet v2 FPN-lite</li>
+<li>training playform: colab</li>
+<li>Type: object detection model</li>
+</ol>
+<p>以上是我使用的模型并训练模型的平台。</p>
+<h2 id="batch-size">Batch size<a data-heading-anchor="" href="#batch-size" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>什么是Batch size 呢？</p>
+<p>假设你有一个模型需要训练1000张图片，那一次性训练完1000张效率太慢了。所以我们可以分成一组10张，同时训练100组，这样效率就会快很多，而这个组里面到底应该设置多少张才能提高训练速度，并且提高准确率呢。</p>
+<ol>
+<li>首先我们需要知道batch size 会影响什么，它会影响你的加速器的响应速度，以及准确率，那么影响的原因是什么呢？</li>
+</ol>
+<p>由于加速器的内存不高，所以处理的图像不多：</p>
+<p>例如一个小组内有32个人，但是这个汽车只能搭载16个人，所以剩下16个人不能上车，这就大大减少了效率，同时浪费了资源，原因是汽车是单程的。所以我们只需要设置一个小组只有16个人就好。太少人的话效率也太少，所以也可以设置尽量接近16个人每一组。</p>
+<p>结论而言就是批量大小会直接影响验证集的性能。</p>
+<ol start="2">
+<li>我们无法通过计算来解决模型到底需要多大的batch size来得到最快的训练速度和最好的准确率。</li>
+</ol>
+<p>我们已经知道了这个batch size不能太大也不能太小，我们总得有个临界点吧，所以我们可以训练小一些的数据来得到这个结果。</p>
+<p>下面是我的常量和变量</p>
+<ol>
+<li>总步数=1000步</li>
+<li>变量 batch size</li>
+</ol>
+<p>在训练之前可以通过<a href="https://playground.tensorflow.org/#activation=relu&amp;batchSize=10&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4,2&amp;seed=0.57608&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false" target="_blank" rel="nofollow noreferrer noopener">palyGround</a> 这个网站来知道步数超过临界点会发生什么。</p>
+<p>我的<a href="https://www.kaggle.com/datasets/mbkinaci/fruit-images-for-object-detection" target="_blank" rel="nofollow noreferrer noopener">dataset</a>一共300张图片，训练240张，30张来验证，30张来测试。</p>
+<h3 id="第一次测试-batch_size-16">第一次测试 batch_size =16<a data-heading-anchor="" href="#第一次测试-batch_size-16" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Num_step = 1000</p>
+<p>batch size = 16</p>
+<p>Epochs = 1</p>
+<p><img src="https://i.imgur.com/MTbc4Ik.png" alt="optimizer"></p>
+<p>average per step = 0.325 s</p>
+<p>spend 7 min37 second</p>
+<p><img src="https://i.imgur.com/Vr7SxPy.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/knySTOT.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/eSYa7id.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/aFNvZF1.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/fOEcyL1.png" alt="Learning_rate"></p>
+<p><img src="https://i.imgur.com/hDlZI25.png" alt="step_per_sec"></p>
+<p><img src="https://i.imgur.com/47IMRBx.png" alt="map_test"></p>
+<h3 id="第二次测试-batch_size-17">第二次测试 batch_size =17<a data-heading-anchor="" href="#第二次测试-batch_size-17" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/L6XYnkn.png" alt="optimizer"></p>
+<p>batch size = 17</p>
+<p>spend time 9min25second</p>
+<p><img src="https://i.imgur.com/lblC1Qm.png" alt="loss_classification"></p>
+<p><img src="https://i.imgur.com/keeI1U8.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/fsmfyZq.png" alt="regularzation_loss"></p>
+<p><img src="https://i.imgur.com/ZjoXTDA.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/nbjItvS.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/NDOPcim.png" alt="step_per_sec"></p>
+<p><img src="https://i.imgur.com/XM2d9HL.png" alt=""></p>
+<h3 id="第三次测试-batch_size15">第三次测试 batch_size=15<a data-heading-anchor="" href="#第三次测试-batch_size15" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Batch_size = 15</p>
+<p>Spend time = 7min 18 second</p>
+<p><img src="https://i.imgur.com/5avbXZm.png" alt="optimizer"></p>
+<p><img src="https://i.imgur.com/oE3aOt3.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/omSMlvE.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/DQbq5Nt.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/Juzl2nk.png" alt="total loss"></p>
+<p><img src="https://i.imgur.com/ChyP8SZ.png" alt="learning rate"></p>
+<p><img src="https://i.imgur.com/nC1kFMa.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/DaqioKh.png" alt="map_results"></p>
+<h3 id="第四次测试-batch_size-18">第四次测试 batch_size =18<a data-heading-anchor="" href="#第四次测试-batch_size-18" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch_size = 18</p>
+<p>Num_step = 1000</p>
+<p>Spend time = 8min 1 second</p>
+<p><img src="https://i.imgur.com/1y71R9q.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/oOQtONe.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/NTkQp3z.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/VMTT5Mr.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/CE3zJ7B.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/SIvxr4D.png" alt="step_per_sec"></p>
+<p><img src="https://i.imgur.com/J7DvwK4.png" alt="mAP results"></p>
+<h3 id="第五次测试-batch_size14">第五次测试 batch_size=14<a data-heading-anchor="" href="#第五次测试-batch_size14" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch_size = 14</p>
+<p>Num_step = 1000</p>
+<p>Spend_time = 6min 46 s</p>
+<p><img src="https://i.imgur.com/yAKNeVK.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/Z5twKQf.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/MqwCvOs.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/P3Vd82j.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/6b4Ovo6.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/jwh8r8c.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/fVYn27c.png" alt="mAP results"></p>
+<h3 id="第六次测试-batch_size-19">第六次测试 batch_size =19<a data-heading-anchor="" href="#第六次测试-batch_size-19" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch size = 19</p>
+<p>Spend time =9min 20 second</p>
+<p>Num_step = 1000</p>
+<p><img src="https://i.imgur.com/t06pRAt.png" alt="loss/classification"></p>
+<p><img src="https://i.imgur.com/tNMJKdn.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/2EKZ7oH.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/UV6zWBv.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/SEcFDwJ.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/PvD3F2z.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/e1F8731.png" alt="mAP"></p>
+<h3 id="第七次测试-batch_size--13">第七次测试 batch_size = 13<a data-heading-anchor="" href="#第七次测试-batch_size--13" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch size = 13</p>
+<p>spend time  = 7min 10 sec</p>
+<p>Num_step=1000</p>
+<p><img src="https://i.imgur.com/hZoynW9.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/byroqBm.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/5FBCnkr.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/ukgWk6h.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/IBIkrnP.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/cAKuLsr.png" alt="step_per_sec"></p>
+<p><img src="https://i.imgur.com/HNEB44Y.png" alt="map_results"></p>
+<h3 id="第八次测试-batch_size-20">第八次测试 batch_size =20<a data-heading-anchor="" href="#第八次测试-batch_size-20" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch_size = 20</p>
+<p>Spend time = 9min30sec</p>
+<p><img src="https://i.imgur.com/dCXhhYA.png" alt="Loss/classification_loss"></p>
+<p><img src="https://i.imgur.com/v4g0zlj.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/hj7au4M.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/mKt8I2l.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/j5ITbiZ.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/yRme9ct.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/gIcRHCh.png" alt="mAP_results"></p>
+<h3 id="第九次测试-batch_size--12">第九次测试 batch_size = 12<a data-heading-anchor="" href="#第九次测试-batch_size--12" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch_size = 12</p>
+<p>spend time = 6min 14sec</p>
+<p><img src="https://i.imgur.com/oKH9crW.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/FWVSptJ.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/Ad4z7SQ.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/BtHBd4T.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/KdVUt9R.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/9AUOxAX.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/8yGbdUF.png" alt="mAp_results"></p>
+<h3 id="第十次测试-batch_size21">第十次测试 batch_size=21<a data-heading-anchor="" href="#第十次测试-batch_size21" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Batch_size = 21</p>
+<p>Spend time = 9min 12 sec</p>
+<p><img src="https://i.imgur.com/59sd3Gp.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/I6YqR9H.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/iNY58c2.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/YGsLwy7.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/jatotU8.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/85VKS3H.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/O8HDAAH.png" alt="mAP results"></p>
+<h3 id="第十一次测试-batch_size--22">第十一次测试 batch_size = 22<a data-heading-anchor="" href="#第十一次测试-batch_size--22" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch _size = 22</p>
+<p>spend time = 9min 26sec</p>
+<p><img src="https://i.imgur.com/ESzrOWW.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/IOPWKks.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/oC8Pi48.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/UDKZefW.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/hc28LzT.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/INwU8gn.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/7xocbgR.png" alt="mAP results"></p>
+<h3 id="第十二次测试-batch_size--23">第十二次测试 batch_size = 23<a data-heading-anchor="" href="#第十二次测试-batch_size--23" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Spend time = 10.17</p>
+<p>Total loss = 0.322</p>
+<p><img src="https://i.imgur.com/APcSgmr.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/LGbAXPH.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/8cSk4mF.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/rUYTVHA.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/NjWW2I8.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/5Ovx0Q8.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/ZvkXjCC.png" alt="image-20230318143927770"></p>
+<h3 id="batch_size--24">Batch_size = 24<a data-heading-anchor="" href="#batch_size--24" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>spend time = 10.27</p>
+<p>Step = 1000</p>
+<p><img src="https://i.imgur.com/2NeFehk.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/uBJMvXH.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/UBIXkGj.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/oEO99f7.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/yXpQoxr.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/TOCbIka.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/EoAHNit.png" alt="mAP_Results"></p>
+<h3 id="batch_size--25">Batch_size = 25<a data-heading-anchor="" href="#batch_size--25" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>spend time = 10.45</p>
+<p><img src="https://i.imgur.com/grhBv8y.png" alt="Loss/classification_loss"></p>
+<p><img src="https://i.imgur.com/hZTpmzG.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/8jnWVFT.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/MRTpy5B.png" alt="Loss/total_loss"></p>
+<p><img src="https://i.imgur.com/TsULzJA.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/bbFYbIh.png" alt="learning_rate"></p>
+<p><em>（原始图片未随旧博客仓库保存，未在此迁移。）</em></p>
+<h3 id="batch_size--26">Batch_size = 26<a data-heading-anchor="" href="#batch_size--26" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>spend time = 11.36</p>
+<p><img src="https://i.imgur.com/fyLWduV.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/5A8iLG8.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/rQV3IYo.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/TD5y4zZ.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/vmctSe0.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/KcjgbNN.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/smQbGtd.png" alt="mAP_results"></p>
+<h3 id="batch_size--27">Batch_size = 27<a data-heading-anchor="" href="#batch_size--27" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>spend time = 11.45</p>
+<p><img src="https://i.imgur.com/qk2oQb2.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/IPIVVPp.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/LdBPHIU.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/cYEE5zX.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/COT4A66.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/TyD2xZp.png" alt="steps_per_sec"></p>
+<h3 id="conclusion">Conclusion<a data-heading-anchor="" href="#conclusion" aria-label="Link to this section" tabindex="-1"></a></h3>
+<table>
+<thead>
+<tr>
+<th>batch_size</th>
+<th>Total_loss</th>
+<th>spend time</th>
+<th>mAP results(have been Converted TFlite)</th>
+<th>learning_rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>0.41</td>
+<td>6.14</td>
+<td>25.73</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0.38</td>
+<td>7.1</td>
+<td>48.28</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>14</td>
+<td>0.355</td>
+<td>6.46</td>
+<td>42.57</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>15</td>
+<td>0.34</td>
+<td>7.18</td>
+<td>49.62</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0.36</td>
+<td>7.37</td>
+<td>48.97</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>17</td>
+<td>0.348</td>
+<td>9.25</td>
+<td>51.34</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>18</td>
+<td>0.323</td>
+<td>8.01</td>
+<td>51.16</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>19</td>
+<td>0.35</td>
+<td>9.2</td>
+<td>40.76</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>20</td>
+<td>0.34</td>
+<td>9.26</td>
+<td>33.26</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>21</td>
+<td>0.325</td>
+<td>9.12</td>
+<td>42.33</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td><strong>22</strong></td>
+<td>0.3</td>
+<td>9.26</td>
+<td>52.9</td>
+<td>0.075</td>
+</tr>
+<tr>
+<td>23</td>
+<td>0.322</td>
+<td>10.17</td>
+<td>46.67</td>
+<td>0.075</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://i.imgur.com/RaYejh9.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/pn2QgZq.png" alt="mAP results"></p>
+<p><img src="https://i.imgur.com/khlSdKo.png" alt="spend time"></p>
+<h2 id="learning_rate">Learning_rate<a data-heading-anchor="" href="#learning_rate" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="learning_rate-008--batch_size--17">Learning_rate =0.08 , batch_size = 17<a data-heading-anchor="" href="#learning_rate-008--batch_size--17" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Learning_rate_base = 0.08</p>
+<p>Warmup_learning_rate = 0.0266</p>
+<p>batch_size = 17</p>
+<p>Step_number = 10000</p>
+<p>spend time = 59min 17second</p>
+<p>Total_loss = 0.1537</p>
+<p><img src="https://i.imgur.com/S78rcKe.png" alt="classification"></p>
+<p><img src="https://i.imgur.com/TOGS2yi.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/dzx6Rmh.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/7PF5EK3.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/nEvGPuD.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/melLQpv.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/2DbOHTp.png" alt="mAP Results"></p>
+<h3 id="learning_rate--008-batch_size--22">Learning_rate = 0.08 batch_size = 22<a data-heading-anchor="" href="#learning_rate--008-batch_size--22" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>‘Loss/localization_loss’: 0.021741068,</p>
+<p>‘Loss/regularization_loss’: 0.09711991,</p>
+<p>‘Loss/total_loss’: 0.148702,</p>
+<p>‘learning_rate’: 0.07352352</p>
+<p><em>（原始图片未随旧博客仓库保存，未在此迁移。）</em></p>
+<h3 id="learning_rate--007-batch_size--22">Learning_rate = 0.07 batch_size = 22<a data-heading-anchor="" href="#learning_rate--007-batch_size--22" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Total_step = 10000</p>
+<p>Total_loss = 0.152</p>
+<p><img src="https://i.imgur.com/mWc067L.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/Et2sdDq.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/d7EXofw.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/jy5IPgX.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/RNL3sK2.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/2gZM7e0.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/PJpvPE4.png" alt="mAP"></p>
+<h3 id="learning_rate--006-batch_size--22">Learning_rate = 0.06 ,batch_size = 22<a data-heading-anchor="" href="#learning_rate--006-batch_size--22" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>1 hour 19min 26 sec</p>
+<p>num_step = 10000</p>
+<p>Total_loss = 0.168</p>
+<p><img src="https://i.imgur.com/UcycX9r.png" alt="Loss/classification_loss"></p>
+<p><img src="https://i.imgur.com/JrPX2Fa.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/LrKbgDp.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/pEgdEu1.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/tYlTzqT.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/imU6dSy.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/qZdrSZw.png" alt="mAP"></p>
+<h3 id="learning_rate--007-batch_size--17">Learning_rate = 0.07 batch_size = 17<a data-heading-anchor="" href="#learning_rate--007-batch_size--17" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>1 hour 11 second</p>
+<p>10000</p>
+<p>Total_loss = 0.162</p>
+<p><img src="https://i.imgur.com/kcFLXd4.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/xgYXGaV.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/7XiOKw1.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/Y3XR4TF.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/JdZ2jgQ.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/Bfz6OxF.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/p6c1gh0.png" alt="image-20230327003305399"></p>
+<h3 id="learning_rate--006-batch_size--17">Learning_rate = 0.06 batch_size = 17<a data-heading-anchor="" href="#learning_rate--006-batch_size--17" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>spend time = 57 min 16 second</p>
+<p>Num_step = 10000</p>
+<p>Total_loss = 0.178</p>
+<p><img src="https://i.imgur.com/5uGk8hE.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/Tqu7hHb.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/fh8dG1D.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/0346VsC.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/ikjzIr0.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/OCX8gMW.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/pdnUnbd.png" alt="image-20230327133423079"></p>
+<h3 id="learning_rate--005-batch_size--22">Learning_rate = 0.05 batch_size = 22<a data-heading-anchor="" href="#learning_rate--005-batch_size--22" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Num_step = 10000</p>
+<p>spend time = 52 min 42 sec</p>
+<p>Total_losss = 0.1648</p>
+<p><img src="https://i.imgur.com/qDyq445.png" alt="classification_loss"></p>
+<p><img src="https://i.imgur.com/1pyX8lL.png" alt="localization_loss"></p>
+<p><img src="https://i.imgur.com/Pjd6LEU.png" alt="regularization_loss"></p>
+<p><img src="https://i.imgur.com/fG0ed00.png" alt="total_loss"></p>
+<p><img src="https://i.imgur.com/kKPpTMv.png" alt="learning_rate"></p>
+<p><img src="https://i.imgur.com/g7b51gS.png" alt="steps_per_sec"></p>
+<p><img src="https://i.imgur.com/7eJv899.png" alt="mAP Results"></p>
+<h2 id="rebegin-for-learning_rate-step--7000-batch_size">rebegin for learning_rate step = 7000 batch_size<a data-heading-anchor="" href="#rebegin-for-learning_rate-step--7000-batch_size" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="lr--008">Lr = 0.08<a data-heading-anchor="" href="#lr--008" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>‘Loss/localization_loss’: 0.02736458,</p>
+<p>‘Loss/regularization_loss’: 0.11061755,</p>
+<p>‘Loss/total_loss’: 0.1774221,</p>
+<p>‘learning_rate’: 0.07707667}</p>
+<p>spend time. =56min 46sec</p>
+<p><img src="https://i.imgur.com/x8byUM1.png" alt="image-20230327221507287"></p>
+<p>For <strong>quntization</strong></p>
+<p><img src="https://i.imgur.com/jQIzoYB.png" alt="image-20230327224724014"></p>
+<h3 id="lr--10">Lr = 1.0<a data-heading-anchor="" href="#lr--10" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>batch_size = 22</p>
+<p>step = 7000</p>
+<p>spend time = 54min40sec</p>
+<p>‘Loss/localization_loss’: 0.036090124,</p>
+<p>‘Loss/regularization_loss’: 0.096989244,</p>
+<p>‘Loss/total_loss’: 0.19243404,</p>
+<p>‘learning_rate’: 0.9634584}</p>
+<p><img src="https://i.imgur.com/q54O8wX.png" alt="image-20230327195925051"></p>
+<p><img src="https://i.imgur.com/YJWxrfH.png" alt="image-20230327195942901"></p>
+<p><img src="https://i.imgur.com/PPeKePj.png" alt="image-20230327200002662"></p>
+<p><img src="https://i.imgur.com/7jbxt9M.png" alt="image-20230327200024957"></p>
+<p><img src="https://i.imgur.com/fZkfRlr.png" alt="image-20230327200058669"></p>
+<p><img src="https://i.imgur.com/CNjbJ1M.png" alt="image-20230327200114014"></p>
+<p><em>（原始图片未随旧博客仓库保存，未在此迁移。）</em></p>
+<p>for quntization</p>
+<p><img src="https://i.imgur.com/NJpmXBa.png" alt="image-20230327225754382"></p>
+<h3 id="lr--12">Lr = 1.2<a data-heading-anchor="" href="#lr--12" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Batch_size = 22</p>
+<p>spend time = 57min.27 sec</p>
+<p>Total_loss = 0.243</p>
+<p><img src="https://i.imgur.com/WkzK9h1.png" alt="image-20230327201836483"></p>
+<p><img src="https://i.imgur.com/9TQxAzj.png" alt="image-20230327201850340"></p>
+<p><img src="https://i.imgur.com/1imq41d.png" alt="image-20230327201903936"></p>
+<p><img src="https://i.imgur.com/EKcVHap.png" alt="image-20230327201947753"></p>
+<p><img src="https://i.imgur.com/DYRyycL.png" alt="image-20230327202004567"></p>
+<h3 id="lr--014">Lr = 0.14<a data-heading-anchor="" href="#lr--014" aria-label="Link to this section" tabindex="-1"></a></h3>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

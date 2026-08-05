@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>微电子之芯片流程学习日记 | jessy</title> <meta name="description" content="芯片制作工艺流程"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-10-10-%E5%BE%AE%E7%94%B5%E5%AD%90%E4%B9%8B%E8%8A%AF%E7%89%87%E6%B5%81%E7%A8%8B%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/"> <meta property="og:title" content="微电子之芯片流程学习日记"> <meta property="og:description" content="芯片制作工艺流程"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-10-10-%E5%BE%AE%E7%94%B5%E5%AD%90%E4%B9%8B%E8%8A%AF%E7%89%87%E6%B5%81%E7%A8%8B%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="微电子之芯片流程学习日记"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="微电子之芯片流程学习日记"> <meta name="twitter:description" content="芯片制作工艺流程"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="微电子之芯片流程学习日记"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-10-10T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-10-10-微电子之芯片流程学习日记" aria-current="page" data-astro-cid-wv7whodv> 微电子之芯片流程学习日记 </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-10-04-tensorflow2-0学习日记1之环境搭建" data-icon-button data-dir="prev" aria-label="上一篇：Tensorflow2.0学习日记之 环境搭建篇" title="Tensorflow2.0学习日记之 环境搭建篇" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2022-10-12-cisco软件的学习和使用lab7" data-icon-button data-dir="next" aria-label="下一篇：Cisco软件的学习和使用lab7" title="Cisco软件的学习和使用lab7" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>微电子之芯片流程学习日记</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">微电子之芯片流程学习日记</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#cmos-unit-process" data-astro-cid-p33bl5ka>CMOS unit process</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-wafer-manufacture晶圆制造" data-astro-cid-p33bl5ka>1. Wafer manufacture(晶圆制造)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#1-1-si-refinement硅精细化" data-astro-cid-p33bl5ka>1. 1 Si Refinement(硅精细化)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#12--crystal-growth-czochralski--cz--growth-晶体生长" data-astro-cid-p33bl5ka>1.2  Crystal Growth: “Czochralski  (CZ)  Growth” (晶体生长)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#13-wafer-formation形成晶圆" data-astro-cid-p33bl5ka>1.3 Wafer Formation(形成晶圆)、</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-thermal-oxidation热氧化" data-astro-cid-p33bl5ka>2. Thermal Oxidation(热氧化)</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-doping掺杂" data-astro-cid-p33bl5ka>3. Doping（掺杂）:</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#31-ion-implantation离子注入" data-astro-cid-p33bl5ka>3.1 Ion Implantation（离子注入）：</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#32-diffusion扩散" data-astro-cid-p33bl5ka>3.2 Diffusion(扩散):</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-photolithography光刻" data-astro-cid-p33bl5ka>4. Photolithography(光刻):</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#5-thin-film-removal去除薄膜" data-astro-cid-p33bl5ka>5. Thin Film Removal(去除薄膜):</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#51-蚀刻参数" data-astro-cid-p33bl5ka>5.1 蚀刻参数</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#52-两种蚀刻过程" data-astro-cid-p33bl5ka>5.2 两种蚀刻过程</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#6-thin-film-deposition薄膜沉积" data-astro-cid-p33bl5ka>6. Thin Film Deposition(薄膜沉积)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#61-physical-vapour-deposition物理汽相沉积pvd" data-astro-cid-p33bl5ka>6.1 Physical Vapour Deposition(物理汽相沉积)(PVD)</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#62-chemical-vapour-deposition化学气相沉积cvd" data-astro-cid-p33bl5ka>6.2 Chemical Vapour Deposition(化学气相沉积)(CVD)</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-10-10-微电子之芯片流程学习日记" data-title="微电子之芯片流程学习日记 | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>微电子之芯片流程学习日记</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-10-10T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年10月10日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Micro_system" data-astro-cid-vvdrgdaw>#Micro_system</a><a href="/tags/微电子电路" data-astro-cid-vvdrgdaw>#微电子电路</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>芯片制作工艺流程</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="芯片制作工艺流程">芯片制作工艺流程</h1>
+<p>Cmos unit process</p>
+<blockquote>
+<ul>
+<li>
+<p>Wafer Manufacture（晶圆制造）</p>
+</li>
+<li>
+<p>Doping（掺杂）</p>
+</li>
+<li>
+<p>Photolithography（光刻）</p>
+</li>
+<li>
+<p>Thin Film Removal（薄膜去除）</p>
+</li>
+<li>
+<p>Thin Film Deposition（薄膜沉积）</p>
+</li>
+</ul>
+</blockquote>
+<p>CMOS process integration</p>
+<blockquote>
+<ul>
+<li>Frontend-of-Line(FEOL)  <strong>前端制作</strong></li>
+<li>Backend-of-Line(BEOL) <strong>后端制作</strong></li>
+<li>CMOS Transistor <strong>CMOS晶体管</strong></li>
+<li>Interconnection/Passivation <strong>互连</strong></li>
+</ul>
+</blockquote>
+<h2 id="cmos-unit-process">CMOS unit process<a data-heading-anchor="" href="#cmos-unit-process" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-wafer-manufacture晶圆制造">1. Wafer manufacture(晶圆制造)<a data-heading-anchor="" href="#1-wafer-manufacture晶圆制造" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><strong>了解一下就行</strong></p>
+<p>三个步骤</p>
+<blockquote>
+<ol>
+<li>Si Refinement(硅精细化)</li>
+<li>Crystal Growth(生成晶圆所需要的晶体（Crystal）)</li>
+<li>Wafer Formation(形成晶圆)</li>
+</ol>
+</blockquote>
+<h4 id="1-1-si-refinement硅精细化">1. 1 Si Refinement(硅精细化)<a data-heading-anchor="" href="#1-1-si-refinement硅精细化" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>化学方程式: SiO2 + 2C -&gt; Si + 2CO</p>
+<ul>
+<li>
+<p><strong>其流程就是从二氧化硅在2000摄氏度的高温下（2000oC furnace producing）提取98%的纯硅</strong></p>
+</li>
+<li>
+<p><strong>然后蒸馏和还原（distillation &amp; reduction） = &gt; EGS的多晶块(<a href="https://github.com/JessyHHH/JessyHHH.github.io/blob/main/Wafer%20Manufacture.pdf" target="_blank" rel="nofollow noreferrer noopener">晶圆制作</a>)</strong></p>
+</li>
+</ul>
+<h4 id="12--crystal-growth-czochralski--cz--growth-晶体生长">1.2  Crystal Growth: “Czochralski  (CZ)  Growth” (晶体生长)<a data-heading-anchor="" href="#12--crystal-growth-czochralski--cz--growth-晶体生长" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/Azs7XvT.png" alt="image-20221011132427990"></p>
+<blockquote>
+<ul>
+<li>EGS在石英坩锅中熔化（quartz crucible）</li>
+<li>然后加入晶种（seed crystal）</li>
+<li>转动缓慢去除锭或晶锭（ingot or boule）</li>
+</ul>
+</blockquote>
+<h4 id="13-wafer-formation形成晶圆">1.3 Wafer Formation(形成晶圆)、<a data-heading-anchor="" href="#13-wafer-formation形成晶圆" aria-label="Link to this section" tabindex="-1"></a></h4>
+<blockquote>
+<ul>
+<li>
+<p>使用金刚石锯将硅锭切割成晶片（~1mm）</p>
+</li>
+<li>
+<p>化学机械抛光（Chemical Mechanical Polishing (CMP)）=&gt;镜面抛光（Mirror Finish）</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="2-thermal-oxidation热氧化">2. Thermal Oxidation(热氧化)<a data-heading-anchor="" href="#2-thermal-oxidation热氧化" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>SiO2（二氧化硅）充当稳定的介电介质和加工掩模(注入/扩散/蚀刻)。</p>
+<p>生成SiO2的化学方程式:</p>
+<blockquote>
+<p>温度都在～1000摄氏度左右</p>
+<ul>
+<li>Dry(干式): Si + O2 -&gt; SiO2</li>
+<li>Wet(湿式): Si + 2H2O -&gt; SiO2 + 2H2</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/ZzwmtWE.png" alt="image-20221011133759646"></p>
+<p><strong>The oxidant must travel through the SiO2 as it builds up(氧化剂在积累时必须穿过SiO2)</strong></p>
+<p><strong>硅晶体表面生成一层SiO2，Si在氧化过程中会被消耗</strong></p>
+<p><img src="https://i.imgur.com/ybKBJCN.png" alt="image-20221011134107569"></p>
+<blockquote>
+<ul>
+<li>
+<p>干氧化: 较慢但较致密的SiO2(&lt;300nm thick厚)</p>
+</li>
+<li>
+<p>湿氧化: 更快但质量较差(&lt;1um thick厚)</p>
+</li>
+</ul>
+</blockquote>
+<p>注意：温度，压力，氧化剂类型和晶圆特性也会影响氧化速度</p>
+<p><img src="https://i.imgur.com/iAHdwq6.png" alt="image-20221011134420347"></p>
+<p>上图过程:</p>
+<blockquote>
+<p><strong>两种炉：</strong></p>
+<ul>
+<li>
+<p>管式炉：由加热元件包围的石英管</p>
+</li>
+<li>
+<p>快速热处理（Rapid Thermal Processing (RTP)）炉（Furnace）， 但是使用加热灯</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="3-doping掺杂">3. Doping（掺杂）:<a data-heading-anchor="" href="#3-doping掺杂" aria-label="Link to this section" tabindex="-1"></a></h3>
+<h4 id="31-ion-implantation离子注入">3.1 Ion Implantation（离子注入）：<a data-heading-anchor="" href="#31-ion-implantation离子注入" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/16zrGqS.png" alt="image-20221011134858222"></p>
+<p>上图流程:</p>
+<blockquote>
+<ul>
+<li>掺杂剂在电场中被电离和加速(Dopants are ionised &amp; accelerated in an electric field.)。</li>
+<li>表面是轰炸(Surface is bombarded.)。</li>
+<li>晶格损伤通过退火来修复(Lattice damage is repaired by annealing.)。</li>
+</ul>
+</blockquote>
+<p><strong>⚠️注意：离子由电场产生。离子的选择使用“质谱仪”。在加速后，离子通过静电透镜扫描晶圆。</strong></p>
+<p>离子注入控制严密，可在低温下进行。通常需要戴口罩。</p>
+<p><img src="https://i.imgur.com/5kvc7mv.png" alt="image-20221011135411400"></p>
+<h4 id="32-diffusion扩散">3.2 Diffusion(扩散):<a data-heading-anchor="" href="#32-diffusion扩散" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>流程：</p>
+<blockquote>
+<ul>
+<li>植入后，高温加工=&gt;3D扩散的掺杂剂（dopants）</li>
+<li>扩散与掺杂梯度和热能（dopant gradient &amp; thermal energy.）成正比</li>
+<li>上图所示的植入配置文件(ẟ-Function)的分布。</li>
+</ul>
+</blockquote>
+<h3 id="4-photolithography光刻">4. Photolithography(光刻):<a data-heading-anchor="" href="#4-photolithography光刻" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>“图案化”的处理过程使用：EM辐射，掩模和光刻胶（光敏有机物）（EM radiation, a mask &amp; photoresist (light-sensitive Organic polymer)）。</p>
+<p>其”图案化“的步骤：</p>
+<p><img src="https://i.imgur.com/iG4IrK4.png" alt="image-20221011140209716"></p>
+<blockquote>
+<p><strong>SiO2（二氧化硅）光刻</strong></p>
+<ul>
+<li>a) SiO2热生长。</li>
+<li>b)光刻胶滴入、旋转和软烤到晶圆表面。</li>
+<li>c)透明和不透明区域的掩膜选择性地将光刻胶暴露在电磁辐射(如紫外线)下。3种类型的曝光，接近和投影(-&gt;10X)曝光。两种类型的光刻胶(可溶性曝光)和负色调(聚合曝光)。</li>
+<li>d)使用碱性溶剂显影晶圆会产生+/-图像。然后是硬烤的晶圆。</li>
+<li>e)蚀刻用于将光刻胶图案转移到SiO2薄膜上。这就产生了“特性”。</li>
+<li>f)用另一种溶剂剥离未显影的光刻胶。</li>
+</ul>
+</blockquote>
+<ol>
+<li>⚠️注意：掩模对中是关键的制造。用“配准误差(Registration error)”来衡量。</li>
+</ol>
+<p><img src="https://i.imgur.com/cMo5swz.png" alt="image-20221011140945356"></p>
+<ol start="2">
+<li>⚠️注意： 衍射限制了晶圆上的“最小特征尺寸”=𝐶1𝜆/NA, C1是一个从0.5到1的常数，NA是投影透镜的自然孔径，𝑁𝐴=𝑛⋅sin𝜃，其中n=晶圆和透镜之间的折射率。</li>
+</ol>
+<p><img src="https://i.imgur.com/0DqKrZW.png" alt="image-20221011141047396"></p>
+<ol start="3">
+<li>
+<p>⚠️注意：焦点深度(Depth of Focus)(DOF)限制了不同高度的图案=𝐶2𝜆/NA^2。晶圆必须平面化，以优化最小特征尺寸和自由度之间的权衡。这是使用(化学机械抛光)CMP实现的。</p>
+<p><img src="https://i.imgur.com/9jpH1x4.png" alt="image-20221011141526545"></p>
+</li>
+</ol>
+<h3 id="5-thin-film-removal去除薄膜">5. Thin Film Removal(去除薄膜):<a data-heading-anchor="" href="#5-thin-film-removal去除薄膜" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>两种方法去除薄膜(Thin Film Removal)</p>
+<blockquote>
+<ul>
+<li>蚀刻
+<ul>
+<li>干法（Dry）</li>
+<li>湿法（Wet）</li>
+</ul>
+</li>
+<li>化学机械抛光(CMP)</li>
+</ul>
+</blockquote>
+<h4 id="51-蚀刻参数">5.1 蚀刻参数<a data-heading-anchor="" href="#51-蚀刻参数" aria-label="Link to this section" tabindex="-1"></a></h4>
+<ol>
+<li>
+<p>选择性(Selectivity)，S = R2/R1 : 一种材料与另一种材料的蚀刻速率之比。理想情况下S值很高。</p>
+</li>
+<li>
+<p>各向异性(Anisotropy)，Af= 1- R1/Rv : 测量材料在横向和纵向的腐蚀速率。理想情况下，𝐴𝑓=1 =&gt;是各向异性的。</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/yNtKs1D.png" alt="image-20221011190018149"></p>
+<h4 id="52-两种蚀刻过程">5.2 两种蚀刻过程<a data-heading-anchor="" href="#52-两种蚀刻过程" aria-label="Link to this section" tabindex="-1"></a></h4>
+<h5 id="521-湿法蚀刻">5.2.1 湿法蚀刻<a data-heading-anchor="" href="#521-湿法蚀刻" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p>湿法蚀刻的作用：(高S但各向同性)。通常用于清洁，如微粒和污染物去除。</p>
+<p>湿式蚀刻(etch tanks)槽在精确的温度控制下使用超声波振动蚀刻剂。蚀刻后，晶圆片被冲洗和纺干。–（tank 槽）</p>
+<p><img src="https://i.imgur.com/V1of0sB.png" alt="image-20221011191123235"></p>
+<h5 id="522--干法蚀刻controllable-𝑆-and-𝐴𝑓">5.2.2  干法蚀刻(Controllable 𝑆 and 𝐴𝑓)<a data-heading-anchor="" href="#522--干法蚀刻controllable-𝑆-and-𝐴𝑓" aria-label="Link to this section" tabindex="-1"></a></h5>
+<p>使用三种方法(Sputter Etching)、等离子刻蚀(Plasma Etching)和活性离子刻蚀(Reactive Ion Etching)(RIE)。</p>
+<blockquote>
+<ul>
+<li>溅射蚀刻Sputter Etching(低S但各向异性)</li>
+</ul>
+<p>电离的惰性气体在真空中在两个直流电极之间形成等离子体。阴极上的晶圆被带正电的离子轰击。</p>
+<p><img src="https://i.imgur.com/NlDnPCo.png" alt="image-20221011191936380"></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>等离子体刻蚀: (高S但各向同性)</li>
+</ul>
+<p>非惰性气体电离形成自由基。同样，等离子体是在真空中使用射频电位形成的。这些自由基与晶圆表面发生反应，产生的产物以气体的形式泵出。</p>
+<p><img src="https://i.imgur.com/vwA0RT8.png" alt="image-20221011192244023"></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>RIE蚀刻:(高S但各向异性)</li>
+</ul>
+<p>提供溅射和等离子刻蚀的好处。在这里，气体的混合物(如氟碳化合物)被电离形成电离种和自由基的等离子体。然后，在阳极的晶圆表面，与合成的等离子体发生化学和机械的相互作用。</p>
+<p><img src="https://i.imgur.com/NYMQOQo.png" alt="image-20221011192416265"></p>
+</blockquote>
+<h5 id="523-chemical-mechanical-polishing-化学机械抛光-或-化学机械平坦化">5.2.3 Chemical Mechanical Polishing 化学机械抛光 或 化学机械平坦化<a data-heading-anchor="" href="#523-chemical-mechanical-polishing-化学机械抛光-或-化学机械平坦化" aria-label="Link to this section" tabindex="-1"></a></h5>
+<ul>
+<li>研磨性化学浆液被涂在衬垫上。</li>
+<li>去除材料的机理有机械和化学两种。</li>
+<li>适用于金属、硅及绝缘材料。</li>
+</ul>
+<p><img src="https://i.imgur.com/8rnHaaV.png" alt="image-20221011192701256"></p>
+<h3 id="6-thin-film-deposition薄膜沉积">6. Thin Film Deposition(薄膜沉积)<a data-heading-anchor="" href="#6-thin-film-deposition薄膜沉积" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>半导体(Si，多晶硅Si)，绝缘体(SiO2, Si3N4，玻璃)和导体(Al, Cu, Co, Ti, W,TiN)是制造现代IC组件所需的材料。</p>
+<p>⚠️<strong>薄膜通常是用PVD和CVD方法制作的。</strong></p>
+<p>薄膜厚度的均匀性必须控制在晶圆上的+/-5nm。困难可能由表面台阶和缝隙呈现。</p>
+<p><img src="https://i.imgur.com/FMe9t3r.png" alt="image-20221011192952820"></p>
+<h4 id="61-physical-vapour-deposition物理汽相沉积pvd">6.1 Physical Vapour Deposition(物理汽相沉积)(PVD)<a data-heading-anchor="" href="#61-physical-vapour-deposition物理汽相沉积pvd" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>沉积的材料在晶圆表面凝结之前通过气相(<strong>Deposited material is passed through a gas phase prior to condensing on the wafer surface</strong>)。蒸发需要在真空中加热(灯丝或电子束)材料，晶圆固定在蒸发路径上。</p>
+<p>或者，溅射沉积轰击目标材料，该材料将原子喷射到阳极的晶圆上。在这里，目标原子可以形成一层薄膜。</p>
+<p><img src="https://i.imgur.com/SWabmPq.png" alt="image-20221011193205368"></p>
+<h4 id="62-chemical-vapour-deposition化学气相沉积cvd">6.2 Chemical Vapour Deposition(化学气相沉积)(CVD)<a data-heading-anchor="" href="#62-chemical-vapour-deposition化学气相沉积cvd" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>沉积材料是由晶圆表面的气体一起反应产生的(<strong>Deposited material is produced by gases reacting together at the wafer surface</strong>.)。沉积多种材料，具有比PVD更好的台阶覆盖率。类型包括, LPCVD和PECVD(等离子体增强)。</p>
+<blockquote>
+<ul>
+<li>APCVD。</li>
+<li>LPCVD，但产生保形膜。</li>
+<li>PECVD，又产生保形膜，因为等离子体将能量传递给目标气体。</li>
+</ul>
+<p><img src="https://i.imgur.com/yOd6xc4.png" alt="image-20221011193439690"></p>
+</blockquote>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

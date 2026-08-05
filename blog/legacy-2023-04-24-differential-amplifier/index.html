@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>Differential Amplifier | jessy</title> <meta name="description" content="Differentia-Amplifier 差分放大器"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2023-04-24-differential-amplifier/"> <meta property="og:title" content="Differential Amplifier"> <meta property="og:description" content="Differentia-Amplifier 差分放大器"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2023-04-24-differential-amplifier/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="Differential Amplifier"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Differential Amplifier"> <meta name="twitter:description" content="Differentia-Amplifier 差分放大器"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="Differential Amplifier"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2023-04-24T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2023-04-24-differential-amplifier" aria-current="page" data-astro-cid-wv7whodv> Differential Amplifier </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2023-02-28-classification-and-objet-detection-model" data-icon-button data-dir="prev" aria-label="上一篇：classification and objet detection model" title="classification and objet detection model" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2023-05-16-frequency-response" data-icon-button data-dir="next" aria-label="下一篇：Frequency Response" title="Frequency Response" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>Differential Amplifier</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">Differential Amplifier</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#general-consideration" data-astro-cid-p33bl5ka>General Consideration</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#what-is-differential-amplifier" data-astro-cid-p33bl5ka>What is differential-Amplifier</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#common-mode-and-differential-mode-gain" data-astro-cid-p33bl5ka>Common-mode and Differential mode gain</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#common-mode-response-and-rejection共模响应和抑制" data-astro-cid-p33bl5ka>Common-mode Response and Rejection共模响应和抑制</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#differential-response差分响应" data-astro-cid-p33bl5ka>Differential Response差分响应</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#bipolar-differential-pair" data-astro-cid-p33bl5ka>Bipolar Differential pair</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#bjt-dm-analysis" data-astro-cid-p33bl5ka>BJT DM analysis</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#half-circuit" data-astro-cid-p33bl5ka>Half Circuit</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#mos-differential-pair" data-astro-cid-p33bl5ka>Mos Differential pair</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#response" data-astro-cid-p33bl5ka>Response</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#effect-about-each-parameters" data-astro-cid-p33bl5ka>Effect about each parameters</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#small-signal-and-half-circuit" data-astro-cid-p33bl5ka>Small-signal and half circuit</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#cascode-differential-amplifier" data-astro-cid-p33bl5ka>Cascode Differential Amplifier</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#bjt-differential-pair" data-astro-cid-p33bl5ka>BJT differential Pair</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#mos-differential-pair-1" data-astro-cid-p33bl5ka>MOS differential pair</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#nonidealities" data-astro-cid-p33bl5ka>Nonidealities</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#differential-pair-with-active-load" data-astro-cid-p33bl5ka>Differential Pair with Active Load</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2023-04-24-differential-amplifier" data-title="Differential Amplifier | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>Differential Amplifier</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2023-04-24T00:00:00.000Z" data-astro-cid-vvdrgdaw>2023年4月24日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Micro_system" data-astro-cid-vvdrgdaw>#Micro_system</a><a href="/tags/微电子电路" data-astro-cid-vvdrgdaw>#微电子电路</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>Differentia-Amplifier 差分放大器</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="differentia-amplifier-差分放大器">Differentia-Amplifier 差分放大器</h1>
+<h2 id="general-consideration">General Consideration<a data-heading-anchor="" href="#general-consideration" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="what-is-differential-amplifier">What is differential-Amplifier<a data-heading-anchor="" href="#what-is-differential-amplifier" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>快速了解什么是差分放大器</p>
+<p>既然是放大器那肯定就跟之前一样是将一个电流或者电压放大，关键在于(Differential)差分是如何放大的.</p>
+<p>首先信号通过放大器会放大，如音频放大器</p>
+<p><img src="https://i.imgur.com/BGoQ3j0.png" alt="Audio Amplifier Example"></p>
+<p>我们可以如上图所示，电压放大后，有着巨大的噪音，根本听不清楚，嗡嗡的。</p>
+<p>消除它们的话可以如下图所示，使用supply Ripple rejection，中文应该叫供应纹波抑制。</p>
+<p><img src="https://i.imgur.com/MKnnlx8.png" alt="Supple Ripple rejection"></p>
+<p>刷图可以看到经过两个mos才输出，而且还是在base上输出，它的结果是什么呢</p>
+<p>我们可以看到右边的公式，它通过Vx的和Vy的差分得到最后的增益，由于这两个波纹正好相对，所以会消除成没有波纹，但是我们光得到增益不行，一首歌不可能只有一个调调吧，随着波的增大，我们还要知道它原本的信号形状。</p>
+<p>如果公用一个信号的话，整个增益就是零了，如下图所示，差分信号公用一个信号源。</p>
+<p><img src="https://i.imgur.com/Hwtfa9r.png" alt="Common Inputs to Differential Ammplifer"></p>
+<p>如上图所示两个差分公用一个信号源，所以Av增益为0；既相同相位直接相消除，如下图。</p>
+<p><img src="https://i.imgur.com/BvWxMml.png" alt="相同波形相消"></p>
+<p>但如果我们相位相反则会怎么样呢，如下图电路所示</p>
+<p><img src="https://i.imgur.com/xMYAjBn.png" alt="相位相反的input"></p>
+<p>那么增益会直接增大两倍，但有时候我们只需要正常的增益就行，两倍可能太大，这个后面会谈，总之还不够完美。</p>
+<p><img src="https://i.imgur.com/X83ipEf.png" alt="增大两倍"></p>
+<p>所以如果不想增益为0，则相位必须为0，(Differential Signal)差分信号的特点是，平均值相同，幅度相同，但是相位相反。(They share the same average value to ground and are equal in magnitude but opposite in phase)</p>
+<p>差分信号的产生通常是通过变压器(transformer)来产生。</p>
+<p><img src="https://i.imgur.com/eiL32mL.png" alt="Transformer generate differential signals"></p>
+<p>单信号输入输出和差分信号对输入输出</p>
+<p><img src="https://i.imgur.com/I3NHMht.png" alt="Singal signal"></p>
+<p><img src="https://i.imgur.com/SGkPDOV.png" alt="Differential signal"></p>
+<p><img src="https://i.imgur.com/oiQEUJy.png" alt="Differential Gain analysis"></p>
+<h3 id="common-mode-and-differential-mode-gain">Common-mode and Differential mode gain<a data-heading-anchor="" href="#common-mode-and-differential-mode-gain" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>我们知道了基本原理之后还需要知道一种叫差分对(differential pair)的电路。</p>
+<p><img src="https://i.imgur.com/NmFuDM5.png" alt="BJT and MOS differential pair"></p>
+<p>可以看到与上面差分电路对区别是加了一个current sorce在中间,一般称为tail current, 它的作用是提供高共模抑制比(High common mode rejection ratio)。</p>
+<p>什么是共模抑制比(common mode rejection ratio(CMRR))呢.</p>
+<p><strong>它的定义是差模增益(differential-mode gain)与共模增益(common-modee gain)之间的比率，表示放大器准确消除两个输入共有的电压的能力，</strong></p>
+<p>公式定义为：</p>
+<p><strong>CMRR= 20log<sub>10</sub>(Ad/|Ac|)</strong></p>
+<p>接下来让我们看一下共模响应和差模响应的电路图，后面会学到差模和共模结合一起的电路图就会用到上述公式。</p>
+<h4 id="common-mode-response-and-rejection共模响应和抑制">Common-mode Response and Rejection共模响应和抑制<a data-heading-anchor="" href="#common-mode-response-and-rejection共模响应和抑制" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/YcHxRKn.png" alt="Common-mode response"></p>
+<p><img src="https://i.imgur.com/bW0apYu.png" alt="calculate part"></p>
+<p><img src="https://i.imgur.com/F19kJxG.png" alt="Common-mode rejection"></p>
+<p>如上图的抑制所示，Vcm1 = Vcm2 并且因为有tail current source在，在没有改变output common-mode value可以变化input common-mode value.这句话比较难理解，简单的来说由于tail current的原因，抑制会比较强，防止电压到达saturation状态，所以尽管Vcm1 比 Vcm2 大，但是输出的output(Vx = Vy)是相等的，也就是说到达了临界点不能再大了。</p>
+<h4 id="differential-response差分响应">Differential Response差分响应<a data-heading-anchor="" href="#differential-response差分响应" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><img src="https://i.imgur.com/4bwchws.png" alt="Differential response1"></p>
+<p><img src="https://i.imgur.com/kTbp76r.png" alt="Calculation part"></p>
+<p><img src="https://i.imgur.com/ByUoQEH.png" alt="differential Response 2"></p>
+<p><img src="https://i.imgur.com/OHKwG3b.png" alt="Differential respomse2 Calculation part"></p>
+<p>总结，当输入不同对电压时，电压高的一边有Iee，另一边则为0，切电压高的一方为positive，根据方向来盘对output的differential mode（DM）的输出是正的还是负的。根据common mode的原理输入的变换不影响输出的值，我们可以看到两个response的common mode output都是相同的，只有differential mode的不同。</p>
+<h2 id="bipolar-differential-pair">Bipolar Differential pair<a data-heading-anchor="" href="#bipolar-differential-pair" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="bjt-dm-analysis">BJT DM analysis<a data-heading-anchor="" href="#bjt-dm-analysis" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/wOD6ZTl.png" alt="Differential pair of characteristics"></p>
+<p>这个过程表示非零差分输入会导致输出的电流和电压变化，但是共模输入则不会产生变化。</p>
+<p>左边是input， 右边是output。</p>
+<p><img src="https://i.imgur.com/mMbeQbJ.png" alt="Small-signal Analysis"></p>
+<p><img src="https://i.imgur.com/zk8MLHj.png" alt="handwirte"></p>
+<p>由于Q1 and Q2的输入上升和下降幅度相同，而且他们的基极是绑在一起的，所以Ic1的上升与Ic2的下降幅度(magnitude)相同。</p>
+<p><img src="https://i.imgur.com/0Z9XrQk.png" alt="Virtual Ground"></p>
+<p><img src="https://i.imgur.com/armh0On.png" alt="gm1 and gm2"></p>
+<p>因为Ic1和Ic2的上升下降幅度相同，所以节点p必须保持不变以适应这些变化。所以节点p可以被看作AC ground(交流地)</p>
+<p><img src="https://i.imgur.com/00p5OQx.png" alt="Small-signal differentil gain"></p>
+<p><img src="https://i.imgur.com/DXfKGQn.png" alt="Derivation"></p>
+<p><img src="https://i.imgur.com/AvR9b3f.png" alt="大信号分析"></p>
+<p><img src="https://i.imgur.com/GrdL8Wu.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/pwCuL58.png" alt="输入和输出图"></p>
+<p><img src="https://i.imgur.com/aYzyndR.png" alt="Derivation"></p>
+<p><img src="https://i.imgur.com/v6TjSkA.png" alt="Linear / Non-Linear regions"></p>
+<p><img src="https://i.imgur.com/b2fYLMc.png" alt="marks"></p>
+<p><img src="https://i.imgur.com/hz4eRsh.png" alt="小信号模型"></p>
+<p><img src="https://i.imgur.com/OA1Dvm0.png" alt="Q1 and Q2"></p>
+<p><img src="https://i.imgur.com/9tMEkpa.png" alt="Derivation"></p>
+<h3 id="half-circuit">Half Circuit<a data-heading-anchor="" href="#half-circuit" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/2g3GDIo.png" alt="Half Circuits"></p>
+<blockquote>
+<p>由于Vp是接地的，我们可以将差分视为两个CE电路“半电路”</p>
+</blockquote>
+<p><strong>Example</strong></p>
+<p><img src="https://i.imgur.com/wl5wTxa.png" alt="Example: Differential Gain"></p>
+<p><strong>Half circuit Example</strong></p>
+<p><img src="https://i.imgur.com/ICz77rB.png" alt="Half Circuit Example"></p>
+<p><img src="https://i.imgur.com/17Fp9tP.png" alt="Half Circuit Example"></p>
+<p><img src="https://i.imgur.com/NtYImfW.png" alt="Half-Circuit Example2"></p>
+<p><img src="https://i.imgur.com/EzRdac3.png" alt="Half Circuit Example3"></p>
+<p><img src="https://i.imgur.com/QiX9756.png" alt="AV"></p>
+<blockquote>
+<p>RE increase the linearity of the amplifier, it can amplify larger signal at its input, the cost is reduced gain.</p>
+<p>RE 增加放大器的线性度，它可以在其输入端放大更大的信号，代价是降低增益。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/4a8kk3i.png" alt="Half Circuit Example 4"></p>
+<p><img src="https://i.imgur.com/x82Weni.png" alt="KVL and Av"></p>
+<h2 id="mos-differential-pair">Mos Differential pair<a data-heading-anchor="" href="#mos-differential-pair" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="response">Response<a data-heading-anchor="" href="#response" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/558kqmC.png" alt="Mos 差分共模响应"></p>
+<p><img src="https://i.imgur.com/cq4pVC7.png" alt="image-20230516133350581"></p>
+<blockquote>
+<p>与双极性对应物类似，Mos差分在对Vcm变化时产生零差分输出。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/QH6m6C7.png" alt="平衡过载电压"></p>
+<blockquote>
+<p>平衡过载电压被定义为当M1和M2都携带Iss/2时所看到的过载电压。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/Tw6lFn8.png" alt="Derivation"></p>
+<p><img src="https://i.imgur.com/x7ng967.png" alt="最小共模输出电压"></p>
+<blockquote>
+<ul>
+<li>为了让M1 和 M2 保持饱和状态，共模输出电压不能低于上述数值。</li>
+<li>这个数值通常限制来电压增益。</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/2zJyhvo.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/OPKcuTE.png" alt="Differential Response"></p>
+<p><img src="https://i.imgur.com/gAxJsyY.png" alt="Small-signal Response"></p>
+<blockquote>
+<p>与它的双极性对应物类似，Mos差分对 表现出相同的虚拟接地节点和小信号增益。</p>
+</blockquote>
+<h3 id="effect-about-each-parameters">Effect about each parameters<a data-heading-anchor="" href="#effect-about-each-parameters" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/mGu2g1x.png" alt="功率和增益的权衡"></p>
+<blockquote>
+<p>为了获得像CS那样相同对增益，MOS差分对必须耗散两倍的电流。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/faMk4jc.png" alt="Mos差分对大信号响应"></p>
+<p><img src="https://i.imgur.com/I1bAYSo.png" alt="最大差分输入电压"></p>
+<blockquote>
+<p>存在一个有限的差分输入电压，可以完全将尾部电流从一个晶体管引导到另一个晶体管，这个值被称为最大差分输入电压。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/DPJDE6c.png" alt="linear"></p>
+<p><img src="https://i.imgur.com/eL7ldoP.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/dwlU1b8.png" alt="MOS 和 BJT差分对的比较"></p>
+<blockquote>
+<ul>
+<li>
+<p>在MOS差分对中存在一个有限的差分输入电压，可以将电流从一个晶体管切换到另一个晶体管。</p>
+</li>
+<li>
+<p>在双极对中存在一个有限的差分输入电压，双极对的电压是无限的</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/0zz3ca7.png" alt="尾部电流翻倍对影响"></p>
+<blockquote>
+<p>由于Iss增加来一倍，而W/L保持不变，因此平衡每个晶体管的过载电压必须增加2^-1/2（根号2）倍，以适应这一变化，所以 betaVin ,max 也增加根号2倍，此外Iss增加一倍，差分输出摆幅将增加一倍。</p>
+</blockquote>
+<p><img src="https://i.imgur.com/dukivwV.png" alt="倍增W/L的影响"></p>
+<blockquote>
+<p>由于W/L增加来1倍，而尾部电流保持不变，平衡过载电压将降低根号2来适应这一变化，而 betaVin,max 也降低根号2，此外差分输出的摆幅不变，因为Iss和Rd不变。</p>
+</blockquote>
+<h3 id="small-signal-and-half-circuit">Small-signal and half circuit<a data-heading-anchor="" href="#small-signal-and-half-circuit" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/njTvVOa.png" alt="小信号分析Mos差分对"></p>
+<p><img src="https://i.imgur.com/YWsyOCY.png" alt="中文解释"></p>
+<p><img src="https://i.imgur.com/4gcXUIl.png" alt="虚拟接地和 half circuit"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/lQ7HBus.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://i.imgur.com/ZI8o4dN.png" alt="Mos differential Pair half circuit example1"></p>
+<p><img src="https://i.imgur.com/jSgS851.png" alt="Example2"></p>
+<p><img src="https://i.imgur.com/ZE1oF89.png" alt="example3"></p>
+<h2 id="cascode-differential-amplifier">Cascode Differential Amplifier<a data-heading-anchor="" href="#cascode-differential-amplifier" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="bjt-differential-pair">BJT differential Pair<a data-heading-anchor="" href="#bjt-differential-pair" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/Cu1MJga.png" alt="Cascode Differential pair"></p>
+<p><img src="https://i.imgur.com/sxY2MjW.png" alt="Derivation"></p>
+<p><img src="https://i.imgur.com/uGSBOlh.png" alt="Telescopic Cascode"></p>
+<p><img src="https://i.imgur.com/dHroBYt.png" alt="Av derivation"></p>
+<p><img src="https://i.imgur.com/XjJNXMX.png" alt="Telescopic parasitic Resistance"></p>
+<p><img src="https://i.imgur.com/DhQ1E8p.png" alt="derivation"></p>
+<h3 id="mos-differential-pair-1">MOS differential pair<a data-heading-anchor="" href="#mos-differential-pair-1" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/iDOyYD2.png" alt="Mos cascode differential pair"></p>
+<p><img src="https://i.imgur.com/GYGvmuc.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/qurahZ1.png" alt="Mos telescopic cascode"></p>
+<p><img src="https://i.imgur.com/WiwGWOf.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/Zq4yfuk.png" alt="Telescopic parasitic Resistance"></p>
+<p><img src="https://i.imgur.com/Rv3On6G.png" alt="Derivation"></p>
+<p><strong>Exercise Differential cascade.</strong></p>
+<p><img src="https://i.imgur.com/8v4IWzR.png" alt="Exercise"></p>
+<h2 id="nonidealities">Nonidealities<a data-heading-anchor="" href="#nonidealities" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/v5BFwNb.png" alt="尾部有限阻抗的影响"></p>
+<p><img src="https://i.imgur.com/JkMcm77.png" alt="Derivation"></p>
+<p><img src="https://i.imgur.com/zFgtOW0.png" alt="具有输入理想尾部电流的CM噪声"></p>
+<p><img src="https://i.imgur.com/Ns5TtZH.png" alt="具有非理想尾流的输入CM噪声"></p>
+<p><img src="https://i.imgur.com/e8lzXjv.png" alt="比较"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/YhzKDZI.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://i.imgur.com/1sOAHwx.png" alt="CM to DM的转换"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/Gs3JtVO.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://i.imgur.com/mTVhwdn.png" alt="derivation"></p>
+<h2 id="differential-pair-with-active-load">Differential Pair with Active Load<a data-heading-anchor="" href="#differential-pair-with-active-load" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/qOlRr64.png" alt="Example: Acm-dm"></p>
+<p><img src="https://i.imgur.com/5NXSdfW.png" alt="derivation"></p>
+<p><img src="https://i.imgur.com/ENQeN5o.png" alt="CMRR"></p>
+<blockquote>
+<p><img src="https://i.imgur.com/hu4Mi4L.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://i.imgur.com/ypt4vUI.png" alt="Active load"></p>
+<p><em>（原始图片未随旧博客仓库保存，未在此迁移。）</em></p>
+<p><img src="https://p.ipic.vip/9308ht.png" alt="Differential pair with active load"></p>
+<p><img src="https://p.ipic.vip/w3pz2h.png" alt="中文解释"></p>
+<p><img src="https://p.ipic.vip/k56oqh.png" alt="活性负载 vs 静态负载"></p>
+<blockquote>
+<p><img src="https://p.ipic.vip/pqr08a.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://p.ipic.vip/wwf4qq.png" alt="Asymmetric differential pair"></p>
+<blockquote>
+<p><img src="https://p.ipic.vip/18chpg.png" alt="中文解释"></p>
+</blockquote>
+<p><img src="https://p.ipic.vip/vvz9s3.png" alt="输入对的戴维南等价物"></p>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

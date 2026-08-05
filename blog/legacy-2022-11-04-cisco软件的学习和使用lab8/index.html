@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>Cisco软件的学习和使用lab8 | jessy</title> <meta name="description" content="虚拟局域网 Vlan(Virtual Local Area Network或简写VLAN)"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-11-04-cisco%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8lab8/"> <meta property="og:title" content="Cisco软件的学习和使用lab8"> <meta property="og:description" content="虚拟局域网 Vlan(Virtual Local Area Network或简写VLAN)"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-11-04-cisco%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8lab8/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="Cisco软件的学习和使用lab8"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Cisco软件的学习和使用lab8"> <meta name="twitter:description" content="虚拟局域网 Vlan(Virtual Local Area Network或简写VLAN)"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="Cisco软件的学习和使用lab8"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-11-04T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-11-04-cisco软件的学习和使用lab8" aria-current="page" data-astro-cid-wv7whodv> Cisco软件的学习和使用lab8 </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-10-24-半导体物理学" data-icon-button data-dir="prev" aria-label="上一篇：半导体物理学" title="半导体物理学" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2022-11-06-cnn-project-daily-note" data-icon-button data-dir="next" aria-label="下一篇：CNN project daily note" title="CNN project daily note" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>Cisco软件的学习和使用lab8</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">Cisco软件的学习和使用lab8</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#搭建网络" data-astro-cid-p33bl5ka>搭建网络</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#开始操作" data-astro-cid-p33bl5ka>开始操作</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#1-验证每一个主机都在同一个vlan同一个广播域" data-astro-cid-p33bl5ka>1. 验证每一个主机都在同一个Vlan，同一个广播域</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#2-如何划分vlan" data-astro-cid-p33bl5ka>2. 如何划分Vlan</a> </li><li data-depth="4" data-astro-cid-p33bl5ka> <a href="#3-不同的vlan能否相互联系" data-astro-cid-p33bl5ka>3. 不同的Vlan能否相互联系</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-11-04-cisco软件的学习和使用lab8" data-title="Cisco软件的学习和使用lab8 | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>Cisco软件的学习和使用lab8</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-11-04T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年11月4日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Cisco" data-astro-cid-vvdrgdaw>#Cisco</a><a href="/tags/计算机网络学习博客" data-astro-cid-vvdrgdaw>#计算机网络学习博客</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>虚拟局域网 Vlan(Virtual Local Area Network或简写VLAN)</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="虚拟局域网-vlanvirtual-local-area-network或简写vlan">虚拟局域网 Vlan(Virtual Local Area Network或简写VLAN)</h1>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91" target="_blank" rel="nofollow noreferrer noopener">什么是Vlan - wikipedia</a></p>
+<h2 id="搭建网络">搭建网络<a data-heading-anchor="" href="#搭建网络" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>如图所示：</p>
+<p><img src="https://i.imgur.com/x1TQNdD.png" alt="image-20221104174405973"></p>
+<ul>
+<li>根据上图搭建网络</li>
+</ul>
+<h2 id="开始操作">开始操作<a data-heading-anchor="" href="#开始操作" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h4 id="1-验证每一个主机都在同一个vlan同一个广播域">1. 验证每一个主机都在同一个Vlan，同一个广播域<a data-heading-anchor="" href="#1-验证每一个主机都在同一个vlan同一个广播域" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>确定所有电脑都在vlan1中。</p>
+<ul>
+<li>点击查看按钮，查看switch的端口状态。</li>
+</ul>
+<p><img src="https://i.imgur.com/IACjFzx.png" alt="image-20221104174919972"></p>
+<p>可以看到已经连接的端口状态都是up，<strong>且每一个端口都是Vlan1</strong>(<strong>默认</strong>)</p>
+<p><strong>所以每一个主机都在Vlan1，故都在一个广播域</strong></p>
+<ul>
+<li>验证是否都在广播域</li>
+</ul>
+<blockquote>
+<ul>
+<li>创建广播帧</li>
+</ul>
+<p><img src="https://i.imgur.com/BFI2gQH.png" alt="image-20221104175303754"></p>
+<p>从PC0开始发送，看看是否每个主机都能收到广播。</p>
+<p><img src="https://i.imgur.com/Gh3bfkS.png" alt="image-20221104175427570"></p>
+<p>可以发现每个主机都能收到ICMP请求并响应，这个过程在前面的实验已经讲过，故不再解释。</p>
+</blockquote>
+<h4 id="2-如何划分vlan">2. 如何划分Vlan<a data-heading-anchor="" href="#2-如何划分vlan" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p>我们想要Pc0-pc2在同一个Vlan，同一个广播域。</p>
+<p><img src="https://i.imgur.com/unO9r1T.png" alt="image-20221104180132471"></p>
+<p>PC3- pc5在另一个Vlan，另一个广播域。</p>
+<p><img src="https://i.imgur.com/2xAYPNF.png" alt="image-20221104180147551"></p>
+<ul>
+<li>操作</li>
+</ul>
+<blockquote>
+<p>我们需要在switch上的端口进行划分Vlan，而不是在主机上划分Vlan</p>
+<p>如上图所示，需要将左边三台划分为Vlan2，右边三台划分为Vlan3.</p>
+<ul>
+<li>创建一个Vlan2</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/O5oY4PE.png" alt="image-20221104180410109"></p>
+<p>我们需要在switch上的VLAN Datebase里创建一个Vlan2, 然后点击添加。</p>
+<p><img src="https://i.imgur.com/ujJikYA.png" alt="image-20221104180501662"></p>
+<p>可以看见里面多了一个Vlan2.</p>
+</blockquote>
+<ul>
+<li>我们需要将fa0/1-3的端口都分配给Vlan2，而不是Vlan1</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/ZSBXXso.png" alt="image-20221104180628544"></p>
+<p><strong>在switch上点击端口将Vlan中的default切换成Vlan2.</strong></p>
+<p>1-3的端口都这么做。</p>
+</blockquote>
+<ul>
+<li>测试pc0-2 的的三台电脑是否分配到Vlan2</li>
+</ul>
+<blockquote>
+<p>发送复杂PDU并目的IP为255.255.255.255</p>
+<p><img src="https://i.imgur.com/xx6gUma.png" alt="image-20221105125813123"></p>
+<p>我们发现PDU只到达了被分配到Vlan2到每个pc上。</p>
+</blockquote>
+<ul>
+<li>
+<p>按照上述步骤设置Vlan3或者是用命令行来进行配置</p>
+</li>
+<li>
+<p>命令行配置Vlan（大多数是要用命令行来配置Vlan的，所以这个也很重要）</p>
+</li>
+</ul>
+<blockquote>
+<p>Switch(config)#vlan 3      %%进入并创建Vlan3</p>
+<p>Switch(config-vlan)#name Vlan3  %%命名Vlan3</p>
+<p>Switch(config-vlan)#end</p>
+<p>Switch(config)#int range fa 0/4 - 6 &amp;&amp;进入端口4-6</p>
+<p>Switch(config-if-range)#switchport mode access %% 设置端口模式</p>
+<p>Switch(config-if-range)#switchport access vlan 3 %%将端口分配到vlan3</p>
+<p>Switch#show vlan brief</p>
+<p><a href="https://github.com/JessyHHH/JessyHHH.github.io/blob/main/%E5%AD%A6%E4%B9%A0%E6%96%87%E4%BB%B6/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AB%AF%E5%8F%A3untaged%E3%80%81taged%E3%80%81trunk%E3%80%81access%20%E7%9A%84%E5%8C%BA%E5%88%AB.pdf" target="_blank" rel="nofollow noreferrer noopener">Access 和 trunk的区别</a></p>
+</blockquote>
+<ul>
+<li>发送PDU验证。</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/YgqZe7n.png" alt="image-20221105131545778"></p>
+<p>如上图所示，结果上可以看到端口4-6已经被分配到vlan3了，只有在vlan3的主机才能接受PDU。</p>
+</blockquote>
+</blockquote>
+<h4 id="3-不同的vlan能否相互联系">3. 不同的Vlan能否相互联系<a data-heading-anchor="" href="#3-不同的vlan能否相互联系" aria-label="Link to this section" tabindex="-1"></a></h4>
+<p><strong>答案：不同的Vlan不能相互联系</strong></p>
+<ul>
+<li>验证</li>
+</ul>
+<blockquote>
+<p>在vlan2的主机ping 一个vlan3的主机看看结果</p>
+<p><img src="https://i.imgur.com/eAx0zC4.png" alt="image-20221105132333290"></p>
+<p>我们可以发现不同的vlan不能相互 ping之间的主机。</p>
+</blockquote>
+<ol start="4">
+<li>看不同交换机中相同的vlan是否互通</li>
+</ol>
+<blockquote>
+<p>根据下图搭建网络</p>
+<p><img src="https://i.imgur.com/dSHjpnL.png" alt="image-20221105133901176"></p>
+<p>左边依旧是vlan2，右边是vlan3</p>
+<ul>
+<li>
+<p>根据步骤2进行配置。</p>
+</li>
+<li>
+<p>通过pc0发送广播帧来看看是否能够发送PDU给第二个switch上的vlan2.</p>
+</li>
+</ul>
+<blockquote>
+<p><img src="https://i.imgur.com/jalUA6w.png" alt="image-20221105134720135"></p>
+<p>我们可以看到它只发送了本地的vlan的两台主机为什么呢</p>
+<ul>
+<li>原因</li>
+</ul>
+<blockquote>
+<p>1.在两台switch之间连接的模式是access而不是trunk</p>
+<p>2.两台switch之间是默认的vlan1，而不是vlan2，所以在access模式中不会转发到另一个switch</p>
+<p><a href="https://github.com/JessyHHH/JessyHHH.github.io/blob/main/%E5%AD%A6%E4%B9%A0%E6%96%87%E4%BB%B6/%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%AB%AF%E5%8F%A3untaged%E3%80%81taged%E3%80%81trunk%E3%80%81access%20%E7%9A%84%E5%8C%BA%E5%88%AB.pdf" target="_blank" rel="nofollow noreferrer noopener">access和trunk的区别</a></p>
+</blockquote>
+<ul>
+<li>解决</li>
+</ul>
+<blockquote>
+<p>只需要将两个switch之间连接的端口改成trunk即可。</p>
+</blockquote>
+<ul>
+<li>再次验证</li>
+</ul>
+<blockquote>
+<p>发送广播帧看是否到达下面switch vlan2的主机</p>
+<p><img src="https://i.imgur.com/IRNUNm5.png" alt="image-20221105135417889"></p>
+<p><img src="https://i.imgur.com/Eh4IBRT.png" alt="image-20221105135437848"></p>
+</blockquote>
+<ul>
+<li>结论</li>
+</ul>
+<blockquote>
+<p>它是可以连接不同的switch中相同的vlan里的主机。</p>
+</blockquote>
+</blockquote>
+<p>实验结束。</p>
+</blockquote>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

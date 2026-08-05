@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>OSPF | jessy</title> <meta name="description" content="Introduction"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-12-20-ospf/"> <meta property="og:title" content="OSPF"> <meta property="og:description" content="Introduction"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-12-20-ospf/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="OSPF"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="OSPF"> <meta name="twitter:description" content="Introduction"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="OSPF"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-12-20T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-12-20-ospf" aria-current="page" data-astro-cid-wv7whodv> OSPF </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-12-20-ppp" data-icon-button data-dir="prev" aria-label="上一篇：ppp" title="ppp" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2023-01-20-linux-cli" data-icon-button data-dir="next" aria-label="下一篇：Linux CLI" title="Linux CLI" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>OSPF</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">OSPF</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#process-id" data-astro-cid-p33bl5ka>Process ID</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#router-idrid" data-astro-cid-p33bl5ka>Router ID(RID)</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#router-priority" data-astro-cid-p33bl5ka>Router Priority</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#area-id" data-astro-cid-p33bl5ka>AREA ID</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#三个大流程宏观" data-astro-cid-p33bl5ka>三个大流程（宏观）</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#7大步骤微观" data-astro-cid-p33bl5ka>7大步骤（微观）</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#proceesing-detail" data-astro-cid-p33bl5ka>Proceesing detail</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#become-neighbour" data-astro-cid-p33bl5ka>Become neighbour</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#exchange-database-information" data-astro-cid-p33bl5ka>Exchange Database Information</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#full" data-astro-cid-p33bl5ka>Full</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#change-reference-bandwidth" data-astro-cid-p33bl5ka>Change reference Bandwidth</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#neighbour-relationship" data-astro-cid-p33bl5ka>Neighbour relationship</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#full-state" data-astro-cid-p33bl5ka>Full state</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#example-of-cisco" data-astro-cid-p33bl5ka>Example of cisco</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-12-20-ospf" data-title="OSPF | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>OSPF</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-12-20T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年12月20日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/computer network" data-astro-cid-vvdrgdaw>#computer network</a><a href="/tags/计算机网络学习博客" data-astro-cid-vvdrgdaw>#计算机网络学习博客</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>Introduction</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="introduction">Introduction</h1>
+<ul>
+<li>
+<p>OSPF stands for Open shortest Path First</p>
+<blockquote>
+<p>OSPF是开放最短路径优先的意思。</p>
+</blockquote>
+</li>
+<li>
+<p>Open standard protocol</p>
+<blockquote>
+<p>开放标准协议</p>
+</blockquote>
+</li>
+<li>
+<p>It is a link State protocol</p>
+<blockquote>
+<p>它是链路状态协议</p>
+</blockquote>
+</li>
+<li>
+<p>It uses a Shortest Path First (SPF) algorithm (Dijkistra algorithm)</p>
+<blockquote>
+<p>它使用最短路径优先（SPF）算法（Dijkistra算法）。</p>
+</blockquote>
+</li>
+<li>
+<p>Metric is cost (reference BW [100Mb/s] / interface BW)</p>
+<blockquote>
+<p>指标是成本（参考BW[100Mb/s]/接口BW）。</p>
+</blockquote>
+</li>
+<li>
+<p>Administrative distance is 110</p>
+<blockquote>
+<p>管理距离为110</p>
+</blockquote>
+</li>
+<li>
+<p>It is a classless routing algorithm</p>
+<blockquote>
+<p>它是一种无类别的路由算法</p>
+</blockquote>
+</li>
+<li>
+<p>It supports equal cost load balancing</p>
+<blockquote>
+<p>它支持同等成本的负载平衡</p>
+</blockquote>
+</li>
+<li>
+<p>Introduces the concept of Area’s (reduce the amount of Link State Advertisements [LSA’s]</p>
+<blockquote>
+<p>引入区域的概念（减少链接状态广告[LSA]的数量</p>
+</blockquote>
+</li>
+<li>
+<p>All routers have the same information</p>
+<blockquote>
+<p>所以路由都有相同的信息</p>
+</blockquote>
+</li>
+<li>
+<p>Updates are sent using 224.0.0.5</p>
+<blockquote>
+<p>使用224.0.0.5发送更新。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/2K6Fg7M.png" alt="动态路由协议类型"></p>
+<ul>
+<li>
+<p>IGP(Interior Gateway Protocols)</p>
+</li>
+<li>
+<p>EGP(<a href="https://en.wikipedia.org/wiki/Exterior_gateway_protocol" target="_blank" rel="nofollow noreferrer noopener">exterior gateway protocol</a>)</p>
+</li>
+</ul>
+<h1 id="专有名词">专有名词</h1>
+<h2 id="process-id">Process ID<a data-heading-anchor="" href="#process-id" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/KtAuMvh.png" alt=""></p>
+<blockquote>
+<p>router ospf process-id命令是任何Cisco IOS OSPF配置的开始（16位值1-65,535）。它用于创建或修改一个现有的OSPF路由进程，并使用户进入OSPF路由器配置模式。进程ID - 允许一个路由器运行OSPF的多个实例。(例如，连接到3个不同客户的路由器）这些OSPF进程ID只在本地有意义，不必从一个OSPF设备到另一个匹配.</p>
+</blockquote>
+<h2 id="router-idrid">Router ID(RID)<a data-heading-anchor="" href="#router-idrid" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/DqUeS9C.png" alt=""></p>
+<blockquote>
+<p>router-id命令用来静态配置OSPF的路由器id；这个路由器id（RID）用来向OSPF网络中的其他设备识别OSPF设备。对于每个OSPF设备来说，这个路由器ID必须是唯一的；如果没有配置路由器ID，它将根据以下顺序被选择：最高的环回接口，最高的活动（向上/向上）物理接口。配置环回接口或使用router-id命令在OSPF实施中非常普遍，因为它使特定的OSPF设备的识别更容易。</p>
+</blockquote>
+<h2 id="router-priority">Router Priority<a data-heading-anchor="" href="#router-priority" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/6xOjbUt.png" alt=""></p>
+<blockquote>
+<p>在多接入网络中，具有最高优先级值的路由器被选为DR，作为LSA交换的中心点。优先级命令被分配到一个接口上。OSPF接口的默认优先级是1，其范围是0到255。0意味着该接口不参与DR的选举。</p>
+</blockquote>
+<blockquote>
+<p>具有最高OSPF优先级的路由器将成为DR。默认情况下，所有路由器的优先级都是1。
+如果出现平局，具有最高路由器ID的路由器赢得选举。具有第二高OSPF优先级或路由器ID的路由器将成为一个BDR。</p>
+</blockquote>
+<h2 id="area-id">AREA ID<a data-heading-anchor="" href="#area-id" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/MhNkKYp.png" alt=""></p>
+<blockquote>
+<p>在OSPF中，一个单一的自治系统（AS）可以被划分为较小的组，称为区域。这减少了网络上发送的链路状态广告（LSA）和其他OSPF开销流量的数量，并减少了每个路由器必须维护的拓扑数据库的大小。</p>
+</blockquote>
+<h1 id="processing">Processing</h1>
+<h2 id="三个大流程宏观">三个大流程（宏观）<a data-heading-anchor="" href="#三个大流程宏观" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ol>
+<li>
+<p><strong>Become Neighbours</strong> – Routers running OSPF on the same segment form neighbour relationships.</p>
+<blockquote>
+<p><strong>成为邻居</strong> - 同一网段上运行OSPF的路由器形成邻居关系。</p>
+</blockquote>
+<blockquote>
+<p>[PtP segment – Master/Slave, Broadcast segment - DR/BDR/Drother.]</p>
+<p>有Master/Slave - PPP</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Exchange database information</strong> – the neighbour routers exchange their LSDB data with each other using LSA’s.</p>
+<blockquote>
+<p>**交换数据库信息-**邻居路由器和其他路由器使用LSA‘s(link-state advertisements)交换他们的LSDB(Link states databse)数据</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Choose the best routes</strong> – each router adds the best routes to its routing table based on the results of running the SPF algorithm on the LSDB</p>
+<blockquote>
+<p><strong>选择最好的路由</strong>-每个路由器根据在LSDB上运行SPF算法的结果，向其路由表添加最佳路由。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="7大步骤微观">7大步骤（微观）<a data-heading-anchor="" href="#7大步骤微观" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li>
+<p><strong>Down</strong> (No info has been exchanged or retained)</p>
+<blockquote>
+<p><strong>Down</strong> (没有交换或保留信息)</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Init</strong> (A hello packet has been received, but hasn’t gone to two way yet) )</p>
+<blockquote>
+<p><strong>init</strong> (已收到一个hello数据包，但还没有进入双路) )</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Two way</strong> (establishment of a bidirectional conversation between two routers)</p>
+<blockquote>
+<p><strong>双向</strong>（在两个路由器之间建立双向对话）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Exstart</strong> (first step of adjacency, decide on Master Slave)</p>
+<blockquote>
+<p><strong>Exstart</strong>（邻接的第一步，决定主从）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Exchange</strong> (exchange LSDB’s )</p>
+<blockquote>
+<p><strong>Exchange</strong>（交换LSDB的）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Loading</strong> (requests the most recent link-state advertisements (LSA’s) from its neighbour)</p>
+<blockquote>
+<p><strong>Loading</strong>（请求其邻居提供最新的链接状态广告（LSA））。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Full</strong> (when the routers are fully adjacent, and the state appears in all router- and network-LSA’s)</p>
+<blockquote>
+<p><strong>Full</strong>（当路由器完全相邻，并且该状态出现在所有路由器和网络LSA中时）</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="proceesing-detail">Proceesing detail<a data-heading-anchor="" href="#proceesing-detail" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="become-neighbour">Become neighbour<a data-heading-anchor="" href="#become-neighbour" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>R1发送Hello message 给R2</li>
+</ul>
+<p><img src="https://i.imgur.com/7kgheqW.png" alt=""></p>
+<ul>
+<li>建立邻居关系要满足的要求</li>
+</ul>
+<p><img src="https://i.imgur.com/EyOpxNf.png" alt=""></p>
+<blockquote>
+<ol>
+<li>Area ID</li>
+<li>Subnet</li>
+<li>Hello and Dead interval</li>
+<li>Authentication</li>
+<li>Stub area flag</li>
+<li>Unique router ID(RID)</li>
+</ol>
+</blockquote>
+<p><strong>Hellow message Content</strong></p>
+<p><img src="https://i.imgur.com/rPQWbcJ.png" alt=""></p>
+<p>Hellow timer 默认10s</p>
+<p>Dead interval默认40s</p>
+<ul>
+<li>R2 发送Hello包含neighbor ID给R1，并R2进入初始化状态</li>
+</ul>
+<p><img src="https://i.imgur.com/1INRGDy.png" alt=""></p>
+<ul>
+<li>R1直接从Down转变成2-way，因为R1已经知道了R2的RID和neighbourID</li>
+</ul>
+<p><img src="https://i.imgur.com/tlF4oEU.png" alt=""></p>
+<p>R1将R2列为邻居</p>
+<ul>
+<li>R2收到R1的hello message后也知道R1的情况，将R1列为R2的邻居，从init变成2-way</li>
+</ul>
+<p><img src="https://i.imgur.com/pOTGjQe.png" alt=""></p>
+<p>DR’s and BDR’s 不再PtP中选出。</p>
+<ul>
+<li>选择DR和BDR</li>
+</ul>
+<blockquote>
+<p>选择基于最高的OSPF priority, priority默认为1.</p>
+<p>如果优先级相等，则通过RID来进行选择DR/BDR，RID越高则是DR。</p>
+<p><strong>路由器只会与DR或BDR成为邻居</strong></p>
+<p><strong>2-way的邻居状态意味着他们都发送和接受彼此的hello，但之间并不交换路由信息。</strong></p>
+</blockquote>
+<ul>
+<li>进入2-way之后就要交换路由器的LSDB了。</li>
+</ul>
+<p><img src="https://i.imgur.com/E1FA4rA.png" alt=""></p>
+<p><strong>PtP link</strong></p>
+<p>进入2-way状态，准备交换LSDB，<strong>必须选择一个路由器将启动交换，这个是在Exstart state下完成的</strong></p>
+<p><strong>Exstart state</strong></p>
+<p>根据RID选择Master或Slave，高RID的将会成为Master并启动进程并控制序列号。</p>
+<h3 id="exchange-database-information">Exchange Database Information<a data-heading-anchor="" href="#exchange-database-information" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>选完Master和slave后进入Exchange状态</li>
+</ul>
+<p><img src="https://i.imgur.com/ksPQv5V.png" alt=""></p>
+<p>路由器开始相互发送LSA列表，这个过程叫做DBD(Database description)</p>
+<ul>
+<li>交换完LSA后进入loading</li>
+</ul>
+<p><img src="https://i.imgur.com/pn9P1ZH.png" alt=""></p>
+<p><img src="https://i.imgur.com/o8a8tDe.png" alt=""></p>
+<p>每个路由器将检查DBD，并请求任何如果它没有的信息（相当于updata）</p>
+<p>通过路由器请求信息不仅仅是发送更新来防止循环。</p>
+<ul>
+<li>假如R2 有R1没有的信息，如有一个192.168.3.0，R1没有</li>
+</ul>
+<p><img src="https://i.imgur.com/FURH0VL.png" alt=""></p>
+<p>在LSR(Link State Request)中R1请求LSA(Link State Advertisement )</p>
+<ul>
+<li>R2回复并发送更新LSU</li>
+</ul>
+<p><img src="https://i.imgur.com/2Jj7RNB.png" alt=""></p>
+<p>LSU- link State Update, R2向R1发送更新。</p>
+<ul>
+<li>R1向R2 发送一个ACK</li>
+</ul>
+<p><img src="https://i.imgur.com/r8VHhs2.png" alt=""></p>
+<p>LSAck- link state Ack</p>
+<ul>
+<li>R2也想要R1的DBD，重复以上过程</li>
+</ul>
+<p><img src="https://i.imgur.com/Rl1dt16.png" alt=""></p>
+<p>当然R2也会想要R1的192.168.1.0,所以重复以上过程。</p>
+<h3 id="full">Full<a data-heading-anchor="" href="#full" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>当信息全部交换完成便变成full 状态</li>
+</ul>
+<p><img src="https://i.imgur.com/VpYjPJu.png" alt=""></p>
+<ul>
+<li>
+<p>In the full state, the routers have full OSPF adjacency and identical LSDB’s.</p>
+<blockquote>
+<p>在完全状态下，路由器具有完整的OSPF邻接性和相同的LSDB。</p>
+</blockquote>
+</li>
+<li>
+<p>They will continue to send and listen for Hello packets (every 10 seconds by default on an Ethernet interface, 30 sec on serial links) to maintain the neighbour adjacency</p>
+<blockquote>
+<p>他们将继续发送和收听Hello数据包（默认情况下在以太网接口上每10秒，在串行链路上每30秒），以保持邻居邻接</p>
+</blockquote>
+</li>
+<li>
+<p>Every time a hello packet is received the dead timer (40 seconds by default) is reset back to 40 sec.</p>
+<blockquote>
+<p>每次收到hello数据包时，死计时器（默认情况下为40秒）都会重置为40秒。</p>
+</blockquote>
+</li>
+<li>
+<p>If the Dead timer counts down to 0 and NO Hello message is received, the neighbour is removed.</p>
+<blockquote>
+<p>如果死计时器倒计时到0，并且没有收到Hello消息，则邻居将被删除。</p>
+</blockquote>
+</li>
+<li>
+<p>The routers will continue to send LSA’s as the network changes to ensure each router has a complete and accurate map of the network (LSDB)</p>
+<blockquote>
+<p>随着网络的变化，路由器将继续发送LSA，以确保每个路由器都有完整准确的网络地图（LSDB）</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="cisco-command">Cisco command</h1>
+<h3 id="change-reference-bandwidth">Change reference Bandwidth<a data-heading-anchor="" href="#change-reference-bandwidth" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p><img src="https://i.imgur.com/ORFZ4w1.png" alt=""></p>
+<blockquote>
+<p><code>auto-cost reference-bandwidth 1000</code></p>
+</blockquote>
+<p><img src="https://i.imgur.com/2bGbH6K.png" alt=""></p>
+<h2 id="neighbour-relationship">Neighbour relationship<a data-heading-anchor="" href="#neighbour-relationship" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li>Command of ospf</li>
+</ul>
+<blockquote>
+<p><code>sh ip ospf int brief</code>告诉我自己的信息</p>
+<p><code>sh ip ospf neighbors</code>告诉我邻居的信息</p>
+</blockquote>
+<p><img src="https://i.imgur.com/7vprtyF.png" alt=""></p>
+<p><img src="https://i.imgur.com/8iCfpmR.png" alt=""></p>
+<p><img src="https://i.imgur.com/vkeHE2Y.png" alt=""></p>
+<p><strong>死亡计时器从40s开始倒计时，收到hello message则重置。</strong></p>
+<h2 id="full-state">Full state<a data-heading-anchor="" href="#full-state" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/VYpgnx2.png" alt=""></p>
+<h2 id="example-of-cisco">Example of cisco<a data-heading-anchor="" href="#example-of-cisco" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/5IrpzH9.png" alt=""></p>
+<p><img src="https://i.imgur.com/iOTWOAt.png" alt=""></p>
+<p><img src="https://i.imgur.com/ouWQOuy.png" alt=""></p>
+<p><img src="https://i.imgur.com/6geVceN.png" alt=""></p>
+<p><img src="https://i.imgur.com/a0ayjom.png" alt=""></p>
+<h1 id="ospf-area">OSPF Area</h1>
+<p><img src="https://i.imgur.com/iiaW37E.png" alt=""></p>
+<p><img src="https://i.imgur.com/Z1NlpAF.png" alt="Internal Routers"></p>
+<p><img src="https://i.imgur.com/QCCj8k9.png" alt="Area Border Router"></p>
+<p><img src="https://i.imgur.com/aCblLMp.png" alt="Backbone Routers"></p>
+<p><img src="https://i.imgur.com/bqbKSPU.png" alt="intra-area route"></p>
+<p><img src="https://i.imgur.com/v1ezOXY.png" alt="interatea route"></p>
+<p><img src="https://i.imgur.com/hevNIFY.png" alt="Autonomous system boundary router"></p>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

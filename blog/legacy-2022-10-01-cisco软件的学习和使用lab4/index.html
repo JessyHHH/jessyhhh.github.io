@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>Cisco软件的学习和使用lab4 | jessy</title> <meta name="description" content="lab4 总线型以太网特性（广播，竞争总线，冲突）"> <link rel="canonical" href="https://jessyhhh.github.io/blog/legacy-2022-10-01-cisco%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8lab4/"> <meta property="og:title" content="Cisco软件的学习和使用lab4"> <meta property="og:description" content="lab4 总线型以太网特性（广播，竞争总线，冲突）"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/legacy-2022-10-01-cisco%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%92%8C%E4%BD%BF%E7%94%A8lab4/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="Cisco软件的学习和使用lab4"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="Cisco软件的学习和使用lab4"> <meta name="twitter:description" content="lab4 总线型以太网特性（广播，竞争总线，冲突）"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="Cisco软件的学习和使用lab4"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2022-10-01T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> Blog </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/legacy-2022-10-01-cisco软件的学习和使用lab4" aria-current="page" data-astro-cid-wv7whodv> Cisco软件的学习和使用lab4 </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/archive" data-astro-cid-wv7whodv> Archive </a>  </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> Tag </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> About </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/legacy-2022-09-30-cisco软件的学习和使用lab1" data-icon-button data-dir="prev" aria-label="上一篇：Cisco软件的学习和使用lab1" title="Cisco软件的学习和使用lab1" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/legacy-2022-10-02-cisco软件的学习和使用lab5" data-icon-button data-dir="next" aria-label="下一篇：Cisco软件的学习和使用lab5" title="Cisco软件的学习和使用lab5" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>Cisco软件的学习和使用lab4</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">Cisco软件的学习和使用lab4</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#1-自动连线三个pc在一个hub里形成总线型" data-astro-cid-p33bl5ka>1. 自动连线三个pc在一个hub里，形成总线型</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#2-给每个pc设置ip-address" data-astro-cid-p33bl5ka>2. 给每个pc设置ip address</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#3-先在realtime-状态下将每个pc的arp缓存表都互相缓存各个pc的mac和ip-address" data-astro-cid-p33bl5ka>3. 先在realtime 状态下，将每个pc的ARP缓存表都互相缓存各个pc的mac和ip address</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#给每一台计算机都发送pdu给另一台" data-astro-cid-p33bl5ka>给每一台计算机都发送PDU给另一台</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#4-正式开始实验" data-astro-cid-p33bl5ka>4. 正式开始实验</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-当icpm-pdu从pc0到pc2的过程" data-astro-cid-p33bl5ka>1. 当ICPM PDU从pc0到pc2的过程</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-hub接受了两个pdu起冲突" data-astro-cid-p33bl5ka>2. Hub接受了两个PDU起冲突</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#结论" data-astro-cid-p33bl5ka>结论</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#关于hub" data-astro-cid-p33bl5ka>关于Hub</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#关于pdu的传输过程" data-astro-cid-p33bl5ka>关于PDU的传输过程</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/legacy-2022-10-01-cisco软件的学习和使用lab4" data-title="Cisco软件的学习和使用lab4 | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>Cisco软件的学习和使用lab4</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2022-10-01T00:00:00.000Z" data-astro-cid-vvdrgdaw>2022年10月1日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/Cisco" data-astro-cid-vvdrgdaw>#Cisco</a><a href="/tags/计算机网络学习博客" data-astro-cid-vvdrgdaw>#计算机网络学习博客</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>lab4 总线型以太网特性（广播，竞争总线，冲突）</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <h1 id="lab4-总线型以太网特性广播竞争总线冲突">lab4 总线型以太网特性（广播，竞争总线，冲突）</h1>
+<h2 id="1-自动连线三个pc在一个hub里形成总线型">1. 自动连线三个pc在一个hub里，形成总线型<a data-heading-anchor="" href="#1-自动连线三个pc在一个hub里形成总线型" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><img src="https://i.imgur.com/NZ0n8df.png" alt="image-20221001105741779"></p>
+<h2 id="2-给每个pc设置ip-address">2. 给每个pc设置ip address<a data-heading-anchor="" href="#2-给每个pc设置ip-address" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li>
+<p>Pc0: 192.168.0.1</p>
+</li>
+<li>
+<p>Pc1: 192.168.0.2</p>
+</li>
+<li>
+<p>Pc3: 192.168.0.3</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/CziXKbV.png" alt="image-20221001105934834"></p>
+<h2 id="3-先在realtime-状态下将每个pc的arp缓存表都互相缓存各个pc的mac和ip-address">3. 先在realtime 状态下，将每个pc的ARP缓存表都互相缓存各个pc的mac和ip address<a data-heading-anchor="" href="#3-先在realtime-状态下将每个pc的arp缓存表都互相缓存各个pc的mac和ip-address" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="给每一台计算机都发送pdu给另一台">给每一台计算机都发送PDU给另一台<a data-heading-anchor="" href="#给每一台计算机都发送pdu给另一台" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>如pc0 - pc1 ，pc0 - pc2 ， pc1 - pc2</p>
+<p>这样就缓存了arp了</p>
+<p><img src="https://i.imgur.com/tKCSG5s.png" alt="image-20221001110537802"></p>
+<h2 id="4-正式开始实验">4. 正式开始实验<a data-heading-anchor="" href="#4-正式开始实验" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-当icpm-pdu从pc0到pc2的过程">1. 当ICPM PDU从pc0到pc2的过程<a data-heading-anchor="" href="#1-当icpm-pdu从pc0到pc2的过程" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ol>
+<li>
+<p>ICPM PDU 在PC0打包自己的ip和Mac address发送到 端口Fa0 hub</p>
+</li>
+<li>
+<p>Hub接受到ICPM pdu，从另外两个端口(Fa1 and Fa2)发送到PC1和PC2</p>
+</li>
+<li>
+<p>PC1发现PDU里打包的mac地址和自己的地址不匹配，所以drop fram</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/2Qxl41p.png" alt="image-20221001234218124"></p>
+<ol start="4">
+<li>PC2的mac地址和PDU里的dest：MAC地址相匹配，接受该PDU，然后解封PDU从以太网帧（<a href="https://zhuanlan.zhihu.com/p/21318925" target="_blank" rel="nofollow noreferrer noopener">Ethernet Frame</a>）</li>
+</ol>
+<p><img src="https://i.imgur.com/DRi3eC0.png" alt="image-20221001234301199"></p>
+<ol start="5">
+<li>解封到IP层后， pc2检测该pdu目标ip地址和 自己ip地址相匹配，然后解封 packet（PDU解封出来的），这个packet类型是ICMP类型，然后在ip层接受了Echo request（响应请求），</li>
+</ol>
+<p><img src="https://i.imgur.com/5MVxvwj.png" alt="image-20221002003453705"></p>
+<p>什么是<a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/ICMP.html" target="_blank" rel="nofollow noreferrer noopener">ICMP</a> （Internet Control Message Protocol）</p>
+<p>简单的来说就是检测错误的机制，具体可查看上面链接🔗</p>
+<ol start="6">
+<li>网络层 接受了Echo request（响应请求） message后自然也需要回复一个message让pc0知道已经接受了，所以需要回应一个 Echo reply（响应回复）message（将ICMP的Echo request 改成 reply），</li>
+</ol>
+<p><img src="https://i.imgur.com/gUheRgK.png" alt="image-20221002003821484"></p>
+<ol start="7">
+<li>第二层将 ip 和mac 封装成PDU，由于只需要发送给PC0，所以它是<a href="https://blog.51cto.com/tommyking/1915236" target="_blank" rel="nofollow noreferrer noopener">unicast单播</a>， pc2里有ARP缓存了pc0的ip和 mac address，<a href="https://www.jannet.hk/routing-decision-zh-hans/#Static_Route_Next_Hop" target="_blank" rel="nofollow noreferrer noopener">next-hop</a>指的是下一站的意思，封装成PDU在<a href="https://zhuanlan.zhihu.com/p/21318925" target="_blank" rel="nofollow noreferrer noopener">以太网帧</a>。</li>
+</ol>
+<p><img src="https://i.imgur.com/JlvSVKB.png" alt="image-20221002005015120"></p>
+<ol start="8">
+<li>pc2从fa0端口传输PDU到hub，hub广播给pc0和pc1，问这个pdu是谁的，pc0匹配，pc1不匹配，pc0就接受了这个PDU，解封PDU里的packet后就接受到了Echo reply了。</li>
+</ol>
+<p><img src="https://i.imgur.com/hytnPeq.png" alt="image-20221002010554321"></p>
+<h3 id="2-hub接受了两个pdu起冲突">2. Hub接受了两个PDU起冲突<a data-heading-anchor="" href="#2-hub接受了两个pdu起冲突" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>什么是冲突，为什么会有冲突，详情请点击-&gt;<a href="https://blog.csdn.net/gui951753/article/details/79402528" target="_blank" rel="nofollow noreferrer noopener">集线器(hub),交换机以及路由器异同；冲突域和广播域详解</a></p>
+<ol>
+<li>pc0发送PDU给PC1，pc2发送PDU给pc1</li>
+<li>点击下一步后，发现两个PDU在hub里起冲突了</li>
+</ol>
+<p><img src="https://i.imgur.com/WEYk7z6.png" alt="image-20221002014816438"></p>
+<ol start="3">
+<li>在hub里起冲突后，hub要让别人知道我这出事了，于是会向所人有发送一个冲突frame（帧）到别人主机的端口那</li>
+</ol>
+<p><img src="https://i.imgur.com/NZUV0AV.png" alt="image-20221002015348222"></p>
+<ol start="4">
+<li>端口检查一看发现是 冲突帧，就将它给扔了。</li>
+</ol>
+<p>原因其实就在于 Hub线路里只有一条线，这条线连着几个PC，如果pc之间想在同一时间相互传输PDU，则会发生冲突，如</p>
+<p><img src="https://i.imgur.com/A1sHVRF.png" alt="image-20221002015635618"></p>
+<h2 id="结论">结论<a data-heading-anchor="" href="#结论" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="关于hub">关于Hub<a data-heading-anchor="" href="#关于hub" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>
+<p>定义：集线器（Hub）是指将多条以太网双绞线或光纤集合连接在同一段物理介质下的设备。集线器是运作在OSI模型中的物理层。它可以视作多端口的中继器，若它侦测到碰撞，它会提交阻塞信号。</p>
+</li>
+<li>
+<p>特点：
+集线器最大的特点就是采用共享型模式，就是指在有一个端口在向另一个端口发送数据时，其他端口就处于“等待”状态。为什么会“等待”呢？举个例子来说，其实在单位时间内A向B发送数据包时，A是发送给B、C、D三个端口的（该现象即紧接下文介绍的IP广播），但是只有B接收，其他的端口在第一单位时间判断不是自己需要的数据后将不会再去接收A发送来的数据。直到A再次发送IP广播，在A再次发送IP广播之前的单位时间内，C，D是闲置的，或者CD之间可以传输数据。如图1，我们可以理解为集线器内部只有一条通道（即公共通道），然后在公共通道下方就连接着所有端口。</p>
+</li>
+</ul>
+<p>图一：</p>
+<p><img src="https://i.imgur.com/hO7Wbhg.png" alt="image-20221002015911807"></p>
+<blockquote>
+<ul>
+<li>集线器(hub),交换机以及路由器异同；冲突域和广播域详解— <a href="https://blog.csdn.net/gui951753/article/details/79402528" target="_blank" rel="nofollow noreferrer noopener">集线器(hub),交换机以及路由器异同；冲突域和广播域详解</a></li>
+</ul>
+</blockquote>
+<h3 id="关于pdu的传输过程">关于PDU的传输过程<a data-heading-anchor="" href="#关于pdu的传输过程" aria-label="Link to this section" tabindex="-1"></a></h3>
+<ul>
+<li>
+<p>在datalink层通过匹配Mac address来确认是否是正确的目标Mac address，正确则接受，不正确则丢丢，接受后就会从以太网帧（Ethernet frame）解封（decapsulate）PDU</p>
+<p><img src="https://i.imgur.com/GTJiQ2w.png" alt="image-20221002020921089"></p>
+</li>
+<li>
+<p>从以太网帧解封出来的数据我们称作packet(数据包)，packet包含以下内容</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/56oF77X.png" alt="image-20221002021200902"></p>
+<p>在实验一中pc2解封了PDU后，在第三层就会有ip检测，ip也需要相匹配才能进行下去，如果不匹配也会直接扔掉。</p>
+<p>匹配完后会检测这整个packet是什么类型，在实验1上我们可以看到整个packet是ICMP类型，所以pc2检测出来ICMP类型后就会执行ICMP程序，ICMP程序发现没问题后就会接受Echo request（响应回复）并对发过来的pc进行回复Echo reply。</p>
+<blockquote>
+<ul>
+<li>关于什么是ICMP— <a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/ICMP.html" target="_blank" rel="nofollow noreferrer noopener">ICMP</a></li>
+<li>关于什么是hop/ next-hop— <a href="https://www.jannet.hk/routing-decision-zh-hans/#Static_Route_Next_Hop" target="_blank" rel="nofollow noreferrer noopener">hop</a></li>
+<li>关于两台电脑发文件处理PDU的过程— <a href="https://blog.csdn.net/jerry11112/article/details/78897273" target="_blank" rel="nofollow noreferrer noopener">CSDN两台电脑如何发文件</a></li>
+<li>什么是以太网帧— <a href="https://zhuanlan.zhihu.com/p/21318925" target="_blank" rel="nofollow noreferrer noopener">以太网帧（Ethernet frame）</a></li>
+<li>单播（unicast）、组播（multicast）、广播(broadcast)的区别 —<a href="https://blog.51cto.com/tommyking/1915236" target="_blank" rel="nofollow noreferrer noopener">单播（unicast）、组播（multicast）、广播(broadcast)的区别</a></li>
+</ul>
+</blockquote>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>
