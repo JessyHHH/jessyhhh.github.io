@@ -1,0 +1,686 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计 | jessy</title> <meta name="description" content="用业务场景讲清 Go 本地缓存、Redis、Prompt Caching、RAG 缓存、MQ、MySQL 一致性和游戏状态缓存。"> <link rel="canonical" href="https://jessyhhh.github.io/blog/redis-cache-business-ai-agent-systems/"> <meta property="og:title" content="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计"> <meta property="og:description" content="用业务场景讲清 Go 本地缓存、Redis、Prompt Caching、RAG 缓存、MQ、MySQL 一致性和游戏状态缓存。"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/redis-cache-business-ai-agent-systems/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/_astro/cache_img.CXJ9hpsv.png"> <meta property="og:image:alt" content="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计"> <meta name="twitter:description" content="用业务场景讲清 Go 本地缓存、Redis、Prompt Caching、RAG 缓存、MQ、MySQL 一致性和游戏状态缓存。"> <meta name="twitter:image" content="https://jessyhhh.github.io/_astro/cache_img.CXJ9hpsv.png"> <meta name="twitter:image:alt" content="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2026-06-28T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> 文章 </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/redis-cache-business-ai-agent-systems" aria-current="page" data-astro-cid-wv7whodv> 缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计 </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> 标签 </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> 关于 </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/hmac-token-timestamp-redis-ttl-blog" data-icon-button data-dir="prev" aria-label="上一篇：接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL" title="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/webagent-rag-enterprise-integration-design" data-icon-button data-dir="next" aria-label="下一篇：别让 RAG 只会背书：WebAgent 的企业系统互联设计" title="别让 RAG 只会背书：WebAgent 的企业系统互联设计" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#一先画地图缓存系统不是单层结构" data-astro-cid-p33bl5ka>一、先画地图：缓存系统不是单层结构</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#二go-本身能解决什么不要每个热点都先冲向-redis" data-astro-cid-p33bl5ka>二、Go 本身能解决什么：不要每个热点都先冲向 Redis</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-本地缓存适合什么" data-astro-cid-p33bl5ka>1. 本地缓存适合什么</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-singleflight-解决什么" data-astro-cid-p33bl5ka>2. singleflight 解决什么</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#三ai-agentprompt-cacheagent-cacheredis-cache-不是一回事" data-astro-cid-p33bl5ka>三、AI Agent：Prompt Cache、Agent Cache、Redis Cache 不是一回事</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-provider-prompt-cache-怎么用" data-astro-cid-p33bl5ka>1. Provider Prompt Cache 怎么用</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-agent-自己怎么缓存" data-astro-cid-p33bl5ka>2. Agent 自己怎么缓存</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#四rag缓存的不只是答案而是处理链路" data-astro-cid-p33bl5ka>四、RAG：缓存的不只是答案，而是处理链路</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-文件级缓存" data-astro-cid-p33bl5ka>1. 文件级缓存</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-chunk-和-embedding-缓存" data-astro-cid-p33bl5ka>2. Chunk 和 Embedding 缓存</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-retrieval-缓存" data-astro-cid-p33bl5ka>3. Retrieval 缓存</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-context-pack-缓存" data-astro-cid-p33bl5ka>4. Context Pack 缓存</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#五购买链路缓存负责快数据库负责真mq-负责排队" data-astro-cid-p33bl5ka>五、购买链路：缓存负责快，数据库负责真，MQ 负责排队</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-读链路商品详情缓存" data-astro-cid-p33bl5ka>1. 读链路：商品详情缓存</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-写链路订单事实先落库" data-astro-cid-p33bl5ka>2. 写链路：订单事实先落库</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-缓存不够时为什么要-mq" data-astro-cid-p33bl5ka>3. 缓存不够时为什么要 MQ</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#六redis-和-mysql-一致性不要追求童话追求可控" data-astro-cid-p33bl5ka>六、Redis 和 MySQL 一致性：不要追求童话，追求可控</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-基础方案写库后删缓存" data-astro-cid-p33bl5ka>1. 基础方案：写库后删缓存</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-旧值回填怎么处理" data-astro-cid-p33bl5ka>2. 旧值回填怎么处理</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-什么时候不能靠缓存一致性" data-astro-cid-p33bl5ka>3. 什么时候不能靠缓存一致性</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#七三大缓存问题从面试题还原成业务事故" data-astro-cid-p33bl5ka>七、三大缓存问题：从面试题还原成业务事故</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-缓存穿透不存在的数据把数据库打穿" data-astro-cid-p33bl5ka>1. 缓存穿透：不存在的数据把数据库打穿</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-缓存击穿热点-key-过期数据库被围观" data-astro-cid-p33bl5ka>2. 缓存击穿：热点 key 过期，数据库被围观</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-缓存雪崩一批-key-一起过期" data-astro-cid-p33bl5ka>3. 缓存雪崩：一批 key 一起过期</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#八排行榜redis-zset-是现场大屏不是赛后账本" data-astro-cid-p33bl5ka>八、排行榜：Redis ZSet 是现场大屏，不是赛后账本</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#九分布式-redis不是为了高级是为了坏了还能活" data-astro-cid-p33bl5ka>九、分布式 Redis：不是为了高级，是为了坏了还能活</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-主从复制" data-astro-cid-p33bl5ka>1. 主从复制</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-sentinel" data-astro-cid-p33bl5ka>2. Sentinel</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-cluster" data-astro-cid-p33bl5ka>3. Cluster</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-redis-崩了怎么恢复" data-astro-cid-p33bl5ka>4. Redis 崩了怎么恢复</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十什么时候缓存不够要加-mq" data-astro-cid-p33bl5ka>十、什么时候缓存不够，要加 MQ</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十一游戏缓存websocket-棋盘和-udp-fps-不是一种系统" data-astro-cid-p33bl5ka>十一、游戏缓存：WebSocket 棋盘和 UDP FPS 不是一种系统</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-棋盘--回合制游戏" data-astro-cid-p33bl5ka>1. 棋盘 / 回合制游戏</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-fps--实时动作游戏" data-astro-cid-p33bl5ka>2. FPS / 实时动作游戏</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十二最后给一个业务缓存设计清单" data-astro-cid-p33bl5ka>十二、最后给一个业务缓存设计清单</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#references" data-astro-cid-p33bl5ka>References</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/redis-cache-business-ai-agent-systems" data-title="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计 | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2026-06-28T00:00:00.000Z" data-astro-cid-vvdrgdaw>2026年6月28日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/redis" data-astro-cid-vvdrgdaw>#redis</a><a href="/tags/backend" data-astro-cid-vvdrgdaw>#backend</a><a href="/tags/ai-agent" data-astro-cid-vvdrgdaw>#ai-agent</a><a href="/tags/cache" data-astro-cid-vvdrgdaw>#cache</a><a href="/tags/distributed-systems" data-astro-cid-vvdrgdaw>#distributed-systems</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>用业务场景讲清 Go 本地缓存、Redis、Prompt Caching、RAG 缓存、MQ、MySQL 一致性和游戏状态缓存。</p> </header> <post-banner data-astro-cid-vvdrgdaw="true">  <img src="/_astro/cache_img.CXJ9hpsv_Z21cKur.webp" alt="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计" data-astro-cid-vvdrgdaw="true" loading="eager" decoding="sync" fetchpriority="high" width="1200" height="630"> </post-banner> <prose-content data-astro-cid-vvdrgdaw="true"> <img src="/images/cache-system-layers.png" alt="业务缓存系统分层图" />
+<p>很多后端系统的性能优化，都是从一句非常熟悉的话开始的：</p>
+<blockquote>
+<p>这个接口有点慢，加个 Redis 吧。</p>
+</blockquote>
+<p>这句话不能说错。</p>
+<p>但它也很容易把人带沟里。因为业务要解决的问题从来不是“怎么用 Redis”，而是：</p>
+<p><strong>怎么让系统更快、更稳、更便宜、出问题还能恢复。</strong></p>
+<p>Redis 只是工具箱里最常用的那把扳手。<br>
+有时候你需要的是 Go 进程内缓存，有时候是 <code>singleflight</code>，有时候是 Eino / LangChain 的 memory 和 checkpoint，有时候是 OpenAI / Anthropic 的 Prompt Caching，有时候是向量库，有时候是 MQ，有时候老老实实让 MySQL 当裁判。</p>
+<p>如果所有问题都用 Redis 解决，最后 Redis 会变成一个又当收银员、又当仓库、又当会计、又当消防员的同事。这样的同事一般不是全能，是快离职了。</p>
+<p>所以这篇文章换个角度讲缓存：</p>
+<p><strong>我们不是为了使用 Redis 才设计缓存，而是为了业务目标选择合适的缓存层。</strong></p>
+<hr>
+<h2 id="一先画地图缓存系统不是单层结构">一、先画地图：缓存系统不是单层结构<a data-heading-anchor="" href="#一先画地图缓存系统不是单层结构" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>真实业务里，一个请求往往会穿过很多层缓存。</p>
+<p>比如一个 AI Agent 请求：</p>
+<ol>
+<li>浏览器里保留了当前会话 UI 状态</li>
+<li>Go 服务用本地缓存挡住热点配置</li>
+<li>Agent 框架保存 checkpoint，方便中断恢复</li>
+<li>Redis 记录任务状态、限流、工具结果</li>
+<li>RAG 系统缓存文件切片和 embedding</li>
+<li>模型厂商命中 Prompt Cache</li>
+<li>MySQL 保存最终任务结果和账单</li>
+<li>MQ 异步发通知、写审计、刷新下游缓存</li>
+</ol>
+<p>如果你只问“Redis 怎么用”，就像只盯着厨房里的锅，却忘了还有冰箱、案板、菜单、收银系统和消防通道。</p>
+<p>更合理的思考方式是：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>负责什么</th>
+<th>典型工具</th>
+<th>命中指标</th>
+<th>主要风险</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端缓存</td>
+<td>UI 状态<br />静态资源<br />棋盘本地状态</td>
+<td>Browser / App Memory<br />HTTP Cache<br />LocalStorage / IndexedDB</td>
+<td>本地命中率<br />页面加载时间<br />交互延迟</td>
+<td>旧状态<br />越权数据<br />缓存未及时失效</td>
+</tr>
+<tr>
+<td>Go 本地缓存</td>
+<td>进程内热点<br />配置缓存<br />请求合并 / 回源保护</td>
+<td><code>map + mutex</code><br /><code>sync.Map</code><br /><code>LRU</code><br /><code>singleflight</code></td>
+<td>local hit<br />本地命中率<br />回源次数</td>
+<td>多实例不一致<br />进程重启丢失<br />过期策略不清晰</td>
+</tr>
+<tr>
+<td>框架缓存</td>
+<td>Agent Memory<br />Checkpoint<br />Retriever 状态<br />多轮会话状态</td>
+<td>Eino<br />LangChain<br />LangGraph</td>
+<td>resume rate<br />memory hit<br />checkpoint 恢复率</td>
+<td>存储后端不可靠<br />状态恢复失败<br />上下文污染</td>
+</tr>
+<tr>
+<td>Redis 服务缓存</td>
+<td>热数据<br />分布式锁<br />限流<br />排行榜<br />任务状态</td>
+<td>Redis String<br />Hash<br />ZSet<br />Stream<br />Lua Script</td>
+<td>Redis hit rate<br />P99 延迟<br />慢查询<br />内存使用率</td>
+<td>热 key<br />缓存雪崩<br />缓存击穿<br />Redis 故障</td>
+</tr>
+<tr>
+<td>RAG 缓存</td>
+<td>文件切片<br />Embedding<br />检索结果<br />上下文包复用</td>
+<td>Redis<br />向量库<br />对象存储<br />Embedding Cache</td>
+<td>chunk hit<br />embedding hit<br />retrieval hit</td>
+<td>索引版本不一致<br />权限范围缓存错误<br />旧向量未失效</td>
+</tr>
+<tr>
+<td>Prompt Cache</td>
+<td>模型输入前缀<br />工具定义<br />系统提示词<br />长上下文稳定部分</td>
+<td>OpenAI<br />Anthropic<br />模型厂商缓存能力</td>
+<td>cached tokens<br />cache read tokens<br />prefix hit rate</td>
+<td>只缓存稳定前缀<br />不缓存业务结果<br />动态内容影响命中</td>
+</tr>
+<tr>
+<td>MQ / 事件缓存</td>
+<td>异步任务<br />削峰填谷<br />事件分发<br />缓存失效通知</td>
+<td>Kafka<br />RabbitMQ<br />RocketMQ<br />Redis Streams</td>
+<td>backlog<br />消费延迟<br />失败率<br />死信数量</td>
+<td>重复消费<br />消息乱序<br />消息积压<br />消费者失败</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>最终事实<br />交易数据<br />审计记录<br />强一致数据</td>
+<td>MySQL<br />PostgreSQL</td>
+<td>事务成功率<br />查询延迟<br />慢 SQL<br />锁等待</td>
+<td>把缓存误当真相<br />缓存覆盖真实数据<br />主从延迟</td>
+</tr>
+</tbody>
+</table>
+<p>这张表的重点不是“工具很多”，而是：</p>
+<p><strong>每一层缓存都有自己的命中定义、失效方式和责任边界。</strong></p>
+<p>Redis 很重要，但它不是整套缓存系统的名字。</p>
+<hr>
+<h2 id="二go-本身能解决什么不要每个热点都先冲向-redis">二、Go 本身能解决什么：不要每个热点都先冲向 Redis<a data-heading-anchor="" href="#二go-本身能解决什么不要每个热点都先冲向-redis" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>很多 Go 服务的缓存问题，第一层其实不需要 Redis。</p>
+<p>比如：</p>
+<ul>
+<li>配置每 30 秒刷新一次</li>
+<li>某个 feature flag 每个请求都要读</li>
+<li>同一个热点 key 在一瞬间被 1000 个 goroutine 同时回源</li>
+<li>单实例内重复计算一个昂贵结果</li>
+</ul>
+<p>这些可以先在 Go 进程内解决。</p>
+<h3 id="1-本地缓存适合什么">1. 本地缓存适合什么<a data-heading-anchor="" href="#1-本地缓存适合什么" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>本地缓存适合：</p>
+<ul>
+<li>数据很小</li>
+<li>可以短暂不一致</li>
+<li>每个实例都能自己刷新</li>
+<li>丢了可以重建</li>
+<li>访问频率极高</li>
+</ul>
+<p>比如系统配置、静态字典、短期权限模板。</p>
+<p>它的好处是没有网络往返。Redis 再快，也要过网络；Go 本地 map 命中就是进程内完成。</p>
+<p>但本地缓存也有边界：</p>
+<ul>
+<li>多实例之间不一致</li>
+<li>无法全局限流</li>
+<li>无法做跨实例锁</li>
+<li>进程重启就丢</li>
+<li>容量和淘汰策略要自己控制</li>
+</ul>
+<p>所以本地缓存常常是 Redis 前面的一层保护，而不是 Redis 的替代品。</p>
+<div class="expressive-code"><style>.expressive-code{font-family:var(--ec-uiFontFml);font-size:var(--ec-uiFontSize);font-weight:var(--ec-uiFontWg);line-height:var(--ec-uiLineHt);text-size-adjust:none;-webkit-text-size-adjust:none}.expressive-code *:not(:is(svg, svg *)){all:revert;box-sizing:border-box}.expressive-code pre{display:flex;margin:0;padding:0;border:var(--ec-brdWd) solid var(--ec-brdCol);border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));background:var(--ec-codeBg)}.expressive-code pre:focus-visible{outline:3px solid var(--ec-focusBrd);outline-offset:-3px}.expressive-code pre > code{all:unset;display:block;flex:1 0 100%;padding:var(--ec-codePadBlk) 0;color:var(--ec-codeFg);font-family:var(--ec-codeFontFml);font-size:var(--ec-codeFontSize);font-weight:var(--ec-codeFontWg);line-height:var(--ec-codeLineHt)}.expressive-code pre{overflow-x:auto}.expressive-code pre.wrap .ec-line .code{white-space:pre-wrap;overflow-wrap:break-word;min-width:min(20ch, var(--ecMaxLine, 20ch))}.expressive-code pre.wrap .ec-line .code span.indent{white-space:pre}.expressive-code pre::-webkit-scrollbar,.expressive-code pre::-webkit-scrollbar-track{background-color:inherit;border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));border-top-left-radius:0;border-top-right-radius:0}.expressive-code pre::-webkit-scrollbar-thumb{background-color:var(--ec-sbThumbCol);border:4px solid transparent;background-clip:content-box;border-radius:10px}.expressive-code pre::-webkit-scrollbar-thumb:hover{background-color:var(--ec-sbThumbHoverCol)}.expressive-code .ec-line{direction:ltr;unicode-bidi:isolate;display:grid;grid-template-areas:'gutter code';grid-template-columns:auto 1fr;position:relative}.expressive-code .ec-line .gutter{grid-area:gutter;color:var(--ec-gtrFg)}.expressive-code .ec-line .gutter > *{pointer-events:none;user-select:none;-webkit-user-select:none}.expressive-code .ec-line .gutter ~ .code{--ecLineBrdCol:var(--ec-gtrBrdCol)}.expressive-code .ec-line.highlight .gutter{color:var(--ec-gtrHlFg)}.expressive-code .ec-line .code{grid-area:code;position:relative;box-sizing:content-box;padding-inline-start:calc(var(--ecIndent, 0ch) + var(--ec-codePadInl) - var(--ecGtrBrdWd));padding-inline-end:var(--ec-codePadInl);text-indent:calc(var(--ecIndent, 0ch) * -1)}.expressive-code .ec-line .code::before,.expressive-code .ec-line .code::after,.expressive-code .ec-line .code :where(*){text-indent:0}.expressive-code .ec-line .code{--ecGtrBrdWd:var(--ec-gtrBrdWd);border-inline-start:var(--ecGtrBrdWd) solid var(--ecLineBrdCol, transparent)}.expressive-code .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.expressive-code .ec-line.mark{--tmLineBgCol:var(--ec-tm-markBg)}.expressive-code .ec-line.mark .code{--ecLineBrdCol:var(--ec-tm-markBrdCol)}.expressive-code .ec-line.ins{--tmLineBgCol:var(--ec-tm-insBg);--tmLabel:var(--ec-tm-insDiffIndContent)}.expressive-code .ec-line.ins .code{--ecLineBrdCol:var(--ec-tm-insBrdCol)}.expressive-code .ec-line.ins .code::before{color:var(--ec-tm-insDiffIndCol)}.expressive-code .ec-line.del{--tmLineBgCol:var(--ec-tm-delBg);--tmLabel:var(--ec-tm-delDiffIndContent)}.expressive-code .ec-line.del .code{--ecLineBrdCol:var(--ec-tm-delBrdCol)}.expressive-code .ec-line.del .code::before{color:var(--ec-tm-delDiffIndCol)}.expressive-code .ec-line.mark,.expressive-code .ec-line.ins,.expressive-code .ec-line.del{background:var(--tmLineBgCol)}.expressive-code .ec-line.mark .code,.expressive-code .ec-line.ins .code,.expressive-code .ec-line.del .code{--ecGtrBrdWd:var(--ec-tm-lineMarkerAccentWd)}.expressive-code .ec-line.mark .code::before,.expressive-code .ec-line.ins .code::before,.expressive-code .ec-line.del .code::before{display:block;position:absolute;left:0;box-sizing:border-box;content:var(--tmLabel, ' ');padding-inline-start:var(--ec-tm-lineDiffIndMargLeft);text-align:center;white-space:pre}.expressive-code .ec-line.mark.tm-label .code::before,.expressive-code .ec-line.ins.tm-label .code::before,.expressive-code .ec-line.del.tm-label .code::before{background:var(--ecLineBrdCol);padding:0 calc(var(--ec-tm-lineMarkerLabelPadInl) + var(--ec-tm-lineMarkerAccentWd)) 0 var(--ec-tm-lineMarkerLabelPadInl);color:var(--ec-tm-lineMarkerLabelCol)}.expressive-code .ec-line mark{--tmInlineBgCol:var(--ec-tm-markBg);--tmInlineBrdCol:var(--ec-tm-markBrdCol)}.expressive-code .ec-line ins{--tmInlineBgCol:var(--ec-tm-insBg);--tmInlineBrdCol:var(--ec-tm-insBrdCol)}.expressive-code .ec-line del{--tmInlineBgCol:var(--ec-tm-delBg);--tmInlineBrdCol:var(--ec-tm-delBrdCol)}.expressive-code .ec-line mark,.expressive-code .ec-line ins,.expressive-code .ec-line del{all:unset;display:inline-block;position:relative;--tmBrdL:var(--ec-tm-inlMarkerBrdWd);--tmBrdR:var(--ec-tm-inlMarkerBrdWd);--tmRadL:var(--ec-tm-inlMarkerBrdRad);--tmRadR:var(--ec-tm-inlMarkerBrdRad);margin-inline:0.025rem;padding-inline:var(--ec-tm-inlMarkerPad);border-radius:var(--tmRadL) var(--tmRadR) var(--tmRadR) var(--tmRadL);background:var(--tmInlineBgCol);background-clip:padding-box}.expressive-code .ec-line mark.open-start,.expressive-code .ec-line ins.open-start,.expressive-code .ec-line del.open-start{margin-inline-start:0;padding-inline-start:0;--tmBrdL:0px;--tmRadL:0}.expressive-code .ec-line mark.open-end,.expressive-code .ec-line ins.open-end,.expressive-code .ec-line del.open-end{margin-inline-end:0;padding-inline-end:0;--tmBrdR:0px;--tmRadR:0}.expressive-code .ec-line mark::before,.expressive-code .ec-line ins::before,.expressive-code .ec-line del::before{content:'';position:absolute;pointer-events:none;display:inline-block;inset:0;border-radius:var(--tmRadL) var(--tmRadR) var(--tmRadR) var(--tmRadL);border:var(--ec-tm-inlMarkerBrdWd) solid var(--tmInlineBrdCol);border-inline-width:var(--tmBrdL) var(--tmBrdR)}.expressive-code .frame{all:unset;position:relative;display:block;--header-border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));--tab-border-radius:calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd));--button-spacing:0.4rem;--code-background:var(--ec-frm-edBg);border-radius:var(--header-border-radius);box-shadow:var(--ec-frm-frameBoxShdCssVal)}.expressive-code .frame .header{display:none;z-index:1;position:relative;border-radius:var(--header-border-radius) var(--header-border-radius) 0 0}.expressive-code .frame.has-title pre,.expressive-code .frame.has-title code,.expressive-code .frame.is-terminal pre,.expressive-code .frame.is-terminal code{border-top:none;border-top-left-radius:0;border-top-right-radius:0}.expressive-code .frame .title:empty:before{content:'\a0'}.expressive-code .frame.has-title:not(.is-terminal){--button-spacing:calc(1.9rem + 2 * (var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)))}.expressive-code .frame.has-title:not(.is-terminal) .title{position:relative;color:var(--ec-frm-edActTabFg);background:var(--ec-frm-edActTabBg);background-clip:padding-box;margin-block-start:var(--ec-frm-edTabsMargBlkStart);padding:calc(var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)) var(--ec-uiPadInl);border:var(--ec-brdWd) solid var(--ec-frm-edActTabBrdCol);border-radius:var(--tab-border-radius) var(--tab-border-radius) 0 0;border-bottom:none;overflow:hidden}.expressive-code .frame.has-title:not(.is-terminal) .title::after{content:'';position:absolute;pointer-events:none;inset:0;border-top:var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndTopCol);border-bottom:var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndBtmCol)}.expressive-code .frame.has-title:not(.is-terminal) .header{display:flex;background:linear-gradient(to top, var(--ec-frm-edTabBarBrdBtmCol) var(--ec-brdWd), transparent var(--ec-brdWd)),linear-gradient(var(--ec-frm-edTabBarBg), var(--ec-frm-edTabBarBg));background-repeat:no-repeat;padding-inline-start:var(--ec-frm-edTabsMargInlStart)}.expressive-code .frame.has-title:not(.is-terminal) .header::before{content:'';position:absolute;pointer-events:none;inset:0;border:var(--ec-brdWd) solid var(--ec-frm-edTabBarBrdCol);border-radius:inherit;border-bottom:none}.expressive-code .frame.is-terminal{--button-spacing:calc(1.9rem + var(--ec-brdWd) + 2 * var(--ec-uiPadBlk));--code-background:var(--ec-frm-trmBg)}.expressive-code .frame.is-terminal .header{display:flex;align-items:center;justify-content:center;padding-block:var(--ec-uiPadBlk);padding-block-end:calc(var(--ec-uiPadBlk) + var(--ec-brdWd));position:relative;font-weight:500;letter-spacing:0.025ch;color:var(--ec-frm-trmTtbFg);background:var(--ec-frm-trmTtbBg);border:var(--ec-brdWd) solid var(--ec-brdCol);border-bottom:none}.expressive-code .frame.is-terminal .header::before{content:'';position:absolute;pointer-events:none;left:var(--ec-uiPadInl);width:2.1rem;height:0.56rem;line-height:0;background-color:var(--ec-frm-trmTtbDotsFg);opacity:var(--ec-frm-trmTtbDotsOpa);-webkit-mask-image:var(--ec-frm-trmIcon);-webkit-mask-repeat:no-repeat;mask-image:var(--ec-frm-trmIcon);mask-repeat:no-repeat}.expressive-code .frame.is-terminal .header::after{content:'';position:absolute;pointer-events:none;inset:0;border-bottom:var(--ec-brdWd) solid var(--ec-frm-trmTtbBrdBtmCol)}.expressive-code .frame pre{background:var(--code-background)}.expressive-code .copy{display:flex;gap:0.25rem;flex-direction:row;position:absolute;inset-block-start:calc(var(--ec-brdWd) + var(--button-spacing));inset-inline-end:calc(var(--ec-brdWd) + var(--ec-uiPadInl) / 2)}@media (scripting: none){.expressive-code .copy{display:none}}.expressive-code .copy{direction:ltr;unicode-bidi:isolate}.expressive-code .copy button{position:relative;align-self:flex-end;margin:0;padding:0;border:none;border-radius:0.2rem;z-index:1;cursor:pointer;transition-property:opacity, background, border-color;transition-duration:0.2s;transition-timing-function:cubic-bezier(0.25, 0.46, 0.45, 0.94);width:2.5rem;height:2.5rem;background:var(--code-background);opacity:0.75}.expressive-code .copy button div{position:absolute;inset:0;border-radius:inherit;background:var(--ec-frm-inlBtnBg);opacity:var(--ec-frm-inlBtnBgIdleOpa);transition-property:inherit;transition-duration:inherit;transition-timing-function:inherit}.expressive-code .copy button::before{content:'';position:absolute;pointer-events:none;inset:0;border-radius:inherit;border:var(--ec-brdWd) solid var(--ec-frm-inlBtnBrd);opacity:var(--ec-frm-inlBtnBrdOpa)}.expressive-code .copy button::after{content:'';position:absolute;pointer-events:none;inset:0;background-color:var(--ec-frm-inlBtnFg);-webkit-mask-image:var(--ec-frm-copyIcon);-webkit-mask-repeat:no-repeat;mask-image:var(--ec-frm-copyIcon);mask-repeat:no-repeat;margin:0.475rem;line-height:0}.expressive-code .copy button:hover,.expressive-code .copy button:focus:focus-visible{opacity:1}.expressive-code .copy button:hover div,.expressive-code .copy button:focus:focus-visible div{opacity:var(--ec-frm-inlBtnBgHoverOrFocusOpa)}.expressive-code .copy button:active{opacity:1}.expressive-code .copy button:active div{opacity:var(--ec-frm-inlBtnBgActOpa)}.expressive-code .copy .feedback{--tooltip-arrow-size:0.35rem;--tooltip-bg:var(--ec-frm-tooltipSuccessBg);color:var(--ec-frm-tooltipSuccessFg);pointer-events:none;user-select:none;-webkit-user-select:none;position:relative;align-self:center;background-color:var(--tooltip-bg);z-index:99;padding:0.125rem 0.75rem;border-radius:0.2rem;margin-inline-end:var(--tooltip-arrow-size);opacity:0;transition-property:opacity, transform;transition-duration:0.2s;transition-timing-function:ease-in-out;transform:translate3d(0, 0.25rem, 0)}.expressive-code .copy .feedback::after{content:'';position:absolute;pointer-events:none;top:calc(50% - var(--tooltip-arrow-size));inset-inline-end:calc(-2 * (var(--tooltip-arrow-size) - 0.5px));border:var(--tooltip-arrow-size) solid transparent;border-inline-start-color:var(--tooltip-bg)}.expressive-code .copy .feedback.show{opacity:1;transform:translate3d(0, 0, 0)}@media (hover: hover){.expressive-code{}.expressive-code .copy button{opacity:0;width:2rem;height:2rem}.expressive-code .frame:hover .copy button:not(:hover),.expressive-code .frame:focus-within :focus-visible ~ .copy button:not(:hover),.expressive-code .frame .copy .feedback.show ~ button:not(:hover){opacity:0.75}}.expressive-code :nth-child(1 of .ec-line) .code{padding-inline-end:calc(2rem + var(--ec-codePadInl))}.expressive-code .ec-section{position:relative}.expressive-code .ec-section summary{position:relative;font-family:var(--ec-cs-closedFontFml);font-size:var(--ec-cs-closedFontSize);line-height:var(--ec-cs-closedLineHt);user-select:none;-webkit-user-select:none;cursor:pointer;color:var(--ec-cs-closedTextCol);background-color:var(--ec-cs-closedBgCol);--border-color:var(--ec-cs-closedBrdCol);--border-width:var(--ec-cs-closedBrdWd);box-shadow:inset 0 calc(-1 * var(--border-width)) var(--border-color), inset 0 var(--border-width) var(--border-color);margin:var(--ec-cs-closedMarg);padding:0}.expressive-code .ec-section summary::marker{display:inline-block;content:"";width:16px;height:16px}.expressive-code .ec-section summary::-webkit-details-marker{display:none}.expressive-code .ec-section summary :is(.expand, .collapse){position:relative;display:inline-block;width:16px;height:16px;vertical-align:text-bottom;opacity:0.75}.expressive-code .ec-section summary :is(.expand, .collapse)::after{content:'';position:absolute;pointer-events:none;inset:0;background-color:var(--ec-cs-closedTextCol);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;line-height:0}.expressive-code .ec-section summary .expand::after{-webkit-mask-image:var(--ec-cs-expandIcon);mask-image:var(--ec-cs-expandIcon);-webkit-print-color-adjust:exact;print-color-adjust:exact}.expressive-code .ec-section summary .collapse{display:none}.expressive-code .ec-section summary .collapse::after{-webkit-mask-image:var(--ec-cs-collapseIcon);mask-image:var(--ec-cs-collapseIcon)}.expressive-code .ec-section summary .text{margin-left:1em}.expressive-code .ec-section summary .ec-line .code{padding-block:var(--ec-cs-closedPadBlk);text-indent:0}.expressive-code .ec-section[open],.expressive-code .ec-section details[open] + .content-lines{--border-color:var(--ec-cs-openBrdCol);--border-width:var(--ec-cs-openBrdWd);box-shadow:inset 0 calc(-1 * var(--border-width)) var(--border-color), inset 0 var(--border-width) var(--border-color);padding-inline:var(--ec-cs-openPad);margin-inline:var(--ec-cs-openMarg)}.expressive-code .ec-section.github[open] summary{display:none}.expressive-code .ec-section.github[open]{background-color:var(--ec-cs-openBgCol)}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end){display:flex;flex-direction:column}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) .content-lines{display:none}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] .collapse{display:inline-block}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] :is(.expand, .text){display:none}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] + .content-lines{display:block;background-color:var(--ec-cs-openBgColCollapsible)}@media print{.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open]{display:none}}.expressive-code .ec-section.collapsible-end{flex-direction:column-reverse}.expressive-code .gutter .ln{display:inline-flex;justify-content:flex-end;align-items:flex-start;box-sizing:content-box;min-width:var(--lnWidth, 2ch);padding-inline:2ch;color:var(--ec-lineNumbers-fg)}.highlight .expressive-code .gutter .ln{color:var(--ec-lineNumbers-hlFg)}:root,:root:not([data-theme="light"]) .expressive-code[data-theme="light"]{--ec-brdRad:0px;--ec-brdWd:1.5px;--ec-brdCol:var(--border);--ec-codeFontFml:var(--font-mono);--ec-codeFontSize:var(--step--1);--ec-codeFontWg:400;--ec-codeLineHt:1.65;--ec-codePadBlk:1rem;--ec-codePadInl:1.35rem;--ec-codeBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-codeFg:#24292e;--ec-codeSelBg:#0366d625;--ec-gtrFg:#1b1f234d;--ec-gtrBrdCol:#1b1f2333;--ec-gtrBrdWd:1.5px;--ec-gtrHlFg:#24292e;--ec-uiFontFml:var(--font-sans);--ec-uiFontSize:0.9rem;--ec-uiFontWg:400;--ec-uiLineHt:1.65;--ec-uiPadBlk:0.25rem;--ec-uiPadInl:1rem;--ec-uiSelBg:#e2e5e9;--ec-uiSelFg:#2f363d;--ec-focusBrd:#2188ff;--ec-sbThumbCol:#959da533;--ec-sbThumbHoverCol:#959da544;--ec-tm-lineMarkerAccentMarg:0rem;--ec-tm-lineMarkerAccentWd:0.15rem;--ec-tm-lineMarkerLabelPadInl:0.2rem;--ec-tm-lineMarkerLabelCol:var(--foreground);--ec-tm-lineDiffIndMargLeft:0.3rem;--ec-tm-inlMarkerBrdWd:1.5px;--ec-tm-inlMarkerBrdRad:0.2rem;--ec-tm-inlMarkerPad:0.15rem;--ec-tm-insDiffIndContent:'+';--ec-tm-delDiffIndContent:'-';--ec-tm-markBg:#95b6ff40;--ec-tm-markBrdCol:#4470c440;--ec-tm-insBg:#89c97740;--ec-tm-insBrdCol:#41803440;--ec-tm-insDiffIndCol:#2b6c20d0;--ec-tm-delBg:#ff988940;--ec-tm-delBrdCol:#ba514640;--ec-tm-delDiffIndCol:#a33c34d0;--ec-frm-shdCol:#00000028;--ec-frm-frameBoxShdCssVal:none;--ec-frm-edActTabBg:transparent;--ec-frm-edActTabFg:var(--muted-foreground);--ec-frm-edActTabBrdCol:transparent;--ec-frm-edActTabIndHt:1.5px;--ec-frm-edActTabIndTopCol:transparent;--ec-frm-edActTabIndBtmCol:transparent;--ec-frm-edTabsMargInlStart:0;--ec-frm-edTabsMargBlkStart:0;--ec-frm-edTabBrdRad:0px;--ec-frm-edTabBarBg:transparent;--ec-frm-edTabBarBrdCol:var(--border);--ec-frm-edTabBarBrdBtmCol:transparent;--ec-frm-edBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-frm-trmTtbFg:var(--muted-foreground);--ec-frm-trmTtbDotsFg:var(--muted-foreground);--ec-frm-trmTtbDotsOpa:0.15;--ec-frm-trmTtbBg:transparent;--ec-frm-trmTtbBrdBtmCol:transparent;--ec-frm-trmBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-frm-inlBtnFg:#24292e;--ec-frm-inlBtnBg:#24292e;--ec-frm-inlBtnBgIdleOpa:0;--ec-frm-inlBtnBgHoverOrFocusOpa:0.2;--ec-frm-inlBtnBgActOpa:0.3;--ec-frm-inlBtnBrd:#24292e;--ec-frm-inlBtnBrdOpa:0.4;--ec-frm-tooltipSuccessBg:#208638;--ec-frm-tooltipSuccessFg:white;--ec-frm-copyIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.75'%3E%3Cpath%20d%3D'M3%2019a2%202%200%200%201-1-2V2a2%202%200%200%201%201-1h13a2%202%200%200%201%202%201'%2F%3E%3Crect%20x%3D'6'%20y%3D'5'%20width%3D'16'%20height%3D'18'%20rx%3D'1.5'%20ry%3D'1.5'%2F%3E%3C%2Fsvg%3E");--ec-frm-trmIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2060%2016'%20preserveAspectRatio%3D'xMidYMid%20meet'%3E%3Ccircle%20cx%3D'8'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'30'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'52'%20cy%3D'8'%20r%3D'8'%2F%3E%3C%2Fsvg%3E");--ec-cs-closedBrdWd:0px;--ec-cs-closedPadBlk:4px;--ec-cs-closedMarg:0;--ec-cs-closedFontFml:var(--font-sans);--ec-cs-closedFontSize:inherit;--ec-cs-closedLineHt:inherit;--ec-cs-closedTextCol:#24292e;--ec-cs-closedBgCol:#d1d5da33;--ec-cs-closedBrdCol:#d1d5da80;--ec-cs-openBrdWd:1px;--ec-cs-openPad:0;--ec-cs-openMarg:0;--ec-cs-openBgCol:transparent;--ec-cs-openBgColCollapsible:#d1d5da1a;--ec-cs-openBrdCol:transparent;--ec-cs-expandIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Cpath%20d%3D'm8.177.677%202.896%202.896a.25.25%200%200%201-.177.427H8.75v1.25a.75.75%200%200%201-1.5%200V4H5.104a.25.25%200%200%201-.177-.427L7.823.677a.25.25%200%200%201%20.354%200ZM7.25%2010.75a.75.75%200%200%201%201.5%200V12h2.146a.25.25%200%200%201%20.177.427l-2.896%202.896a.25.25%200%200%201-.354%200l-2.896-2.896A.25.25%200%200%201%205.104%2012H7.25v-1.25Zm-5-2a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM6%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%206%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM12%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%2012%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5Z'%2F%3E%3C%2Fsvg%3E");--ec-cs-collapseIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Cpath%20d%3D'M10.896%202H8.75V.75a.75.75%200%200%200-1.5%200V2H5.104a.25.25%200%200%200-.177.427l2.896%202.896a.25.25%200%200%200%20.354%200l2.896-2.896A.25.25%200%200%200%2010.896%202ZM8.75%2015.25a.75.75%200%200%201-1.5%200V14H5.104a.25.25%200%200%201-.177-.427l2.896-2.896a.25.25%200%200%201%20.354%200l2.896%202.896a.25.25%200%200%201-.177.427H8.75v1.25Zm-6.5-6.5a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM6%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%206%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM12%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%2012%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5Z'%2F%3E%3C%2Fsvg%3E");--ec-lineNumbers-fg:var(--muted-foreground);--ec-lineNumbers-hlFg:inherit}.expressive-code .ec-line :where(span[style^='--']:not([class])),:root:not([data-theme="light"]) .expressive-code[data-theme="light"] .ec-line :where(span[style^='--']:not([class])){color:var(--0, inherit);background-color:var(--0bg, transparent);font-style:var(--0fs, inherit);font-weight:var(--0fw, inherit);text-decoration:var(--0td, inherit)}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ec-codeFg:#e1e4e8;--ec-codeSelBg:#3392ff44;--ec-gtrFg:#444d56;--ec-gtrBrdCol:#444d5633;--ec-gtrHlFg:#e1e4e8;--ec-uiSelBg:#39414a;--ec-uiSelFg:#e1e4e8;--ec-focusBrd:#005cc5;--ec-sbThumbCol:#6a737d33;--ec-sbThumbHoverCol:#6a737d44;--ec-tm-markBg:#004a9840;--ec-tm-insBg:#13580c40;--ec-tm-insDiffIndCol:#73b362d0;--ec-tm-delBg:#8b272340;--ec-tm-delDiffIndCol:#f48374d0;--ec-frm-shdCol:#0000005b;--ec-frm-inlBtnFg:#e1e4e8;--ec-frm-inlBtnBg:#e1e4e8;--ec-frm-inlBtnBrd:#e1e4e8;--ec-frm-tooltipSuccessBg:#228739;--ec-cs-closedTextCol:#e1e4e8;--ec-cs-closedBgCol:#58606933;--ec-cs-closedBrdCol:#58606980;--ec-cs-openBgColCollapsible:#5860691a}:root:not([data-theme="light"]) .expressive-code .ec-line :where(span[style^='--']:not([class])){color:var(--1, inherit);background-color:var(--1bg, transparent);font-style:var(--1fs, inherit);font-weight:var(--1fw, inherit);text-decoration:var(--1td, inherit)}}:root[data-theme="dark"] .expressive-code:not([data-theme="light"]),.expressive-code[data-theme="dark"]{--ec-codeFg:#e1e4e8;--ec-codeSelBg:#3392ff44;--ec-gtrFg:#444d56;--ec-gtrBrdCol:#444d5633;--ec-gtrHlFg:#e1e4e8;--ec-uiSelBg:#39414a;--ec-uiSelFg:#e1e4e8;--ec-focusBrd:#005cc5;--ec-sbThumbCol:#6a737d33;--ec-sbThumbHoverCol:#6a737d44;--ec-tm-markBg:#004a9840;--ec-tm-insBg:#13580c40;--ec-tm-insDiffIndCol:#73b362d0;--ec-tm-delBg:#8b272340;--ec-tm-delDiffIndCol:#f48374d0;--ec-frm-shdCol:#0000005b;--ec-frm-inlBtnFg:#e1e4e8;--ec-frm-inlBtnBg:#e1e4e8;--ec-frm-inlBtnBrd:#e1e4e8;--ec-frm-tooltipSuccessBg:#228739;--ec-cs-closedTextCol:#e1e4e8;--ec-cs-closedBgCol:#58606933;--ec-cs-closedBrdCol:#58606980;--ec-cs-openBgColCollapsible:#5860691a}:root[data-theme="dark"] .expressive-code:not([data-theme="light"]) .ec-line :where(span[style^='--']:not([class])),.expressive-code[data-theme="dark"] .ec-line :where(span[style^='--']:not([class])){color:var(--1, inherit);background-color:var(--1bg, transparent);font-style:var(--1fs, inherit);font-weight:var(--1fw, inherit);text-decoration:var(--1td, inherit)}</style><script type="module">try{(()=>{function a(e){if(!e)return;let t=e.getAttribute("tabindex")!==null,r=e.scrollWidth>e.clientWidth;r&&!t?(e.setAttribute("tabindex","0"),e.setAttribute("role","region")):!r&&t&&(e.removeAttribute("tabindex"),e.removeAttribute("role"))}var u=window.requestIdleCallback||(e=>setTimeout(e,1)),s=window.cancelIdleCallback||clearTimeout;function l(e){let t=new Set,r,n;return new ResizeObserver(c=>{c.forEach(o=>t.add(o.target)),r&&clearTimeout(r),n&&s(n),r=setTimeout(()=>{n&&s(n),n=u(()=>{t.forEach(o=>e(o)),t.clear()})},250)})}function i(e,t){e.querySelectorAll?.(".expressive-code pre > code").forEach(r=>{let n=r.parentElement;n&&t.observe(n)})}var d=l(a);i(document,d);var b=new MutationObserver(e=>e.forEach(t=>t.addedNodes.forEach(r=>{i(r,d)})));b.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("astro:page-load",()=>{i(document,d)});})();}catch(e){console.error("[EC] tabindex-js-module failed:",e)}</script><script type="module">try{(()=>{function l(o){let e=document.createElement("pre");Object.assign(e.style,{opacity:"0",pointerEvents:"none",position:"absolute",overflow:"hidden",left:"0",top:"0",width:"20px",height:"20px",webkitUserSelect:"auto",userSelect:"all"}),e.ariaHidden="true",e.textContent=o,document.body.appendChild(e);let a=document.createRange();a.selectNode(e);let n=getSelection();if(!n)return!1;n.removeAllRanges(),n.addRange(a);let r=!1;try{r=document.execCommand("copy")}finally{n.removeAllRanges(),document.body.removeChild(e)}return r}async function u(o){let e=o.currentTarget,a=e.dataset,n=!1,r=a.code.replace(/\u007f/g,`
+`);try{await navigator.clipboard.writeText(r),n=!0}catch{n=l(r)}if(!n||e.parentNode?.querySelector(".feedback"))return;let c=e.parentNode?.querySelector("[aria-live]"),t=document.createElement("div");t.classList.add("feedback"),t.append(a.copied),c.append(t),t.offsetWidth,requestAnimationFrame(()=>t?.classList.add("show"));let s=()=>!t||t.classList.remove("show"),d=()=>{!t||parseFloat(getComputedStyle(t).opacity)>0||(t.remove(),t=void 0)};setTimeout(s,1500),setTimeout(d,2500),e.addEventListener("blur",s),t.addEventListener("transitioncancel",d),t.addEventListener("transitionend",d)}function i(o){o.querySelectorAll?.(".expressive-code .copy button").forEach(e=>e.addEventListener("click",u))}i(document);var m=new MutationObserver(o=>o.forEach(e=>e.addedNodes.forEach(a=>{i(a)})));m.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("astro:page-load",()=>{i(document)});})();}catch(e){console.error("[EC] copy-js-module failed:",e)}</script><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:17ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">请求</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; Go 本地缓存</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; Redis</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; MySQL / 外部服务</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="请求  -> Go 本地缓存  -> Redis  -> MySQL / 外部服务"><div></div></button></div></figure></div>
+<h3 id="2-singleflight-解决什么">2. singleflight 解决什么<a data-heading-anchor="" href="#2-singleflight-解决什么" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>缓存击穿时，最怕的不是一次 miss，而是同一个 key 同时 miss。</p>
+<p>比如首页推荐配置过期，1000 个请求同时发现 Redis 没有，然后一起冲 MySQL。数据库看到这阵仗，大概会想：“我只是个数据库，不是演唱会安保。”</p>
+<p>Go 里可以用 <code>singleflight</code> 合并同一个 key 的回源：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="go" class="wrap" style="--ecMaxLine:66ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#BF3441;--1:#F97583">var</span><span style="--0:#24292E;--1:#E1E4E8"> group </span><span style="--0:#6F42C1;--1:#B392F0">singleflight</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Group</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code">
+</div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span style="--0:#BF3441;--1:#F97583">func</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">GetProduct</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#AE4B07;--1:#FFAB70">ctx</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">context</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Context</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#AE4B07;--1:#FFAB70">id</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#BF3441;--1:#F97583">int64</span><span style="--0:#24292E;--1:#E1E4E8">) (</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#6F42C1;--1:#B392F0">Product</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#BF3441;--1:#F97583">error</span><span style="--0:#24292E;--1:#E1E4E8">) {</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">key </span><span style="--0:#BF3441;--1:#F97583">:=</span><span style="--0:#24292E;--1:#E1E4E8"> fmt.</span><span style="--0:#6F42C1;--1:#B392F0">Sprintf</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#032F62;--1:#9ECBFF">"product:</span><span style="--0:#005CC5;--1:#79B8FF">%d</span><span style="--0:#032F62;--1:#9ECBFF">"</span><span style="--0:#24292E;--1:#E1E4E8">, id)</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code">
+</div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span class="indent">  </span><span style="--0:#BF3441;--1:#F97583">if</span><span style="--0:#24292E;--1:#E1E4E8"> p, ok </span><span style="--0:#BF3441;--1:#F97583">:=</span><span style="--0:#24292E;--1:#E1E4E8"> localCache.</span><span style="--0:#6F42C1;--1:#B392F0">Get</span><span style="--0:#24292E;--1:#E1E4E8">(key); ok {</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">7</div></div><div class="code"><span class="indent">    </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> p, </span><span style="--0:#005CC5;--1:#79B8FF">nil</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">8</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">9</div></div><div class="code">
+</div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">10</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">v, err, _ </span><span style="--0:#BF3441;--1:#F97583">:=</span><span style="--0:#24292E;--1:#E1E4E8"> group.</span><span style="--0:#6F42C1;--1:#B392F0">Do</span><span style="--0:#24292E;--1:#E1E4E8">(key, </span><span style="--0:#BF3441;--1:#F97583">func</span><span style="--0:#24292E;--1:#E1E4E8">() (</span><span style="--0:#6F42C1;--1:#B392F0">any</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#BF3441;--1:#F97583">error</span><span style="--0:#24292E;--1:#E1E4E8">) {</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">11</div></div><div class="code"><span class="indent">    </span><span style="--0:#BF3441;--1:#F97583">if</span><span style="--0:#24292E;--1:#E1E4E8"> p, ok </span><span style="--0:#BF3441;--1:#F97583">:=</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">redisGetProduct</span><span style="--0:#24292E;--1:#E1E4E8">(ctx, key); ok {</span></div></div><div class="ec-line" style="--ecIndent:6ch"><div class="gutter"><div class="ln" aria-hidden="true">12</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">      </span></span><span style="--0:#24292E;--1:#E1E4E8">localCache.</span><span style="--0:#6F42C1;--1:#B392F0">Set</span><span style="--0:#24292E;--1:#E1E4E8">(key, p, </span><span style="--0:#005CC5;--1:#79B8FF">3</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#24292E;--1:#E1E4E8">time.Second)</span></div></div><div class="ec-line" style="--ecIndent:6ch"><div class="gutter"><div class="ln" aria-hidden="true">13</div></div><div class="code"><span class="indent">      </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> p, </span><span style="--0:#005CC5;--1:#79B8FF">nil</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">14</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">15</div></div><div class="code">
+</div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">16</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">p, err </span><span style="--0:#BF3441;--1:#F97583">:=</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">mysqlGetProduct</span><span style="--0:#24292E;--1:#E1E4E8">(ctx, id)</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">17</div></div><div class="code"><span class="indent">    </span><span style="--0:#BF3441;--1:#F97583">if</span><span style="--0:#24292E;--1:#E1E4E8"> err </span><span style="--0:#BF3441;--1:#F97583">!=</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#005CC5;--1:#79B8FF">nil</span><span style="--0:#24292E;--1:#E1E4E8"> {</span></div></div><div class="ec-line" style="--ecIndent:6ch"><div class="gutter"><div class="ln" aria-hidden="true">18</div></div><div class="code"><span class="indent">      </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#005CC5;--1:#79B8FF">nil</span><span style="--0:#24292E;--1:#E1E4E8">, err</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">19</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">20</div></div><div class="code"><span class="indent">    </span><span style="--0:#6F42C1;--1:#B392F0">redisSetProduct</span><span style="--0:#24292E;--1:#E1E4E8">(ctx, key, p, </span><span style="--0:#6F42C1;--1:#B392F0">jitter</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#005CC5;--1:#79B8FF">10</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#24292E;--1:#E1E4E8">time.Minute))</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">21</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">localCache.</span><span style="--0:#6F42C1;--1:#B392F0">Set</span><span style="--0:#24292E;--1:#E1E4E8">(key, p, </span><span style="--0:#005CC5;--1:#79B8FF">3</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#24292E;--1:#E1E4E8">time.Second)</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">22</div></div><div class="code"><span class="indent">    </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> p, </span><span style="--0:#005CC5;--1:#79B8FF">nil</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">23</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">})</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">24</div></div><div class="code"><span class="indent">  </span><span style="--0:#BF3441;--1:#F97583">if</span><span style="--0:#24292E;--1:#E1E4E8"> err </span><span style="--0:#BF3441;--1:#F97583">!=</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#005CC5;--1:#79B8FF">nil</span><span style="--0:#24292E;--1:#E1E4E8"> {</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">25</div></div><div class="code"><span class="indent">    </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#005CC5;--1:#79B8FF">nil</span><span style="--0:#24292E;--1:#E1E4E8">, err</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">26</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">27</div></div><div class="code"><span class="indent">  </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> v.(</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#6F42C1;--1:#B392F0">Product</span><span style="--0:#24292E;--1:#E1E4E8">), </span><span style="--0:#005CC5;--1:#79B8FF">nil</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">28</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="var group singleflight.Groupfunc GetProduct(ctx context.Context, id int64) (*Product, error) {  key := fmt.Sprintf(&quot;product:%d&quot;, id)  if p, ok := localCache.Get(key); ok {    return p, nil  }  v, err, _ := group.Do(key, func() (any, error) {    if p, ok := redisGetProduct(ctx, key); ok {      localCache.Set(key, p, 3*time.Second)      return p, nil    }    p, err := mysqlGetProduct(ctx, id)    if err != nil {      return nil, err    }    redisSetProduct(ctx, key, p, jitter(10*time.Minute))    localCache.Set(key, p, 3*time.Second)    return p, nil  })  if err != nil {    return nil, err  }  return v.(*Product), nil}"><div></div></button></div></figure></div>
+<p>这里的设计点是：</p>
+<ul>
+<li>本地缓存挡住极短时间的热点重复读</li>
+<li>Redis 承接跨实例共享缓存</li>
+<li><code>singleflight</code> 合并单实例内同 key 回源</li>
+<li>MySQL 只在必要时被访问</li>
+<li>TTL 加抖动，避免集体过期</li>
+</ul>
+<p>这就是“为了业务使用工具”，不是“为了 Redis 使用 Redis”。</p>
+<hr>
+<h2 id="三ai-agentprompt-cacheagent-cacheredis-cache-不是一回事">三、AI Agent：Prompt Cache、Agent Cache、Redis Cache 不是一回事<a data-heading-anchor="" href="#三ai-agentprompt-cacheagent-cacheredis-cache-不是一回事" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>AI Agent 系统特别容易把缓存概念搅在一起。</p>
+<p>比如你做一个“代码仓库分析 Agent”：</p>
+<ul>
+<li>system prompt 很长</li>
+<li>tools 很多</li>
+<li>RAG 会塞一堆文件片段</li>
+<li>Agent 会调用 GitHub、CI、日志系统</li>
+<li>用户可能重复问类似问题</li>
+<li>任务可能跑一半中断</li>
+</ul>
+<p>这时候至少有三种缓存：</p>
+<table>
+<thead>
+<tr>
+<th>缓存</th>
+<th>谁提供</th>
+<th>缓存内容</th>
+<th>命中方式</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompt Cache</td>
+<td>OpenAI / Anthropic</td>
+<td>模型输入前缀、工具定义、长上下文</td>
+<td>prefix / breakpoint</td>
+<td>降低模型 prefill 成本和延迟</td>
+</tr>
+<tr>
+<td>Agent Cache</td>
+<td>Eino / LangChain / 应用</td>
+<td>checkpoint、memory、工具结果</td>
+<td>runID、tool args hash、semantic key</td>
+<td>恢复执行、减少重复工具调用</td>
+</tr>
+<tr>
+<td>Redis Cache</td>
+<td>应用基础设施</td>
+<td>状态、限流、幂等、任务进度</td>
+<td>Redis key</td>
+<td>跨实例共享热状态</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-provider-prompt-cache-怎么用">1. Provider Prompt Cache 怎么用<a data-heading-anchor="" href="#1-provider-prompt-cache-怎么用" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>OpenAI Prompt Caching 的关键点：</p>
+<ul>
+<li>对近期模型自动生效</li>
+<li>1024 tokens 以上开始有缓存收益</li>
+<li>命中要求完全相同的 prompt 前缀</li>
+<li>静态内容放前面，动态内容放后面</li>
+<li>usage 里看 <code>cached_tokens</code></li>
+<li><code>prompt_cache_key</code> 可以帮助相同前缀请求路由到更容易命中的位置</li>
+</ul>
+<p>Anthropic Prompt Caching 的关键点：</p>
+<ul>
+<li>可以用 top-level <code>cache_control</code> 自动缓存</li>
+<li>也可以给内容块设置 explicit cache breakpoints</li>
+<li>prefix 包括 tools、system、messages</li>
+<li>最多 4 个 cache breakpoints</li>
+<li>usage 里区分 <code>cache_read_input_tokens</code>、<code>cache_creation_input_tokens</code>、<code>input_tokens</code></li>
+</ul>
+<p>所以 Agent prompt 应该这样组织：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:14ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">稳定工具定义</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">稳定系统指令</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">稳定输出格式</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">相对稳定的 RAG 背景材料</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">动态用户问题</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">动态工具返回</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="稳定工具定义稳定系统指令稳定输出格式相对稳定的 RAG 背景材料动态用户问题动态工具返回"><div></div></button></div></figure></div>
+<p>不要把时间戳、随机 request id、用户临时参数塞在最前面。否则每次前缀都变，Prompt Cache 就像门口的熟客通道，每次你都换脸进门。</p>
+<h3 id="2-agent-自己怎么缓存">2. Agent 自己怎么缓存<a data-heading-anchor="" href="#2-agent-自己怎么缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Provider cache 只解决模型前缀，不解决业务过程。</p>
+<p>Agent 自己要缓存：</p>
+<ul>
+<li>工具调用结果</li>
+<li>checkpoint</li>
+<li>中间状态</li>
+<li>会话摘要</li>
+<li>用户额度</li>
+<li>外部 API 返回</li>
+</ul>
+<p>Eino 的 Runner 支持 <code>CheckPointStore</code>，示例里用内存 store，但真实服务可以用 Redis 这类分布式 store。LangChain / LangGraph 则有 memory、semantic search、retriever 这类能力，可以把相关记忆或文档片段检索出来拼进 prompt。</p>
+<p>Redis 里的 key 可以这样设计：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:59ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">agent:checkpoint:{tenant}:{run_id}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">agent:task:{task_id}:status</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">agent:tool:{tenant}:{tool}:{args_hash}:{permission_version}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">agent:quota:{tenant}:{user_id}:{yyyymmdd}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">agent:summary:{session_id}:{summary_version}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="agent:checkpoint:{tenant}:{run_id}agent:task:{task_id}:statusagent:tool:{tenant}:{tool}:{args_hash}:{permission_version}agent:quota:{tenant}:{user_id}:{yyyymmdd}agent:summary:{session_id}:{summary_version}"><div></div></button></div></figure></div>
+<p>解决方案要点：</p>
+<ol>
+<li><code>args_hash</code> 必须基于规范化参数生成，比如 JSON canonicalize 后 hash。</li>
+<li>缓存 key 要带租户、用户或权限版本，避免跨权限命中。</li>
+<li>工具结果 TTL 要按数据变化速度定。CI 日志可以稍久，搜索结果要短，权限结果更谨慎。</li>
+<li>checkpoint 要有清理策略。不要让跑失败的 Agent 在 Redis 里变成考古遗址。</li>
+<li>token 账本要分开记录 provider token、embedding token、tool 调用次数、Redis 命中。</li>
+</ol>
+<img src="/images/agent-rag-cache-flow.png" alt="AI Agent 和 RAG 缓存链路图" />
+<hr>
+<h2 id="四rag缓存的不只是答案而是处理链路">四、RAG：缓存的不只是答案，而是处理链路<a data-heading-anchor="" href="#四rag缓存的不只是答案而是处理链路" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>RAG 最容易浪费钱的地方不是最终回答，而是重复处理文档。</p>
+<p>一个 PDF 从上传到回答，中间有很多节点：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:19ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">上传文件</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 计算 file_hash</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 解析文本</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 切 chunk</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 计算 chunk_hash</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 调 embedding 模型</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 写向量库</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; query 检索</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; rerank</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 拼 context</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 调 LLM</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="上传文件  -> 计算 file_hash  -> 解析文本  -> 切 chunk  -> 计算 chunk_hash  -> 调 embedding 模型  -> 写向量库  -> query 检索  -> rerank  -> 拼 context  -> 调 LLM"><div></div></button></div></figure></div>
+<p>如果用户重复上传同一份文档，或者同一个知识库反复构建索引，你不应该每次都重新 embedding。</p>
+<h3 id="1-文件级缓存">1. 文件级缓存<a data-heading-anchor="" href="#1-文件级缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>key：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:31ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rag:file:{tenant}:{file_sha256}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="rag:file:{tenant}:{file_sha256}"><div></div></button></div></figure></div>
+<p>value：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="json" class="wrap" style="--ecMaxLine:35ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">{</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"parse_status"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#032F62;--1:#9ECBFF">"done"</span><span style="--0:#24292E;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"parser_version"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#032F62;--1:#9ECBFF">"pdf-v3"</span><span style="--0:#24292E;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"chunker_version"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#032F62;--1:#9ECBFF">"semantic-v2"</span><span style="--0:#24292E;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"chunk_hashes"</span><span style="--0:#24292E;--1:#E1E4E8">: [</span><span style="--0:#032F62;--1:#9ECBFF">"..."</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#032F62;--1:#9ECBFF">"..."</span><span style="--0:#24292E;--1:#E1E4E8">],</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"created_at"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#005CC5;--1:#79B8FF">1782600000</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">7</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;parse_status&quot;: &quot;done&quot;,  &quot;parser_version&quot;: &quot;pdf-v3&quot;,  &quot;chunker_version&quot;: &quot;semantic-v2&quot;,  &quot;chunk_hashes&quot;: [&quot;...&quot;, &quot;...&quot;],  &quot;created_at&quot;: 1782600000}"><div></div></button></div></figure></div>
+<p>作用：</p>
+<ul>
+<li>判断文件是否处理过</li>
+<li>避免重复解析</li>
+<li>关联 chunk 列表</li>
+</ul>
+<h3 id="2-chunk-和-embedding-缓存">2. Chunk 和 Embedding 缓存<a data-heading-anchor="" href="#2-chunk-和-embedding-缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>embedding 缓存要带模型版本：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:44ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rag:embedding:{embedding_model}:{chunk_hash}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="rag:embedding:{embedding_model}:{chunk_hash}"><div></div></button></div></figure></div>
+<p>因为同一段文本，用不同 embedding 模型生成的向量不能混用。模型变了，旧向量不是“稍微旧一点”，而是坐标系都可能换了。</p>
+<p>命中率可以这样算：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:70ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">embedding_hit_rate = cached_chunk_count / total_chunk_count</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">embedding_cost_saved = cached_chunk_tokens * embedding_price_per_token</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="embedding_hit_rate = cached_chunk_count / total_chunk_countembedding_cost_saved = cached_chunk_tokens * embedding_price_per_token"><div></div></button></div></figure></div>
+<h3 id="3-retrieval-缓存">3. Retrieval 缓存<a data-heading-anchor="" href="#3-retrieval-缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>查询结果也可以短期缓存：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:59ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rag:retrieval:{tenant}:{index_version}:{query_hash}:{top_k}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="rag:retrieval:{tenant}:{index_version}:{query_hash}:{top_k}"><div></div></button></div></figure></div>
+<p>但这里要小心：</p>
+<ul>
+<li>index 更新后必须换 <code>index_version</code></li>
+<li>query rewrite 版本变化也要进 key</li>
+<li>权限过滤必须进 key 或在缓存后再次过滤</li>
+<li>TTL 不宜太长</li>
+</ul>
+<h3 id="4-context-pack-缓存">4. Context Pack 缓存<a data-heading-anchor="" href="#4-context-pack-缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>RAG 最后还会把检索片段拼成 prompt context。这个步骤也可能昂贵，因为要去重、排序、裁剪 token、加引用。</p>
+<p>可以缓存：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:69ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rag:context:{retrieval_result_hash}:{template_version}:{token_budget}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="rag:context:{retrieval_result_hash}:{template_version}:{token_budget}"><div></div></button></div></figure></div>
+<p>这样用户连续追问同一个文档主题时，不必每轮都重新组织上下文。</p>
+<p>但最终回答通常不建议直接缓存太久。回答和用户问题、权限、时间、模型版本、输出风格都有关，盲目缓存很容易省了钱，亏了信任。</p>
+<hr>
+<h2 id="五购买链路缓存负责快数据库负责真mq-负责排队">五、购买链路：缓存负责快，数据库负责真，MQ 负责排队<a data-heading-anchor="" href="#五购买链路缓存负责快数据库负责真mq-负责排队" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>购买和秒杀是缓存系统的经典战场。</p>
+<p>业务问题不是“Redis 怎么扣库存”，而是：</p>
+<ol>
+<li>高峰期怎么不打爆数据库？</li>
+<li>用户怎么不能重复买？</li>
+<li>库存怎么不能超卖？</li>
+<li>订单事实怎么可靠落库？</li>
+<li>发券、通知、积分这些后续动作怎么异步处理？</li>
+<li>Redis 挂了怎么办？</li>
+</ol>
+<img src="/images/cache-consistency-flow.png" alt="MySQL Redis MQ 一致性流程图" />
+<h3 id="1-读链路商品详情缓存">1. 读链路：商品详情缓存<a data-heading-anchor="" href="#1-读链路商品详情缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>商品详情适合 cache-aside：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:24ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">读商品：</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">1. Go 本地缓存查前 N 秒热点</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">2. Redis 查商品详情</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">3. Redis miss 后查 MySQL</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">4. 回填 Redis，TTL 加随机抖动</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="读商品：  1. Go 本地缓存查前 N 秒热点  2. Redis 查商品详情  3. Redis miss 后查 MySQL  4. 回填 Redis，TTL 加随机抖动"><div></div></button></div></figure></div>
+<p>key：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:45ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">product:detail:{product_id}:v{schema_version}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="product:detail:{product_id}:v{schema_version}"><div></div></button></div></figure></div>
+<p>TTL：</p>
+<ul>
+<li>普通商品：5 到 30 分钟</li>
+<li>活动商品：几十秒到几分钟</li>
+<li>强运营实时变化字段：拆出来单独缓存或直接查源</li>
+</ul>
+<p>为什么要 schema version？</p>
+<p>因为缓存里的 JSON 结构迟早会变。没有版本，老缓存会像衣柜里的旧数据，平时看不见，线上突然穿出来吓人。</p>
+<h3 id="2-写链路订单事实先落库">2. 写链路：订单事实先落库<a data-heading-anchor="" href="#2-写链路订单事实先落库" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>订单、支付、库存流水这类事实，应该让 MySQL 负责。</p>
+<p>Redis 可以做预扣和快速判断，但最终不能只靠 Redis 说“钱扣了”。</p>
+<p>常见流程：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:24ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">请求进来</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; Redis 限流</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; Redis SetNX 做幂等</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; Redis 预扣库存</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; MQ 投递创建订单事件</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 消费者写 MySQL 订单事务</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; 成功后删除/刷新 Redis 商品缓存</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">-&gt; MQ 通知发券、积分、短信</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="请求进来  -> Redis 限流  -> Redis SetNX 做幂等  -> Redis 预扣库存  -> MQ 投递创建订单事件  -> 消费者写 MySQL 订单事务  -> 成功后删除/刷新 Redis 商品缓存  -> MQ 通知发券、积分、短信"><div></div></button></div></figure></div>
+<p>关键点：</p>
+<ul>
+<li>幂等 key 防按钮连点和重试</li>
+<li>预扣失败直接返回库存不足</li>
+<li>MQ 消费者必须幂等，因为消息可能重复</li>
+<li>MySQL 订单表要有唯一约束，比如 <code>(user_id, activity_id)</code></li>
+<li>Redis 预扣和 MySQL 最终库存要有对账任务</li>
+</ul>
+<h3 id="3-缓存不够时为什么要-mq">3. 缓存不够时为什么要 MQ<a data-heading-anchor="" href="#3-缓存不够时为什么要-mq" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>缓存解决“快读快判定”。</p>
+<p>MQ 解决“后续工作可靠排队”。</p>
+<p>比如下单成功后：</p>
+<ul>
+<li>发优惠券</li>
+<li>发短信</li>
+<li>通知仓储</li>
+<li>写用户积分</li>
+<li>写风控事件</li>
+<li>预热推荐缓存</li>
+</ul>
+<p>这些不应该都堵在用户请求里同步做。否则用户买一瓶水，要等仓库、短信、积分、风控全部开完会才拿到响应。</p>
+<p>MQ 把这些动作拆出去。Redis 可以配合 MQ 做状态缓存、去重、短期事件索引，但不要把 Redis List 当专业 MQ 一路硬撑到业务变大。</p>
+<hr>
+<h2 id="六redis-和-mysql-一致性不要追求童话追求可控">六、Redis 和 MySQL 一致性：不要追求童话，追求可控<a data-heading-anchor="" href="#六redis-和-mysql-一致性不要追求童话追求可控" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>缓存一致性没有童话。</p>
+<p>你能做的是把“不一致窗口”变短、变可观测、变可恢复。</p>
+<h3 id="1-基础方案写库后删缓存">1. 基础方案：写库后删缓存<a data-heading-anchor="" href="#1-基础方案写库后删缓存" aria-label="Link to this section" tabindex="-1"></a></h3>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:17ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">更新商品：</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">1. 写 MySQL</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="code"><span class="indent"><span style="--0:#24292e;--1:#e1e4e8">  </span></span><span style="--0:#24292e;--1:#e1e4e8">2. 删除 Redis key</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="更新商品：  1. 写 MySQL  2. 删除 Redis key"><div></div></button></div></figure></div>
+<p>为什么不是先删缓存再写库？</p>
+<p>因为先删缓存后，另一个请求可能马上 miss，然后读到旧 MySQL 值并回填 Redis。你刚删完，它又把旧值请回来了。</p>
+<p>为什么不是直接更新缓存？</p>
+<p>因为缓存经常是聚合数据。你更新了商品主表字段，但缓存里可能还包含活动价、库存、标签、推荐分。直接更新很容易漏。</p>
+<h3 id="2-旧值回填怎么处理">2. 旧值回填怎么处理<a data-heading-anchor="" href="#2-旧值回填怎么处理" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>高并发下仍可能出现：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:13ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">A 读缓存 miss</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">A 查 MySQL 旧值</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">B 写 MySQL 新值</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">B 删除缓存</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">A 把旧值写回 Redis</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="A 读缓存 missA 查 MySQL 旧值B 写 MySQL 新值B 删除缓存A 把旧值写回 Redis"><div></div></button></div></figure></div>
+<p>解决组合：</p>
+<ul>
+<li>缓存 value 带 <code>version</code> 或 <code>updated_at</code></li>
+<li>回填前检查版本，新版本不被旧版本覆盖</li>
+<li>写后延迟双删，降低旧值残留概率</li>
+<li>用 binlog / CDC 订阅数据库变更，统一失效缓存</li>
+<li>热点 key 回源加 singleflight / mutex</li>
+<li>TTL 不要过长</li>
+</ul>
+<h3 id="3-什么时候不能靠缓存一致性">3. 什么时候不能靠缓存一致性<a data-heading-anchor="" href="#3-什么时候不能靠缓存一致性" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>这些场景不要让 Redis 当最终裁判：</p>
+<ul>
+<li>支付扣款</li>
+<li>订单最终状态</li>
+<li>库存财务结算</li>
+<li>审计日志</li>
+<li>权限授权最终结果</li>
+</ul>
+<p>Redis 可以做快速拦截、预判、临时状态。最终事实应该在数据库事务或专门系统里。</p>
+<p>Redis 的 <code>WAIT</code> 可以提高写入复制到副本的概率，在故障转移场景更稳一点；但它不会把 Redis 变成强一致数据库。</p>
+<p>这句话很冷静，也很重要。</p>
+<hr>
+<h2 id="七三大缓存问题从面试题还原成业务事故">七、三大缓存问题：从面试题还原成业务事故<a data-heading-anchor="" href="#七三大缓存问题从面试题还原成业务事故" aria-label="Link to this section" tabindex="-1"></a></h2>
+<h3 id="1-缓存穿透不存在的数据把数据库打穿">1. 缓存穿透：不存在的数据把数据库打穿<a data-heading-anchor="" href="#1-缓存穿透不存在的数据把数据库打穿" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>业务现场：</p>
+<p>攻击者或错误客户端不断请求不存在的商品 ID：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:22ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">/products/999999999999</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="/products/999999999999"><div></div></button></div></figure></div>
+<p>Redis 没有，MySQL 也没有。每次都查库。</p>
+<p>解决方案：</p>
+<ol>
+<li>参数校验：明显非法 ID 直接拒绝</li>
+<li>缓存空值：<code>product:null:{id}</code>，TTL 短一点</li>
+<li>Bloom filter：快速判断 ID 是否可能存在</li>
+<li>风控限流：异常模式直接限</li>
+</ol>
+<p>Redis key：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:41ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">product:null:{product_id} -&gt; "1", TTL 60s</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="product:null:{product_id} -> &quot;1&quot;, TTL 60s"><div></div></button></div></figure></div>
+<p>注意：空值 TTL 不能太长。否则商品刚创建，用户还命中旧的“不存在”，运营同事会以为你在做行为艺术。</p>
+<h3 id="2-缓存击穿热点-key-过期数据库被围观">2. 缓存击穿：热点 key 过期，数据库被围观<a data-heading-anchor="" href="#2-缓存击穿热点-key-过期数据库被围观" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>业务现场：</p>
+<p>一个爆款商品缓存过期，几万请求同时回源。</p>
+<p>解决方案：</p>
+<ol>
+<li>热点 key 提前预热</li>
+<li>热点 key 逻辑过期：缓存不物理删除，后台异步刷新</li>
+<li>Go <code>singleflight</code> 合并单实例回源</li>
+<li>Redis 分布式锁合并跨实例回源</li>
+<li>降级返回旧值</li>
+</ol>
+<p>核心思想：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:28ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">宁愿短时间返回稍旧数据，也不要让数据库当场表演原地升天。</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="宁愿短时间返回稍旧数据，也不要让数据库当场表演原地升天。"><div></div></button></div></figure></div>
+<h3 id="3-缓存雪崩一批-key-一起过期">3. 缓存雪崩：一批 key 一起过期<a data-heading-anchor="" href="#3-缓存雪崩一批-key-一起过期" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>业务现场：</p>
+<p>活动商品统一设置 20 过期。到了 20，缓存集体下班，数据库集体加班。</p>
+<p>解决方案：</p>
+<ul>
+<li>TTL 加随机抖动</li>
+<li>分批预热</li>
+<li>多级缓存</li>
+<li>限流</li>
+<li>降级</li>
+<li>核心热点永不过期 + 后台刷新</li>
+</ul>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="go" class="wrap" style="--ecMaxLine:56ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#BF3441;--1:#F97583">func</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">jitter</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#AE4B07;--1:#FFAB70">base</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">time</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Duration</span><span style="--0:#24292E;--1:#E1E4E8">) </span><span style="--0:#6F42C1;--1:#B392F0">time</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Duration</span><span style="--0:#24292E;--1:#E1E4E8"> {</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">  </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> base </span><span style="--0:#BF3441;--1:#F97583">+</span><span style="--0:#24292E;--1:#E1E4E8"> time.</span><span style="--0:#6F42C1;--1:#B392F0">Duration</span><span style="--0:#24292E;--1:#E1E4E8">(rand.</span><span style="--0:#6F42C1;--1:#B392F0">Intn</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#005CC5;--1:#79B8FF">60</span><span style="--0:#24292E;--1:#E1E4E8">))</span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#24292E;--1:#E1E4E8">time.Second</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="func jitter(base time.Duration) time.Duration {  return base + time.Duration(rand.Intn(60))*time.Second}"><div></div></button></div></figure></div>
+<hr>
+<h2 id="八排行榜redis-zset-是现场大屏不是赛后账本">八、排行榜：Redis ZSet 是现场大屏，不是赛后账本<a data-heading-anchor="" href="#八排行榜redis-zset-是现场大屏不是赛后账本" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>排行榜适合 Redis，尤其是 ZSet。</p>
+<p>比如游戏积分榜、直播热度榜、活动销售榜、热门 prompt 榜。</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="go" class="wrap" style="--ecMaxLine:90ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#BF3441;--1:#F97583">func</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">addScore</span><span style="--0:#24292E;--1:#E1E4E8">(</span><span style="--0:#AE4B07;--1:#FFAB70">ctx</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#6F42C1;--1:#B392F0">context</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Context</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#AE4B07;--1:#FFAB70">rdb</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#BF3441;--1:#F97583">*</span><span style="--0:#6F42C1;--1:#B392F0">redis</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Client</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#AE4B07;--1:#FFAB70">userID</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#BF3441;--1:#F97583">int64</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#AE4B07;--1:#FFAB70">score</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#BF3441;--1:#F97583">float64</span><span style="--0:#24292E;--1:#E1E4E8">) </span><span style="--0:#BF3441;--1:#F97583">error</span><span style="--0:#24292E;--1:#E1E4E8"> {</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">  </span><span style="--0:#BF3441;--1:#F97583">return</span><span style="--0:#24292E;--1:#E1E4E8"> rdb.</span><span style="--0:#6F42C1;--1:#B392F0">ZAdd</span><span style="--0:#24292E;--1:#E1E4E8">(ctx, </span><span style="--0:#032F62;--1:#9ECBFF">"rank:daily"</span><span style="--0:#24292E;--1:#E1E4E8">, </span><span style="--0:#6F42C1;--1:#B392F0">redis</span><span style="--0:#24292E;--1:#E1E4E8">.</span><span style="--0:#6F42C1;--1:#B392F0">Z</span><span style="--0:#24292E;--1:#E1E4E8">{</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">Score:  score,</span></div></div><div class="ec-line" style="--ecIndent:4ch"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">    </span></span><span style="--0:#24292E;--1:#E1E4E8">Member: userID,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">5</div></div><div class="code"><span class="indent"><span style="--0:#24292E;--1:#E1E4E8">  </span></span><span style="--0:#24292E;--1:#E1E4E8">}).</span><span style="--0:#6F42C1;--1:#B392F0">Err</span><span style="--0:#24292E;--1:#E1E4E8">()</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">6</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="func addScore(ctx context.Context, rdb *redis.Client, userID int64, score float64) error {  return rdb.ZAdd(ctx, &quot;rank:daily&quot;, redis.Z{    Score:  score,    Member: userID,  }).Err()}"><div></div></button></div></figure></div>
+<p>但排行榜业务不是只有 <code>ZADD</code>。</p>
+<p>你要回答：</p>
+<ul>
+<li>是实时榜还是结算榜？</li>
+<li>分数能不能回滚？</li>
+<li>跨服怎么合榜？</li>
+<li>前 100 名是不是热点？</li>
+<li>历史榜保存多久？</li>
+<li>刷榜作弊怎么处理？</li>
+</ul>
+<p>设计建议：</p>
+<ol>
+<li>Redis ZSet 维护实时榜</li>
+<li>MySQL / OLAP 存结算结果和历史榜</li>
+<li>定时快照 Redis 榜单</li>
+<li>大榜按赛区、活动、日期拆 key</li>
+<li>前 N 名可做本地缓存，降低 Redis 热点</li>
+<li>分数来源必须可追溯，不能只有 Redis 分数</li>
+</ol>
+<p>key：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:45ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rank:{game}:{season}:{region}</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rank_snapshot:{game}:{season}:{region}:{date}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="rank:{game}:{season}:{region}rank_snapshot:{game}:{season}:{region}:{date}"><div></div></button></div></figure></div>
+<p>Redis 排行榜像现场大屏。</p>
+<p>大屏要快，但奖金要看账本。你不能对财务说：“截图在这里，发钱吧。”</p>
+<hr>
+<h2 id="九分布式-redis不是为了高级是为了坏了还能活">九、分布式 Redis：不是为了高级，是为了坏了还能活<a data-heading-anchor="" href="#九分布式-redis不是为了高级是为了坏了还能活" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>单机 Redis 很舒服，直到它成为单点。</p>
+<p>为什么需要分布式 Redis？</p>
+<ul>
+<li>单机内存不够</li>
+<li>单机 QPS 不够</li>
+<li>单点故障不可接受</li>
+<li>需要读扩展</li>
+<li>需要自动故障转移</li>
+<li>需要横向分片</li>
+</ul>
+<h3 id="1-主从复制">1. 主从复制<a data-heading-anchor="" href="#1-主从复制" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>主从复制解决冗余和读扩展。</p>
+<p>但它不等于自动 failover。master 挂了，如果没有 Sentinel 或 Cluster，客户端不会自动知道谁是新 master。</p>
+<h3 id="2-sentinel">2. Sentinel<a data-heading-anchor="" href="#2-sentinel" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Sentinel 适合“不需要分片，但需要高可用”的场景。</p>
+<p>它负责：</p>
+<ul>
+<li>监控 master 和 replica</li>
+<li>判断 master 是否不可用</li>
+<li>触发 failover</li>
+<li>推选新 master</li>
+<li>作为客户端配置发现来源</li>
+</ul>
+<p>业务上要考虑：</p>
+<ul>
+<li>failover 期间短暂不可用怎么办？</li>
+<li>客户端连接池如何刷新 master 地址？</li>
+<li>写请求失败是否重试？</li>
+<li>重试是否幂等？</li>
+<li>Redis 丢失少量最近写入是否可接受？</li>
+</ul>
+<h3 id="3-cluster">3. Cluster<a data-heading-anchor="" href="#3-cluster" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>Cluster 解决的是横向扩展和分片。</p>
+<p>数据按 slot 分散到多个 master，每个 master 可以有 replica。</p>
+<p>它适合：</p>
+<ul>
+<li>数据量大</li>
+<li>QPS 高</li>
+<li>单机扛不住</li>
+<li>key 可以良好分布</li>
+</ul>
+<p>但 Cluster 也带来复杂度：</p>
+<ul>
+<li>multi-key 操作要考虑 hash slot</li>
+<li>热 key 仍然可能打爆单节点</li>
+<li>客户端要支持 MOVED/ASK 重定向</li>
+<li>故障恢复要关注复制延迟和持久化</li>
+</ul>
+<h3 id="4-redis-崩了怎么恢复">4. Redis 崩了怎么恢复<a data-heading-anchor="" href="#4-redis-崩了怎么恢复" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>恢复不是一句“重启一下”。</p>
+<p>你需要预案：</p>
+<table>
+<thead>
+<tr>
+<th>故障</th>
+<th>系统动作</th>
+<th>业务动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>replica 崩</td>
+<td>重启后重同步</td>
+<td>读流量切走</td>
+</tr>
+<tr>
+<td>master 崩</td>
+<td>Sentinel/Cluster failover</td>
+<td>写请求短暂重试</td>
+</tr>
+<tr>
+<td>Redis 全挂</td>
+<td>降级到 DB / 本地缓存</td>
+<td>限流，保护数据库</td>
+</tr>
+<tr>
+<td>数据丢失</td>
+<td>从 AOF/RDB 或对账恢复</td>
+<td>重建缓存，核对关键状态</td>
+</tr>
+<tr>
+<td>热 key 打爆</td>
+<td>拆 key / 本地缓存 / 限流</td>
+<td>降级非核心字段</td>
+</tr>
+</tbody>
+</table>
+<p>Redis 是缓存层时，核心能力是“可重建”。<br>
+如果某个 Redis key 丢了就业务不可恢复，那它可能根本不该只存在 Redis 里。</p>
+<hr>
+<h2 id="十什么时候缓存不够要加-mq">十、什么时候缓存不够，要加 MQ<a data-heading-anchor="" href="#十什么时候缓存不够要加-mq" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>缓存回答的是：</p>
+<blockquote>
+<p>现在这个状态是什么？</p>
+</blockquote>
+<p>MQ 回答的是：</p>
+<blockquote>
+<p>这件事后面要让谁处理？</p>
+</blockquote>
+<p>比如订单创建成功后：</p>
+<ul>
+<li>发券</li>
+<li>发短信</li>
+<li>通知仓储</li>
+<li>写积分</li>
+<li>刷新推荐缓存</li>
+<li>写审计</li>
+<li>推送风控</li>
+</ul>
+<p>这些动作如果都同步做，用户会觉得买东西像在等银行放款。</p>
+<p>MQ 的价值：</p>
+<ul>
+<li>削峰</li>
+<li>解耦</li>
+<li>重试</li>
+<li>下游慢不拖主链路</li>
+<li>事件广播</li>
+<li>缓存失效通知</li>
+</ul>
+<p>Redis Streams 可以当中轻量事件流，适合内部 worker、消费组、简单 ack。</p>
+<p>但如果你需要：</p>
+<ul>
+<li>大规模堆积</li>
+<li>多业务主题治理</li>
+<li>死信队列</li>
+<li>严格消息保留</li>
+<li>跨团队事件平台</li>
+</ul>
+<p>就应该认真评估 Kafka、RabbitMQ、RocketMQ 等专业 MQ。</p>
+<p>Redis 很好，但不要让它兼职所有中间件岗位。</p>
+<hr>
+<h2 id="十一游戏缓存websocket-棋盘和-udp-fps-不是一种系统">十一、游戏缓存：WebSocket 棋盘和 UDP FPS 不是一种系统<a data-heading-anchor="" href="#十一游戏缓存websocket-棋盘和-udp-fps-不是一种系统" aria-label="Link to this section" tabindex="-1"></a></h2>
+<img src="/images/game-cache-split.png" alt="棋盘游戏和 FPS 游戏缓存差异图" />
+<h3 id="1-棋盘--回合制游戏">1. 棋盘 / 回合制游戏<a data-heading-anchor="" href="#1-棋盘--回合制游戏" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>比如五子棋、象棋、扑克房间。</p>
+<p>特点：</p>
+<ul>
+<li>状态变化频率低</li>
+<li>顺序重要</li>
+<li>每一步可以服务端校验</li>
+<li>WebSocket 很适合</li>
+</ul>
+<p>缓存设计：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:46ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">room:{room_id}:state        Hash/String，当前房间状态</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">room:{room_id}:players      Set，玩家列表</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">matchmaking:{mode}          ZSet/List，匹配队列</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">presence:{user_id}          String，在线状态 TTL</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">rank:{season}:{region}      ZSet，排行榜</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="room:{room_id}:state        Hash/String，当前房间状态room:{room_id}:players      Set，玩家列表matchmaking:{mode}          ZSet/List，匹配队列presence:{user_id}          String，在线状态 TTLrank:{season}:{region}      ZSet，排行榜"><div></div></button></div></figure></div>
+<p>落库：</p>
+<ul>
+<li>棋谱</li>
+<li>结算结果</li>
+<li>积分变动</li>
+<li>作弊审计</li>
+</ul>
+<p>客户端可以缓存棋盘 UI，提升体验；但合法性要服务端判断。</p>
+<p>客户端说“我赢了”，服务端不能直接鼓掌，还得看棋盘。</p>
+<h3 id="2-fps--实时动作游戏">2. FPS / 实时动作游戏<a data-heading-anchor="" href="#2-fps--实时动作游戏" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>FPS 是另一种生物。</p>
+<p>特点：</p>
+<ul>
+<li>状态高频变化</li>
+<li>延迟极敏感</li>
+<li>UDP 或基于 UDP 的协议常见</li>
+<li>服务端权威状态</li>
+<li>客户端预测、插值、校正</li>
+</ul>
+<p>Redis 不适合做：</p>
+<ul>
+<li>每帧位置同步</li>
+<li>子弹碰撞判定</li>
+<li>实时物理状态</li>
+<li>高频输入处理</li>
+</ul>
+<p>Redis 适合做：</p>
+<ul>
+<li>匹配</li>
+<li>房间发现</li>
+<li>在线状态</li>
+<li>排行榜</li>
+<li>战绩摘要</li>
+<li>结算任务</li>
+<li>跨服通知</li>
+</ul>
+<p>FPS 的核心循环应该在游戏服务器内存里。Redis 是外围协调，不是帧同步心脏。</p>
+<hr>
+<h2 id="十二最后给一个业务缓存设计清单">十二、最后给一个业务缓存设计清单<a data-heading-anchor="" href="#十二最后给一个业务缓存设计清单" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>下次你想加缓存，不要先问“Redis key 怎么写”。</p>
+<p>先问：</p>
+<ol>
+<li>业务问题是什么？慢、贵、抖、不可恢复，还是数据库压力大？</li>
+<li>这个数据是不是最终事实？</li>
+<li>它丢了能不能重建？</li>
+<li>它允许多久不一致？</li>
+<li>它的命中 key 是什么？</li>
+<li>这个 key 是否包含租户、权限、版本？</li>
+<li>TTL 怎么定？是否需要 jitter？</li>
+<li>miss 后谁回源？是否需要 singleflight / 锁？</li>
+<li>Redis 挂了怎么降级？</li>
+<li>是否需要 MQ 承接后续动作？</li>
+<li>是否需要记录 token、成本、命中率？</li>
+<li>这个状态应该在客户端、Go 本地、Redis、向量库、Prompt Cache、MQ 还是数据库？</li>
+</ol>
+<p>一个更成熟的缓存系统，不是 Redis 用得越多越好。</p>
+<p>而是每一层都知道自己在解决什么：</p>
+<ul>
+<li>Go 本地缓存解决极低延迟和单实例热点</li>
+<li>Redis 解决跨实例热状态和协调</li>
+<li>Prompt Cache 解决模型前缀成本</li>
+<li>RAG cache 解决文档处理和检索成本</li>
+<li>MQ 解决异步和削峰</li>
+<li>MySQL 解决最终事实</li>
+<li>客户端缓存解决交互体验</li>
+</ul>
+<p>Redis 是非常重要的一层。</p>
+<p>但业务系统真正需要的，不是“到处加 Redis”，而是：</p>
+<p><strong>让每个状态待在它最应该待的位置。</strong></p>
+<hr>
+<h2 id="references">References<a data-heading-anchor="" href="#references" aria-label="Link to this section" tabindex="-1"></a></h2>
+<ul>
+<li><a href="https://developers.openai.com/api/docs/guides/prompt-caching" target="_blank" rel="nofollow noreferrer noopener">OpenAI Prompt caching</a></li>
+<li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="nofollow noreferrer noopener">Anthropic Prompt caching</a></li>
+<li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching.md" target="_blank" rel="nofollow noreferrer noopener">Anthropic Tool use with prompt caching</a></li>
+<li><a href="https://www.cloudwego.io/docs/eino/" target="_blank" rel="nofollow noreferrer noopener">Eino documentation</a></li>
+<li><a href="https://docs.langchain.com/" target="_blank" rel="nofollow noreferrer noopener">LangChain documentation</a></li>
+<li><a href="https://redis.io/docs/latest/operate/oss_and_stack/management/sentinel/" target="_blank" rel="nofollow noreferrer noopener">Redis Sentinel</a></li>
+<li><a href="https://redis.io/docs/latest/operate/oss_and_stack/reference/cluster-spec/" target="_blank" rel="nofollow noreferrer noopener">Redis Cluster specification</a></li>
+<li><a href="https://redis.io/docs/latest/develop/data-types/streams/" target="_blank" rel="nofollow noreferrer noopener">Redis Streams</a></li>
+<li><a href="https://redis.io/docs/latest/commands/wait/" target="_blank" rel="nofollow noreferrer noopener">Redis WAIT command</a></li>
+<li><a href="https://github.com/redis/go-redis" target="_blank" rel="nofollow noreferrer noopener">go-redis GitHub repository</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.netcode.gameobjects@latest/index.html" target="_blank" rel="nofollow noreferrer noopener">Unity Netcode documentation</a></li>
+<li><a href="https://developer.valvesoftware.com/wiki/Source_Multiplayer_Networking" target="_blank" rel="nofollow noreferrer noopener">Valve Source multiplayer networking</a></li>
+</ul>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>

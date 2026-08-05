@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN" dir="ltr" data-astro-cid-ju4pidww> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"><meta name="generator" content="Astro v7.1.6"><meta name="HandheldFriendly" content="True"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="jessy"><meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no"><meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)"><link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="jessy" href="https://jessyhhh.github.io/rss.xml"><link rel="preload" href="/_astro/IBMPlexSans-VariableFont_wdth_wght.Dew2wRiQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/IBMPlexSans-Italic-VariableFont_wdth_wght.pQNzRgz1.woff2" as="font" type="font/woff2" crossorigin><script>
+    const theme = localStorage.theme
+    if (theme === "light" || theme === "dark")
+      document.documentElement.dataset.theme = theme
+  </script> <title>接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL | jessy</title> <meta name="description" content="从请求身份、完整性与唯一性出发，讲清 HMAC、时间戳、Nonce 和 Redis TTL 如何共同抵御重放攻击。"> <link rel="canonical" href="https://jessyhhh.github.io/blog/hmac-token-timestamp-redis-ttl-blog/"> <meta property="og:title" content="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL"> <meta property="og:description" content="从请求身份、完整性与唯一性出发，讲清 HMAC、时间戳、Nonce 和 Redis TTL 如何共同抵御重放攻击。"> <meta property="og:type" content="article"> <meta property="og:url" content="https://jessyhhh.github.io/blog/hmac-token-timestamp-redis-ttl-blog/"> <meta property="og:site_name" content="jessy"> <meta property="og:locale" content="zh_CN"> <meta property="og:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta property="og:image:alt" content="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL"> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:title" content="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL"> <meta name="twitter:description" content="从请求身份、完整性与唯一性出发，讲清 HMAC、时间戳、Nonce 和 Redis TTL 如何共同抵御重放攻击。"> <meta name="twitter:image" content="https://jessyhhh.github.io/static/1200x630.png"> <meta name="twitter:image:alt" content="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL"> <meta name="twitter:creator" content="jessy"> <meta property="article:published_time" content="2026-06-23T00:00:00.000Z"> <meta property="article:author" content="jessy"> <link rel="stylesheet" href="/_astro/_..GsKfqyeq.css"><link rel="stylesheet" href="/_astro/Layout.DzGhh9sO.css"><script type="module" src="/_astro/page.LAbJoB63.js"></script></head> <body data-astro-cid-ju4pidww> <script type="module">var e=()=>{let e=document.documentElement,t=e.dataset.theme===`dark`||!e.dataset.theme&&matchMedia(`(prefers-color-scheme: dark)`).matches?`light`:`dark`;e.dataset.theme=t,localStorage.theme=t},t=document.getElementById(`theme-toggle`);t&&(t.onclick=e);</script><script type="module">var e=[...document.querySelectorAll(`[data-scroll-top]`)],t=()=>{let t=scrollY>innerHeight*.5;for(let n of e)n.toggleAttribute(`data-visible`,t)};addEventListener(`scroll`,t,{passive:!0}),t(),document.addEventListener(`click`,e=>{e.target.closest(`[data-scroll-top]`)&&window.scrollTo({top:0})});</script><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.BXJQX1UU.js"></script><page-grid data-astro-cid-ju4pidww="true"> <page-header data-astro-cid-ju4pidww="true"> <page-nav data-astro-cid-ju4pidww="true"> <aside data-bar data-astro-cid-wv7whodv> <sidebar-inner data-astro-cid-wv7whodv="true"> <a href="/" aria-label="jessy" data-astro-cid-wv7whodv> <svg width="512" height="512" viewBox="0 0 512 512" fill="none" data-astro-cid-wv7whodv="true">
+<g clip-path="url(#clip0_741_1317)">
+<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor" />
+</g>
+<defs>
+<clipPath id="clip0_741_1317">
+<rect width="512" height="512" fill="white" />
+</clipPath>
+</defs>
+</svg> <span data-astro-cid-wv7whodv>jessy</span> </a> <nav data-astro-cid-wv7whodv> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog" data-astro-cid-wv7whodv> 文章 </a> <ul data-astro-cid-wv7whodv> <li data-astro-cid-wv7whodv> <a href="/blog/hmac-token-timestamp-redis-ttl-blog" aria-current="page" data-astro-cid-wv7whodv> 接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL </a> </li> </ul> </li><li data-astro-cid-wv7whodv> <a href="/tags" data-astro-cid-wv7whodv> 标签 </a>  </li><li data-astro-cid-wv7whodv> <a href="/authors/jessy" data-astro-cid-wv7whodv> 关于 </a>  </li>  </ul> </nav> </sidebar-inner> <sidebar-toggle data-astro-cid-wv7whodv="true"> <button id="theme-toggle" data-icon-button aria-label="切换主题"> <light-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10" /><path fill="currentColor" fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1M3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414m17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0M1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1m19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1M6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0m11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414M12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1" clip-rule="evenodd" /></svg></light-icon> <dark-icon><svg width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.7 7.7 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.3 7.3 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862C3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675" /><path fill="currentColor" d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.33 2.33 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.33 2.33 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.33 2.33 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.33 2.33 0 0 1-2.588 0z" /></svg></dark-icon> </button>  <post-actions data-astro-cid-q4ja3wfd="true"> <a href="/blog/hello-world" data-icon-button data-dir="prev" aria-label="上一篇：你好，世界" title="你好，世界" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="M228 128a12 12 0 0 1-12 12H69l51.52 51.51a12 12 0 0 1-17 17l-72-72a12 12 0 0 1 0-17l72-72a12 12 0 0 1 17 17L69 116h147a12 12 0 0 1 12 12" /></svg> </a> <a href="/blog/redis-cache-business-ai-agent-systems" data-icon-button data-dir="next" aria-label="下一篇：缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计" title="缓存不是 Redis：从 Go 后端到 AI Agent，业务系统里的缓存体系怎么设计" data-astro-cid-q4ja3wfd> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-q4ja3wfd="true"><path fill="currentColor" d="m224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01" /></svg> </a> <button data-icon-button data-scroll-top aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  </post-actions> </sidebar-toggle> </aside> </page-nav> <page-toc data-astro-cid-ju4pidww="true"><nav aria-label="文章目录" data-astro-cid-p33bl5ka> <toc-title aria-hidden="true" data-astro-cid-p33bl5ka="true"><span data-astro-cid-p33bl5ka>接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL</span></toc-title> <label data-bar data-astro-cid-p33bl5ka> <input type="checkbox" aria-label="展开或收起文章目录" data-astro-cid-p33bl5ka> <svg viewBox="0 0 16 16" aria-hidden="true" data-astro-cid-p33bl5ka> <circle cx="8" cy="8" r="6.5" data-astro-cid-p33bl5ka></circle> <circle cx="8" cy="8" r="6.5" transform="rotate(-90 8 8)" data-astro-cid-p33bl5ka></circle> </svg> <toc-current data-astro-cid-p33bl5ka="true">接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL</toc-current> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-p33bl5ka="true"><path fill="currentColor" d="m12.37 15.835l6.43-6.63C19.201 8.79 18.958 8 18.43 8H5.57c-.528 0-.771.79-.37 1.205l6.43 6.63c.213.22.527.22.74 0" /></svg> </label> <ul data-bar data-astro-cid-p33bl5ka> <li data-depth="2" data-astro-cid-p33bl5ka> <a href="#一先说结论只有-token通常不够" data-astro-cid-p33bl5ka>一、先说结论：只有 Token，通常不够</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#二一个很典型的误会认证通过不代表请求可信" data-astro-cid-p33bl5ka>二、一个很典型的误会：认证通过，不代表请求可信</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#三tokenhmac时间戳nonceredis-ttl分别像什么" data-astro-cid-p33bl5ka>三、Token、HMAC、时间戳、Nonce、Redis TTL，分别像什么？</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-token门禁卡" data-astro-cid-p33bl5ka>1. Token：门禁卡</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-hmac文件上的防拆封条" data-astro-cid-p33bl5ka>2. HMAC：文件上的防拆封条</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-时间戳保质期" data-astro-cid-p33bl5ka>3. 时间戳：保质期</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-nonce一次性取号单" data-astro-cid-p33bl5ka>4. Nonce：一次性取号单</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#5-redis-ttl门卫的临时登记本" data-astro-cid-p33bl5ka>5. Redis TTL：门卫的临时登记本</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#四为什么-hmac-能防篡改但单独还防不了重放" data-astro-cid-p33bl5ka>四、为什么 HMAC 能防篡改，但单独还防不了重放？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#五时间戳为什么也不够" data-astro-cid-p33bl5ka>五、时间戳为什么也不够？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#六为什么很多方案最后都长成了token--hmac--时间戳--nonce--redis-ttl" data-astro-cid-p33bl5ka>六、为什么很多方案最后都长成了“Token + HMAC + 时间戳 + Nonce + Redis TTL”？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#七一个请求在这套方案里到底经历了什么" data-astro-cid-p33bl5ka>七、一个请求在这套方案里，到底经历了什么？</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#客户端这边做什么" data-astro-cid-p33bl5ka>客户端这边做什么？</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#服务端这边做什么" data-astro-cid-p33bl5ka>服务端这边做什么？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#八签名到底签什么这是最容易翻车的地方" data-astro-cid-p33bl5ka>八、签名到底签什么？这是最容易翻车的地方</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#九redis-ttl-为什么几乎是防重放的标配" data-astro-cid-p33bl5ka>九、Redis TTL 为什么几乎是防重放的标配？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十那是不是做了这些就万无一失了" data-astro-cid-p33bl5ka>十、那是不是做了这些就万无一失了？</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十一接口鉴权还有哪些常见选择" data-astro-cid-p33bl5ka>十一、接口鉴权还有哪些常见选择？</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#1-session--cookie" data-astro-cid-p33bl5ka>1. Session / Cookie</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#2-bearer-token--access-token" data-astro-cid-p33bl5ka>2. Bearer Token / Access Token</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#3-jwt" data-astro-cid-p33bl5ka>3. JWT</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#4-api-key--appkey" data-astro-cid-p33bl5ka>4. API Key / AppKey</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#5-hmac-签名" data-astro-cid-p33bl5ka>5. HMAC 签名</a> </li><li data-depth="3" data-astro-cid-p33bl5ka> <a href="#6-mtls--双向证书" data-astro-cid-p33bl5ka>6. mTLS / 双向证书</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十二如果只能记住一句话我希望是这句" data-astro-cid-p33bl5ka>十二、如果只能记住一句话，我希望是这句</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#十三最后给一个更接地气的判断标准" data-astro-cid-p33bl5ka>十三、最后给一个更接地气的判断标准</a> </li><li data-depth="2" data-astro-cid-p33bl5ka> <a href="#尾声" data-astro-cid-p33bl5ka>尾声</a> </li> </ul> </nav> </page-toc> </page-header> <page-content data-astro-cid-ju4pidww="true"> <main data-astro-cid-ju4pidww>   <button data-icon-button data-scroll-top data-floating="true" aria-label="返回顶部" data-astro-cid-p774adf7> <svg width="1em" height="1em" viewBox="0 0 256 256" data-astro-cid-p774adf7="true"><path fill="currentColor" d="M208.49 120.49a12 12 0 0 1-17 0L140 69v147a12 12 0 0 1-24 0V69l-51.51 51.49a12 12 0 0 1-17-17l72-72a12 12 0 0 1 17 0l72 72a12 12 0 0 1 0 17" /></svg> </button>  <article data-url="/blog/hmac-token-timestamp-redis-ttl-blog" data-title="接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL | jessy" data-astro-cid-vvdrgdaw> <header data-astro-cid-vvdrgdaw> <h1 data-astro-cid-vvdrgdaw>接口明明带了 Token，为什么还是会被重放？一文讲透 HMAC、时间戳、Nonce 和 Redis TTL</h1> <post-meta data-astro-cid-vvdrgdaw="true"> <post-authors data-astro-cid-vvdrgdaw="true"> <author-avatars data-astro-cid-vvdrgdaw="true"> <img src="https://github.com/JessyHHH.png" alt="jessy" width="18" height="18" data-astro-cid-vvdrgdaw> </author-avatars> <author-names data-astro-cid-vvdrgdaw="true"> <a href="/authors/jessy" data-astro-cid-vvdrgdaw>jessy</a> </author-names> </post-authors> <time datetime="2026-06-23T00:00:00.000Z" data-astro-cid-vvdrgdaw>2026年6月23日</time> <post-tags data-astro-cid-vvdrgdaw="true"> <a href="/tags/backend" data-astro-cid-vvdrgdaw>#backend</a><a href="/tags/security" data-astro-cid-vvdrgdaw>#security</a> </post-tags> </post-meta> <p data-astro-cid-vvdrgdaw>从请求身份、完整性与唯一性出发，讲清 HMAC、时间戳、Nonce 和 Redis TTL 如何共同抵御重放攻击。</p> </header>  <prose-content data-astro-cid-vvdrgdaw="true"> <p>有些安全问题，第一次听的时候很抽象。</p>
+<p>比如这句：</p>
+<blockquote>
+<p>“接口虽然做了 token 鉴权，但还是可能被重放攻击。”</p>
+</blockquote>
+<p>很多人看到这里，第一反应都是：</p>
+<p>“啊？都已经带 token 了，怎么还能有问题？”</p>
+<p>这事不怪人困惑，因为在大多数业务开发语境里，<code>token</code> 几乎已经快等于“安全”了。前端带上 token，请求发到后端，后端验一下，能过就说明“你是你”。于是大家天然会觉得，这不就已经够了吗？</p>
+<p>但现实往往比这个复杂一点。</p>
+<p>如果把接口请求想象成“送快递”，那很多系统其实只做了这一步：</p>
+<ul>
+<li>快递员出示了工牌，门卫确认“你是本公司的人”</li>
+</ul>
+<p>但门卫并没有检查：</p>
+<ul>
+<li>包裹有没有被拆过</li>
+<li>包裹是不是昨天的旧件</li>
+<li>这份包裹是不是刚刚已经送过一次了</li>
+</ul>
+<p>而接口安全的很多问题，恰恰就出在后面这几项。</p>
+<p>今天我们就用一篇尽量不枯燥的方式，把几个经常一起出现的概念讲清楚：</p>
+<ul>
+<li><code>Token</code> 到底解决什么问题</li>
+<li><code>HMAC</code> 为什么能防篡改</li>
+<li><code>时间戳</code> 为什么还不够</li>
+<li><code>Nonce</code> 和 <code>Redis TTL</code> 为什么常常要一起上</li>
+<li>一套更稳妥的请求鉴权方案应该怎么搭</li>
+</ul>
+<p>如果你最近在做开放平台、支付接口、回调验签，或者只是单纯想搞明白“为什么接口安全总是又签名又时间戳又 Redis”，这篇文章会比较适合你。</p>
+<hr>
+<h2 id="一先说结论只有-token通常不够">一、先说结论：只有 Token，通常不够<a data-heading-anchor="" href="#一先说结论只有-token通常不够" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p><code>token</code> 最擅长解决的问题，其实只有一个：</p>
+<p><strong>“你是谁？”</strong></p>
+<p>比如用户登录之后，服务端发给客户端一个 token，后续请求都带着它：</p>
+<div class="expressive-code"><style>.expressive-code{font-family:var(--ec-uiFontFml);font-size:var(--ec-uiFontSize);font-weight:var(--ec-uiFontWg);line-height:var(--ec-uiLineHt);text-size-adjust:none;-webkit-text-size-adjust:none}.expressive-code *:not(:is(svg, svg *)){all:revert;box-sizing:border-box}.expressive-code pre{display:flex;margin:0;padding:0;border:var(--ec-brdWd) solid var(--ec-brdCol);border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));background:var(--ec-codeBg)}.expressive-code pre:focus-visible{outline:3px solid var(--ec-focusBrd);outline-offset:-3px}.expressive-code pre > code{all:unset;display:block;flex:1 0 100%;padding:var(--ec-codePadBlk) 0;color:var(--ec-codeFg);font-family:var(--ec-codeFontFml);font-size:var(--ec-codeFontSize);font-weight:var(--ec-codeFontWg);line-height:var(--ec-codeLineHt)}.expressive-code pre{overflow-x:auto}.expressive-code pre.wrap .ec-line .code{white-space:pre-wrap;overflow-wrap:break-word;min-width:min(20ch, var(--ecMaxLine, 20ch))}.expressive-code pre.wrap .ec-line .code span.indent{white-space:pre}.expressive-code pre::-webkit-scrollbar,.expressive-code pre::-webkit-scrollbar-track{background-color:inherit;border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));border-top-left-radius:0;border-top-right-radius:0}.expressive-code pre::-webkit-scrollbar-thumb{background-color:var(--ec-sbThumbCol);border:4px solid transparent;background-clip:content-box;border-radius:10px}.expressive-code pre::-webkit-scrollbar-thumb:hover{background-color:var(--ec-sbThumbHoverCol)}.expressive-code .ec-line{direction:ltr;unicode-bidi:isolate;display:grid;grid-template-areas:'gutter code';grid-template-columns:auto 1fr;position:relative}.expressive-code .ec-line .gutter{grid-area:gutter;color:var(--ec-gtrFg)}.expressive-code .ec-line .gutter > *{pointer-events:none;user-select:none;-webkit-user-select:none}.expressive-code .ec-line .gutter ~ .code{--ecLineBrdCol:var(--ec-gtrBrdCol)}.expressive-code .ec-line.highlight .gutter{color:var(--ec-gtrHlFg)}.expressive-code .ec-line .code{grid-area:code;position:relative;box-sizing:content-box;padding-inline-start:calc(var(--ecIndent, 0ch) + var(--ec-codePadInl) - var(--ecGtrBrdWd));padding-inline-end:var(--ec-codePadInl);text-indent:calc(var(--ecIndent, 0ch) * -1)}.expressive-code .ec-line .code::before,.expressive-code .ec-line .code::after,.expressive-code .ec-line .code :where(*){text-indent:0}.expressive-code .ec-line .code{--ecGtrBrdWd:var(--ec-gtrBrdWd);border-inline-start:var(--ecGtrBrdWd) solid var(--ecLineBrdCol, transparent)}.expressive-code .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.expressive-code .ec-line.mark{--tmLineBgCol:var(--ec-tm-markBg)}.expressive-code .ec-line.mark .code{--ecLineBrdCol:var(--ec-tm-markBrdCol)}.expressive-code .ec-line.ins{--tmLineBgCol:var(--ec-tm-insBg);--tmLabel:var(--ec-tm-insDiffIndContent)}.expressive-code .ec-line.ins .code{--ecLineBrdCol:var(--ec-tm-insBrdCol)}.expressive-code .ec-line.ins .code::before{color:var(--ec-tm-insDiffIndCol)}.expressive-code .ec-line.del{--tmLineBgCol:var(--ec-tm-delBg);--tmLabel:var(--ec-tm-delDiffIndContent)}.expressive-code .ec-line.del .code{--ecLineBrdCol:var(--ec-tm-delBrdCol)}.expressive-code .ec-line.del .code::before{color:var(--ec-tm-delDiffIndCol)}.expressive-code .ec-line.mark,.expressive-code .ec-line.ins,.expressive-code .ec-line.del{background:var(--tmLineBgCol)}.expressive-code .ec-line.mark .code,.expressive-code .ec-line.ins .code,.expressive-code .ec-line.del .code{--ecGtrBrdWd:var(--ec-tm-lineMarkerAccentWd)}.expressive-code .ec-line.mark .code::before,.expressive-code .ec-line.ins .code::before,.expressive-code .ec-line.del .code::before{display:block;position:absolute;left:0;box-sizing:border-box;content:var(--tmLabel, ' ');padding-inline-start:var(--ec-tm-lineDiffIndMargLeft);text-align:center;white-space:pre}.expressive-code .ec-line.mark.tm-label .code::before,.expressive-code .ec-line.ins.tm-label .code::before,.expressive-code .ec-line.del.tm-label .code::before{background:var(--ecLineBrdCol);padding:0 calc(var(--ec-tm-lineMarkerLabelPadInl) + var(--ec-tm-lineMarkerAccentWd)) 0 var(--ec-tm-lineMarkerLabelPadInl);color:var(--ec-tm-lineMarkerLabelCol)}.expressive-code .ec-line mark{--tmInlineBgCol:var(--ec-tm-markBg);--tmInlineBrdCol:var(--ec-tm-markBrdCol)}.expressive-code .ec-line ins{--tmInlineBgCol:var(--ec-tm-insBg);--tmInlineBrdCol:var(--ec-tm-insBrdCol)}.expressive-code .ec-line del{--tmInlineBgCol:var(--ec-tm-delBg);--tmInlineBrdCol:var(--ec-tm-delBrdCol)}.expressive-code .ec-line mark,.expressive-code .ec-line ins,.expressive-code .ec-line del{all:unset;display:inline-block;position:relative;--tmBrdL:var(--ec-tm-inlMarkerBrdWd);--tmBrdR:var(--ec-tm-inlMarkerBrdWd);--tmRadL:var(--ec-tm-inlMarkerBrdRad);--tmRadR:var(--ec-tm-inlMarkerBrdRad);margin-inline:0.025rem;padding-inline:var(--ec-tm-inlMarkerPad);border-radius:var(--tmRadL) var(--tmRadR) var(--tmRadR) var(--tmRadL);background:var(--tmInlineBgCol);background-clip:padding-box}.expressive-code .ec-line mark.open-start,.expressive-code .ec-line ins.open-start,.expressive-code .ec-line del.open-start{margin-inline-start:0;padding-inline-start:0;--tmBrdL:0px;--tmRadL:0}.expressive-code .ec-line mark.open-end,.expressive-code .ec-line ins.open-end,.expressive-code .ec-line del.open-end{margin-inline-end:0;padding-inline-end:0;--tmBrdR:0px;--tmRadR:0}.expressive-code .ec-line mark::before,.expressive-code .ec-line ins::before,.expressive-code .ec-line del::before{content:'';position:absolute;pointer-events:none;display:inline-block;inset:0;border-radius:var(--tmRadL) var(--tmRadR) var(--tmRadR) var(--tmRadL);border:var(--ec-tm-inlMarkerBrdWd) solid var(--tmInlineBrdCol);border-inline-width:var(--tmBrdL) var(--tmBrdR)}.expressive-code .frame{all:unset;position:relative;display:block;--header-border-radius:calc(var(--ec-brdRad) + var(--ec-brdWd));--tab-border-radius:calc(var(--ec-frm-edTabBrdRad) + var(--ec-brdWd));--button-spacing:0.4rem;--code-background:var(--ec-frm-edBg);border-radius:var(--header-border-radius);box-shadow:var(--ec-frm-frameBoxShdCssVal)}.expressive-code .frame .header{display:none;z-index:1;position:relative;border-radius:var(--header-border-radius) var(--header-border-radius) 0 0}.expressive-code .frame.has-title pre,.expressive-code .frame.has-title code,.expressive-code .frame.is-terminal pre,.expressive-code .frame.is-terminal code{border-top:none;border-top-left-radius:0;border-top-right-radius:0}.expressive-code .frame .title:empty:before{content:'\a0'}.expressive-code .frame.has-title:not(.is-terminal){--button-spacing:calc(1.9rem + 2 * (var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)))}.expressive-code .frame.has-title:not(.is-terminal) .title{position:relative;color:var(--ec-frm-edActTabFg);background:var(--ec-frm-edActTabBg);background-clip:padding-box;margin-block-start:var(--ec-frm-edTabsMargBlkStart);padding:calc(var(--ec-uiPadBlk) + var(--ec-frm-edActTabIndHt)) var(--ec-uiPadInl);border:var(--ec-brdWd) solid var(--ec-frm-edActTabBrdCol);border-radius:var(--tab-border-radius) var(--tab-border-radius) 0 0;border-bottom:none;overflow:hidden}.expressive-code .frame.has-title:not(.is-terminal) .title::after{content:'';position:absolute;pointer-events:none;inset:0;border-top:var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndTopCol);border-bottom:var(--ec-frm-edActTabIndHt) solid var(--ec-frm-edActTabIndBtmCol)}.expressive-code .frame.has-title:not(.is-terminal) .header{display:flex;background:linear-gradient(to top, var(--ec-frm-edTabBarBrdBtmCol) var(--ec-brdWd), transparent var(--ec-brdWd)),linear-gradient(var(--ec-frm-edTabBarBg), var(--ec-frm-edTabBarBg));background-repeat:no-repeat;padding-inline-start:var(--ec-frm-edTabsMargInlStart)}.expressive-code .frame.has-title:not(.is-terminal) .header::before{content:'';position:absolute;pointer-events:none;inset:0;border:var(--ec-brdWd) solid var(--ec-frm-edTabBarBrdCol);border-radius:inherit;border-bottom:none}.expressive-code .frame.is-terminal{--button-spacing:calc(1.9rem + var(--ec-brdWd) + 2 * var(--ec-uiPadBlk));--code-background:var(--ec-frm-trmBg)}.expressive-code .frame.is-terminal .header{display:flex;align-items:center;justify-content:center;padding-block:var(--ec-uiPadBlk);padding-block-end:calc(var(--ec-uiPadBlk) + var(--ec-brdWd));position:relative;font-weight:500;letter-spacing:0.025ch;color:var(--ec-frm-trmTtbFg);background:var(--ec-frm-trmTtbBg);border:var(--ec-brdWd) solid var(--ec-brdCol);border-bottom:none}.expressive-code .frame.is-terminal .header::before{content:'';position:absolute;pointer-events:none;left:var(--ec-uiPadInl);width:2.1rem;height:0.56rem;line-height:0;background-color:var(--ec-frm-trmTtbDotsFg);opacity:var(--ec-frm-trmTtbDotsOpa);-webkit-mask-image:var(--ec-frm-trmIcon);-webkit-mask-repeat:no-repeat;mask-image:var(--ec-frm-trmIcon);mask-repeat:no-repeat}.expressive-code .frame.is-terminal .header::after{content:'';position:absolute;pointer-events:none;inset:0;border-bottom:var(--ec-brdWd) solid var(--ec-frm-trmTtbBrdBtmCol)}.expressive-code .frame pre{background:var(--code-background)}.expressive-code .copy{display:flex;gap:0.25rem;flex-direction:row;position:absolute;inset-block-start:calc(var(--ec-brdWd) + var(--button-spacing));inset-inline-end:calc(var(--ec-brdWd) + var(--ec-uiPadInl) / 2)}@media (scripting: none){.expressive-code .copy{display:none}}.expressive-code .copy{direction:ltr;unicode-bidi:isolate}.expressive-code .copy button{position:relative;align-self:flex-end;margin:0;padding:0;border:none;border-radius:0.2rem;z-index:1;cursor:pointer;transition-property:opacity, background, border-color;transition-duration:0.2s;transition-timing-function:cubic-bezier(0.25, 0.46, 0.45, 0.94);width:2.5rem;height:2.5rem;background:var(--code-background);opacity:0.75}.expressive-code .copy button div{position:absolute;inset:0;border-radius:inherit;background:var(--ec-frm-inlBtnBg);opacity:var(--ec-frm-inlBtnBgIdleOpa);transition-property:inherit;transition-duration:inherit;transition-timing-function:inherit}.expressive-code .copy button::before{content:'';position:absolute;pointer-events:none;inset:0;border-radius:inherit;border:var(--ec-brdWd) solid var(--ec-frm-inlBtnBrd);opacity:var(--ec-frm-inlBtnBrdOpa)}.expressive-code .copy button::after{content:'';position:absolute;pointer-events:none;inset:0;background-color:var(--ec-frm-inlBtnFg);-webkit-mask-image:var(--ec-frm-copyIcon);-webkit-mask-repeat:no-repeat;mask-image:var(--ec-frm-copyIcon);mask-repeat:no-repeat;margin:0.475rem;line-height:0}.expressive-code .copy button:hover,.expressive-code .copy button:focus:focus-visible{opacity:1}.expressive-code .copy button:hover div,.expressive-code .copy button:focus:focus-visible div{opacity:var(--ec-frm-inlBtnBgHoverOrFocusOpa)}.expressive-code .copy button:active{opacity:1}.expressive-code .copy button:active div{opacity:var(--ec-frm-inlBtnBgActOpa)}.expressive-code .copy .feedback{--tooltip-arrow-size:0.35rem;--tooltip-bg:var(--ec-frm-tooltipSuccessBg);color:var(--ec-frm-tooltipSuccessFg);pointer-events:none;user-select:none;-webkit-user-select:none;position:relative;align-self:center;background-color:var(--tooltip-bg);z-index:99;padding:0.125rem 0.75rem;border-radius:0.2rem;margin-inline-end:var(--tooltip-arrow-size);opacity:0;transition-property:opacity, transform;transition-duration:0.2s;transition-timing-function:ease-in-out;transform:translate3d(0, 0.25rem, 0)}.expressive-code .copy .feedback::after{content:'';position:absolute;pointer-events:none;top:calc(50% - var(--tooltip-arrow-size));inset-inline-end:calc(-2 * (var(--tooltip-arrow-size) - 0.5px));border:var(--tooltip-arrow-size) solid transparent;border-inline-start-color:var(--tooltip-bg)}.expressive-code .copy .feedback.show{opacity:1;transform:translate3d(0, 0, 0)}@media (hover: hover){.expressive-code{}.expressive-code .copy button{opacity:0;width:2rem;height:2rem}.expressive-code .frame:hover .copy button:not(:hover),.expressive-code .frame:focus-within :focus-visible ~ .copy button:not(:hover),.expressive-code .frame .copy .feedback.show ~ button:not(:hover){opacity:0.75}}.expressive-code :nth-child(1 of .ec-line) .code{padding-inline-end:calc(2rem + var(--ec-codePadInl))}.expressive-code .ec-section{position:relative}.expressive-code .ec-section summary{position:relative;font-family:var(--ec-cs-closedFontFml);font-size:var(--ec-cs-closedFontSize);line-height:var(--ec-cs-closedLineHt);user-select:none;-webkit-user-select:none;cursor:pointer;color:var(--ec-cs-closedTextCol);background-color:var(--ec-cs-closedBgCol);--border-color:var(--ec-cs-closedBrdCol);--border-width:var(--ec-cs-closedBrdWd);box-shadow:inset 0 calc(-1 * var(--border-width)) var(--border-color), inset 0 var(--border-width) var(--border-color);margin:var(--ec-cs-closedMarg);padding:0}.expressive-code .ec-section summary::marker{display:inline-block;content:"";width:16px;height:16px}.expressive-code .ec-section summary::-webkit-details-marker{display:none}.expressive-code .ec-section summary :is(.expand, .collapse){position:relative;display:inline-block;width:16px;height:16px;vertical-align:text-bottom;opacity:0.75}.expressive-code .ec-section summary :is(.expand, .collapse)::after{content:'';position:absolute;pointer-events:none;inset:0;background-color:var(--ec-cs-closedTextCol);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;line-height:0}.expressive-code .ec-section summary .expand::after{-webkit-mask-image:var(--ec-cs-expandIcon);mask-image:var(--ec-cs-expandIcon);-webkit-print-color-adjust:exact;print-color-adjust:exact}.expressive-code .ec-section summary .collapse{display:none}.expressive-code .ec-section summary .collapse::after{-webkit-mask-image:var(--ec-cs-collapseIcon);mask-image:var(--ec-cs-collapseIcon)}.expressive-code .ec-section summary .text{margin-left:1em}.expressive-code .ec-section summary .ec-line .code{padding-block:var(--ec-cs-closedPadBlk);text-indent:0}.expressive-code .ec-section[open],.expressive-code .ec-section details[open] + .content-lines{--border-color:var(--ec-cs-openBrdCol);--border-width:var(--ec-cs-openBrdWd);box-shadow:inset 0 calc(-1 * var(--border-width)) var(--border-color), inset 0 var(--border-width) var(--border-color);padding-inline:var(--ec-cs-openPad);margin-inline:var(--ec-cs-openMarg)}.expressive-code .ec-section.github[open] summary{display:none}.expressive-code .ec-section.github[open]{background-color:var(--ec-cs-openBgCol)}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end){display:flex;flex-direction:column}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) .content-lines{display:none}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] .collapse{display:inline-block}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] :is(.expand, .text){display:none}.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open] + .content-lines{display:block;background-color:var(--ec-cs-openBgColCollapsible)}@media print{.expressive-code .ec-section:is(.collapsible-start, .collapsible-end) details[open]{display:none}}.expressive-code .ec-section.collapsible-end{flex-direction:column-reverse}.expressive-code .gutter .ln{display:inline-flex;justify-content:flex-end;align-items:flex-start;box-sizing:content-box;min-width:var(--lnWidth, 2ch);padding-inline:2ch;color:var(--ec-lineNumbers-fg)}.highlight .expressive-code .gutter .ln{color:var(--ec-lineNumbers-hlFg)}:root,:root:not([data-theme="light"]) .expressive-code[data-theme="light"]{--ec-brdRad:0px;--ec-brdWd:1.5px;--ec-brdCol:var(--border);--ec-codeFontFml:var(--font-mono);--ec-codeFontSize:var(--step--1);--ec-codeFontWg:400;--ec-codeLineHt:1.65;--ec-codePadBlk:1rem;--ec-codePadInl:1.35rem;--ec-codeBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-codeFg:#24292e;--ec-codeSelBg:#0366d625;--ec-gtrFg:#1b1f234d;--ec-gtrBrdCol:#1b1f2333;--ec-gtrBrdWd:1.5px;--ec-gtrHlFg:#24292e;--ec-uiFontFml:var(--font-sans);--ec-uiFontSize:0.9rem;--ec-uiFontWg:400;--ec-uiLineHt:1.65;--ec-uiPadBlk:0.25rem;--ec-uiPadInl:1rem;--ec-uiSelBg:#e2e5e9;--ec-uiSelFg:#2f363d;--ec-focusBrd:#2188ff;--ec-sbThumbCol:#959da533;--ec-sbThumbHoverCol:#959da544;--ec-tm-lineMarkerAccentMarg:0rem;--ec-tm-lineMarkerAccentWd:0.15rem;--ec-tm-lineMarkerLabelPadInl:0.2rem;--ec-tm-lineMarkerLabelCol:var(--foreground);--ec-tm-lineDiffIndMargLeft:0.3rem;--ec-tm-inlMarkerBrdWd:1.5px;--ec-tm-inlMarkerBrdRad:0.2rem;--ec-tm-inlMarkerPad:0.15rem;--ec-tm-insDiffIndContent:'+';--ec-tm-delDiffIndContent:'-';--ec-tm-markBg:#95b6ff40;--ec-tm-markBrdCol:#4470c440;--ec-tm-insBg:#89c97740;--ec-tm-insBrdCol:#41803440;--ec-tm-insDiffIndCol:#2b6c20d0;--ec-tm-delBg:#ff988940;--ec-tm-delBrdCol:#ba514640;--ec-tm-delDiffIndCol:#a33c34d0;--ec-frm-shdCol:#00000028;--ec-frm-frameBoxShdCssVal:none;--ec-frm-edActTabBg:transparent;--ec-frm-edActTabFg:var(--muted-foreground);--ec-frm-edActTabBrdCol:transparent;--ec-frm-edActTabIndHt:1.5px;--ec-frm-edActTabIndTopCol:transparent;--ec-frm-edActTabIndBtmCol:transparent;--ec-frm-edTabsMargInlStart:0;--ec-frm-edTabsMargBlkStart:0;--ec-frm-edTabBrdRad:0px;--ec-frm-edTabBarBg:transparent;--ec-frm-edTabBarBrdCol:var(--border);--ec-frm-edTabBarBrdBtmCol:transparent;--ec-frm-edBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-frm-trmTtbFg:var(--muted-foreground);--ec-frm-trmTtbDotsFg:var(--muted-foreground);--ec-frm-trmTtbDotsOpa:0.15;--ec-frm-trmTtbBg:transparent;--ec-frm-trmTtbBrdBtmCol:transparent;--ec-frm-trmBg:color-mix(in oklab, var(--muted) 25%, transparent);--ec-frm-inlBtnFg:#24292e;--ec-frm-inlBtnBg:#24292e;--ec-frm-inlBtnBgIdleOpa:0;--ec-frm-inlBtnBgHoverOrFocusOpa:0.2;--ec-frm-inlBtnBgActOpa:0.3;--ec-frm-inlBtnBrd:#24292e;--ec-frm-inlBtnBrdOpa:0.4;--ec-frm-tooltipSuccessBg:#208638;--ec-frm-tooltipSuccessFg:white;--ec-frm-copyIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'black'%20stroke-width%3D'1.75'%3E%3Cpath%20d%3D'M3%2019a2%202%200%200%201-1-2V2a2%202%200%200%201%201-1h13a2%202%200%200%201%202%201'%2F%3E%3Crect%20x%3D'6'%20y%3D'5'%20width%3D'16'%20height%3D'18'%20rx%3D'1.5'%20ry%3D'1.5'%2F%3E%3C%2Fsvg%3E");--ec-frm-trmIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2060%2016'%20preserveAspectRatio%3D'xMidYMid%20meet'%3E%3Ccircle%20cx%3D'8'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'30'%20cy%3D'8'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'52'%20cy%3D'8'%20r%3D'8'%2F%3E%3C%2Fsvg%3E");--ec-cs-closedBrdWd:0px;--ec-cs-closedPadBlk:4px;--ec-cs-closedMarg:0;--ec-cs-closedFontFml:var(--font-sans);--ec-cs-closedFontSize:inherit;--ec-cs-closedLineHt:inherit;--ec-cs-closedTextCol:#24292e;--ec-cs-closedBgCol:#d1d5da33;--ec-cs-closedBrdCol:#d1d5da80;--ec-cs-openBrdWd:1px;--ec-cs-openPad:0;--ec-cs-openMarg:0;--ec-cs-openBgCol:transparent;--ec-cs-openBgColCollapsible:#d1d5da1a;--ec-cs-openBrdCol:transparent;--ec-cs-expandIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Cpath%20d%3D'm8.177.677%202.896%202.896a.25.25%200%200%201-.177.427H8.75v1.25a.75.75%200%200%201-1.5%200V4H5.104a.25.25%200%200%201-.177-.427L7.823.677a.25.25%200%200%201%20.354%200ZM7.25%2010.75a.75.75%200%200%201%201.5%200V12h2.146a.25.25%200%200%201%20.177.427l-2.896%202.896a.25.25%200%200%201-.354%200l-2.896-2.896A.25.25%200%200%201%205.104%2012H7.25v-1.25Zm-5-2a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM6%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%206%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM12%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%2012%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5Z'%2F%3E%3C%2Fsvg%3E");--ec-cs-collapseIcon:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Cpath%20d%3D'M10.896%202H8.75V.75a.75.75%200%200%200-1.5%200V2H5.104a.25.25%200%200%200-.177.427l2.896%202.896a.25.25%200%200%200%20.354%200l2.896-2.896A.25.25%200%200%200%2010.896%202ZM8.75%2015.25a.75.75%200%200%201-1.5%200V14H5.104a.25.25%200%200%201-.177-.427l2.896-2.896a.25.25%200%200%201%20.354%200l2.896%202.896a.25.25%200%200%201-.177.427H8.75v1.25Zm-6.5-6.5a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM6%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%206%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5ZM12%208a.75.75%200%200%201-.75.75h-.5a.75.75%200%200%201%200-1.5h.5A.75.75%200%200%201%2012%208Zm2.25.75a.75.75%200%200%200%200-1.5h-.5a.75.75%200%200%200%200%201.5h.5Z'%2F%3E%3C%2Fsvg%3E");--ec-lineNumbers-fg:var(--muted-foreground);--ec-lineNumbers-hlFg:inherit}.expressive-code .ec-line :where(span[style^='--']:not([class])),:root:not([data-theme="light"]) .expressive-code[data-theme="light"] .ec-line :where(span[style^='--']:not([class])){color:var(--0, inherit);background-color:var(--0bg, transparent);font-style:var(--0fs, inherit);font-weight:var(--0fw, inherit);text-decoration:var(--0td, inherit)}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ec-codeFg:#e1e4e8;--ec-codeSelBg:#3392ff44;--ec-gtrFg:#444d56;--ec-gtrBrdCol:#444d5633;--ec-gtrHlFg:#e1e4e8;--ec-uiSelBg:#39414a;--ec-uiSelFg:#e1e4e8;--ec-focusBrd:#005cc5;--ec-sbThumbCol:#6a737d33;--ec-sbThumbHoverCol:#6a737d44;--ec-tm-markBg:#004a9840;--ec-tm-insBg:#13580c40;--ec-tm-insDiffIndCol:#73b362d0;--ec-tm-delBg:#8b272340;--ec-tm-delDiffIndCol:#f48374d0;--ec-frm-shdCol:#0000005b;--ec-frm-inlBtnFg:#e1e4e8;--ec-frm-inlBtnBg:#e1e4e8;--ec-frm-inlBtnBrd:#e1e4e8;--ec-frm-tooltipSuccessBg:#228739;--ec-cs-closedTextCol:#e1e4e8;--ec-cs-closedBgCol:#58606933;--ec-cs-closedBrdCol:#58606980;--ec-cs-openBgColCollapsible:#5860691a}:root:not([data-theme="light"]) .expressive-code .ec-line :where(span[style^='--']:not([class])){color:var(--1, inherit);background-color:var(--1bg, transparent);font-style:var(--1fs, inherit);font-weight:var(--1fw, inherit);text-decoration:var(--1td, inherit)}}:root[data-theme="dark"] .expressive-code:not([data-theme="light"]),.expressive-code[data-theme="dark"]{--ec-codeFg:#e1e4e8;--ec-codeSelBg:#3392ff44;--ec-gtrFg:#444d56;--ec-gtrBrdCol:#444d5633;--ec-gtrHlFg:#e1e4e8;--ec-uiSelBg:#39414a;--ec-uiSelFg:#e1e4e8;--ec-focusBrd:#005cc5;--ec-sbThumbCol:#6a737d33;--ec-sbThumbHoverCol:#6a737d44;--ec-tm-markBg:#004a9840;--ec-tm-insBg:#13580c40;--ec-tm-insDiffIndCol:#73b362d0;--ec-tm-delBg:#8b272340;--ec-tm-delDiffIndCol:#f48374d0;--ec-frm-shdCol:#0000005b;--ec-frm-inlBtnFg:#e1e4e8;--ec-frm-inlBtnBg:#e1e4e8;--ec-frm-inlBtnBrd:#e1e4e8;--ec-frm-tooltipSuccessBg:#228739;--ec-cs-closedTextCol:#e1e4e8;--ec-cs-closedBgCol:#58606933;--ec-cs-closedBrdCol:#58606980;--ec-cs-openBgColCollapsible:#5860691a}:root[data-theme="dark"] .expressive-code:not([data-theme="light"]) .ec-line :where(span[style^='--']:not([class])),.expressive-code[data-theme="dark"] .ec-line :where(span[style^='--']:not([class])){color:var(--1, inherit);background-color:var(--1bg, transparent);font-style:var(--1fs, inherit);font-weight:var(--1fw, inherit);text-decoration:var(--1td, inherit)}</style><script type="module">try{(()=>{function a(e){if(!e)return;let t=e.getAttribute("tabindex")!==null,r=e.scrollWidth>e.clientWidth;r&&!t?(e.setAttribute("tabindex","0"),e.setAttribute("role","region")):!r&&t&&(e.removeAttribute("tabindex"),e.removeAttribute("role"))}var u=window.requestIdleCallback||(e=>setTimeout(e,1)),s=window.cancelIdleCallback||clearTimeout;function l(e){let t=new Set,r,n;return new ResizeObserver(c=>{c.forEach(o=>t.add(o.target)),r&&clearTimeout(r),n&&s(n),r=setTimeout(()=>{n&&s(n),n=u(()=>{t.forEach(o=>e(o)),t.clear()})},250)})}function i(e,t){e.querySelectorAll?.(".expressive-code pre > code").forEach(r=>{let n=r.parentElement;n&&t.observe(n)})}var d=l(a);i(document,d);var b=new MutationObserver(e=>e.forEach(t=>t.addedNodes.forEach(r=>{i(r,d)})));b.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("astro:page-load",()=>{i(document,d)});})();}catch(e){console.error("[EC] tabindex-js-module failed:",e)}</script><script type="module">try{(()=>{function l(o){let e=document.createElement("pre");Object.assign(e.style,{opacity:"0",pointerEvents:"none",position:"absolute",overflow:"hidden",left:"0",top:"0",width:"20px",height:"20px",webkitUserSelect:"auto",userSelect:"all"}),e.ariaHidden="true",e.textContent=o,document.body.appendChild(e);let a=document.createRange();a.selectNode(e);let n=getSelection();if(!n)return!1;n.removeAllRanges(),n.addRange(a);let r=!1;try{r=document.execCommand("copy")}finally{n.removeAllRanges(),document.body.removeChild(e)}return r}async function u(o){let e=o.currentTarget,a=e.dataset,n=!1,r=a.code.replace(/\u007f/g,`
+`);try{await navigator.clipboard.writeText(r),n=!0}catch{n=l(r)}if(!n||e.parentNode?.querySelector(".feedback"))return;let c=e.parentNode?.querySelector("[aria-live]"),t=document.createElement("div");t.classList.add("feedback"),t.append(a.copied),c.append(t),t.offsetWidth,requestAnimationFrame(()=>t?.classList.add("show"));let s=()=>!t||t.classList.remove("show"),d=()=>{!t||parseFloat(getComputedStyle(t).opacity)>0||(t.remove(),t=void 0)};setTimeout(s,1500),setTimeout(d,2500),e.addEventListener("blur",s),t.addEventListener("transitioncancel",d),t.addEventListener("transitionend",d)}function i(o){o.querySelectorAll?.(".expressive-code .copy button").forEach(e=>e.addEventListener("click",u))}i(document);var m=new MutationObserver(o=>o.forEach(e=>e.addedNodes.forEach(a=>{i(a)})));m.observe(document.body,{childList:!0,subtree:!0});document.addEventListener("astro:page-load",()=>{i(document)});})();}catch(e){console.error("[EC] copy-js-module failed:",e)}</script><figure class="frame"><figcaption class="header"></figcaption><pre data-language="http" class="wrap" style="--ecMaxLine:27ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#1E7734;--1:#85E89D">Authorization</span><span style="--0:#BF3441;--1:#F97583">:</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#032F62;--1:#9ECBFF">Bearer xxxxx</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="Authorization: Bearer xxxxx"><div></div></button></div></figure></div>
+<p>服务端收到之后，做一层校验：</p>
+<ul>
+<li>token 是否存在</li>
+<li>token 是否过期</li>
+<li>token 对应的是哪个用户</li>
+</ul>
+<p>如果没问题，就放行。</p>
+<p>这套机制非常常见，也非常有用。问题在于，它主要解决的是“身份识别”，不是“请求本身是否安全”。</p>
+<p>换句话说，token 能告诉后端：</p>
+<blockquote>
+<p>这请求大概率是张三发来的。</p>
+</blockquote>
+<p>但它不一定能告诉后端：</p>
+<blockquote>
+<p>这请求的内容没有被改过。<br>
+这请求不是一分钟前抓包抓来的旧请求。<br>
+这请求不是别人拿着同一份数据连续重放了三十次。</p>
+</blockquote>
+<p>而很多线上事故，就发生在“我们以为 token 已经把安全问题都解决了”的那一刻。</p>
+<hr>
+<h2 id="二一个很典型的误会认证通过不代表请求可信">二、一个很典型的误会：认证通过，不代表请求可信<a data-heading-anchor="" href="#二一个很典型的误会认证通过不代表请求可信" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>想象一个接口：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="http" class="wrap" style="--ecMaxLine:13ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#BF3441;--1:#F97583">POST</span><span style="--0:#24292E;--1:#E1E4E8"> /api/pay</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="POST /api/pay"><div></div></button></div></figure></div>
+<p>请求体长这样：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="json" class="wrap" style="--ecMaxLine:17ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">{</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"userId"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#005CC5;--1:#79B8FF">1001</span><span style="--0:#24292E;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"amount"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#005CC5;--1:#79B8FF">100</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;userId&quot;: 1001,  &quot;amount&quot;: 100}"><div></div></button></div></figure></div>
+<p>客户端带着 token 发给服务端。服务端一看：</p>
+<ul>
+<li>token 合法</li>
+<li>用户身份没问题</li>
+</ul>
+<p>于是扣款 100 元。</p>
+<p>现在问题来了。</p>
+<p>如果攻击者拿到这份完整请求，他不一定需要“破解”什么东西，只要能把这份请求原样再发一次，就可能造成第二次扣款。</p>
+<p>这就是重放攻击最朴素的样子：</p>
+<p><strong>我不伪造，我就重复使用一份合法请求。</strong></p>
+<p>而如果攻击者还能改参数，比如把 <code>amount=100</code> 改成 <code>amount=1000</code>，那又是另一类问题：</p>
+<p><strong>请求篡改。</strong></p>
+<p>所以你会发现，接口安全至少有三层不同的问题：</p>
+<ol>
+<li>调用者是谁</li>
+<li>请求有没有被改</li>
+<li>请求是不是旧的、重复的</li>
+</ol>
+<p><code>token</code> 主要解决第 1 个问题。<br>
+后面两个，通常要靠别的机制。</p>
+<hr>
+<h2 id="三tokenhmac时间戳nonceredis-ttl分别像什么">三、Token、HMAC、时间戳、Nonce、Redis TTL，分别像什么？<a data-heading-anchor="" href="#三tokenhmac时间戳nonceredis-ttl分别像什么" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>如果只背名词，这几个东西很容易越学越绕。<br>
+换成一个门禁场景，会直观很多。</p>
+<h3 id="1-token门禁卡">1. Token：门禁卡<a data-heading-anchor="" href="#1-token门禁卡" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>你来到公司大门口，先刷一下卡。</p>
+<p>门卫看见系统显示：</p>
+<ul>
+<li>工号 10086</li>
+<li>市场部</li>
+<li>卡还没过期</li>
+</ul>
+<p>于是确认：你是公司的人。</p>
+<p>这就是 token 的核心作用：</p>
+<p><strong>证明调用方身份。</strong></p>
+<p>但是，门禁卡只能证明“你是谁”，不能证明“你手里这份文件没被掉包”，也不能证明“你今天没拿昨天那张作废单子来混进去”。</p>
+<hr>
+<h3 id="2-hmac文件上的防拆封条">2. HMAC：文件上的防拆封条<a data-heading-anchor="" href="#2-hmac文件上的防拆封条" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>现在你除了刷卡，还带了一份文件。</p>
+<p>门卫发现，这份文件外面贴了一个特殊封条。这个封条不是随便谁都能做，只有公司和你知道制作方法。</p>
+<p>如果文件内容被改过，封条就对不上。</p>
+<p>这就是 <code>HMAC</code> 的味道。</p>
+<p>它的核心作用不是“证明你是谁”，而是：</p>
+<p><strong>证明请求内容没有被篡改，而且这份签名是知道密钥的人算出来的。</strong></p>
+<p>说白一点：</p>
+<ul>
+<li>token 像“工牌”</li>
+<li>HMAC 像“封条”</li>
+</ul>
+<p>工牌管身份，封条管内容完整性。</p>
+<hr>
+<h3 id="3-时间戳保质期">3. 时间戳：保质期<a data-heading-anchor="" href="#3-时间戳保质期" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>如果一份文件上写着：</p>
+<blockquote>
+<p>仅限 5 分钟内有效</p>
+</blockquote>
+<p>那即使这份文件是真的、封条也是真的，过了时效也不能认。</p>
+<p>这就是 <code>timestamp</code> 的作用：</p>
+<p><strong>给请求加一个有效时间窗口。</strong></p>
+<p>它能解决的问题是：</p>
+<ul>
+<li>把一份很久以前抓到的请求，今天再拿来用，不行</li>
+</ul>
+<p>但它还不能完全解决：</p>
+<ul>
+<li>在这 5 分钟之内，我把同一份请求重复发十次</li>
+</ul>
+<p>所以只有时间戳，还是不够。</p>
+<hr>
+<h3 id="4-nonce一次性取号单">4. Nonce：一次性取号单<a data-heading-anchor="" href="#4-nonce一次性取号单" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>去银行办事的时候，你拿到一个排队号。</p>
+<p>这个号今天这一次有效，而且理论上只该用一次。<br>
+如果有人拿着同一个号反复插队，工作人员就会觉得不对劲。</p>
+<p>这就是 <code>nonce</code> 的定位：</p>
+<p><strong>给每次请求一个唯一编号。</strong></p>
+<p>这个编号往往是随机字符串，比如：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:16ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">8f6c2d1a9b3e4f77</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="8f6c2d1a9b3e4f77"><div></div></button></div></figure></div>
+<p>只要每次请求都不同，服务端就有机会判断：</p>
+<blockquote>
+<p>这个请求是不是“第一次出现”。</p>
+</blockquote>
+<hr>
+<h3 id="5-redis-ttl门卫的临时登记本">5. Redis TTL：门卫的临时登记本<a data-heading-anchor="" href="#5-redis-ttl门卫的临时登记本" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>问题来了。</p>
+<p>就算请求里带了 nonce，如果服务端不记下来，它也没法知道这个 nonce 之前有没有出现过。</p>
+<p>所以还需要一个“登记本”。</p>
+<p>这个登记本通常就是 Redis。</p>
+<p>服务端每收到一个通过校验的请求，就记一笔：</p>
+<ul>
+<li><code>token + nonce</code></li>
+<li>或者 <code>appId + nonce</code></li>
+<li>设置一个过期时间，比如 5 分钟</li>
+</ul>
+<p>如果 5 分钟内又看到同一个 nonce，就说明这不是第一次来了。</p>
+<p>这就是 <code>Redis TTL</code> 在防重放里的角色：</p>
+<p><strong>不是用来验身份，而是用来短期去重。</strong></p>
+<p>它像门卫桌上那本临时登记簿：</p>
+<ul>
+<li>刚登记过的人，短时间内不能拿同一张票再进一次</li>
+<li>过了时限，记录自动失效，不用永久保存</li>
+</ul>
+<hr>
+<h2 id="四为什么-hmac-能防篡改但单独还防不了重放">四、为什么 HMAC 能防篡改，但单独还防不了重放？<a data-heading-anchor="" href="#四为什么-hmac-能防篡改但单独还防不了重放" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>这是一个很容易混淆的点。</p>
+<p>很多同学学到 HMAC 时，会觉得：</p>
+<p>“我都签名了，请求还不安全吗？”</p>
+<p>HMAC 的确很有用，但它解决的是：</p>
+<p><strong>请求内容有没有被改。</strong></p>
+<p>比如原始请求是：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="json" class="wrap" style="--ecMaxLine:21ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">{</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"orderId"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#032F62;--1:#9ECBFF">"A1001"</span><span style="--0:#24292E;--1:#E1E4E8">,</span></div></div><div class="ec-line" style="--ecIndent:2ch"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span class="indent">  </span><span style="--0:#005CC5;--1:#79B8FF">"amount"</span><span style="--0:#24292E;--1:#E1E4E8">: </span><span style="--0:#005CC5;--1:#79B8FF">100</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span style="--0:#24292E;--1:#E1E4E8">}</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="{  &quot;orderId&quot;: &quot;A1001&quot;,  &quot;amount&quot;: 100}"><div></div></button></div></figure></div>
+<p>客户端按约定规则把请求内容做成签名串，再用密钥算出签名。<br>
+服务端收到后，用同样规则重算一遍，如果一致，就说明：</p>
+<ul>
+<li>内容没被改</li>
+<li>这份签名大概率来自知道密钥的人</li>
+</ul>
+<p>但注意一个关键事实：</p>
+<p><strong>“没被改过”不等于“没被重复使用过”。</strong></p>
+<p>攻击者完全可以把一份“合法且没被改过”的请求，原封不动重放一遍。</p>
+<p>这时候：</p>
+<ul>
+<li>HMAC 还是对的</li>
+<li>token 还是对的</li>
+</ul>
+<p>如果没有时间戳、nonce、Redis 去重，这份请求依然可能被执行第二次。</p>
+<p>所以：</p>
+<blockquote>
+<p>HMAC 防篡改很强，但防重放通常要靠“时间戳 + nonce + 服务端存储”一起配合。</p>
+</blockquote>
+<hr>
+<h2 id="五时间戳为什么也不够">五、时间戳为什么也不够？<a data-heading-anchor="" href="#五时间戳为什么也不够" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>有人会说：</p>
+<p>“那我加时间戳不就完了吗？只允许 5 分钟内有效。”</p>
+<p>这比没有强很多，但依然不彻底。</p>
+<p>原因很简单。</p>
+<p>假设攻击者在第 1 分钟抓到一份合法请求，而你的时间窗口是 5 分钟。<br>
+那接下来的 4 分钟里，他仍然可以把这份请求反复发出去。</p>
+<p>从服务端视角看：</p>
+<ul>
+<li>请求没过期</li>
+<li>签名没问题</li>
+<li>token 没问题</li>
+</ul>
+<p>于是服务端会觉得一切正常。</p>
+<p>这就像电影院检票时只看“今天的票”，但不撕票根。<br>
+你这张票今天确实有效，可如果没人记录“已经进过场了”，那你理论上可以反复拿它进去。</p>
+<p>所以时间戳更像是：</p>
+<p><strong>缩短攻击窗口</strong></p>
+<p>而不是：</p>
+<p><strong>彻底解决重放问题</strong></p>
+<p>真正要把重放挡住，还是得靠唯一标识 + 服务端判重。</p>
+<hr>
+<h2 id="六为什么很多方案最后都长成了token--hmac--时间戳--nonce--redis-ttl">六、为什么很多方案最后都长成了“Token + HMAC + 时间戳 + Nonce + Redis TTL”？<a data-heading-anchor="" href="#六为什么很多方案最后都长成了token--hmac--时间戳--nonce--redis-ttl" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>因为这几样东西刚好各管一摊，拼起来很完整。</p>
+<p>你可以把它理解成一套多层门禁：</p>
+<ul>
+<li><code>Token</code>：确认是谁在调用</li>
+<li><code>HMAC</code>：确认请求内容没被改</li>
+<li><code>时间戳</code>：确认这不是很久之前的旧请求</li>
+<li><code>Nonce</code>：确认每次请求都有唯一编号</li>
+<li><code>Redis TTL</code>：确认这个唯一编号没被用过</li>
+</ul>
+<p>这套组合不算最重，但很平衡。</p>
+<p>它不像双向证书那样接入复杂，也不像“只校验 token”那样防护太薄，所以在很多工程场景里都非常实用。</p>
+<p>尤其是这些地方：</p>
+<ul>
+<li>开放平台接口</li>
+<li>支付、扣款、退款相关接口</li>
+<li>第三方回调验签</li>
+<li>内部高敏感服务调用</li>
+</ul>
+<hr>
+<h2 id="七一个请求在这套方案里到底经历了什么">七、一个请求在这套方案里，到底经历了什么？<a data-heading-anchor="" href="#七一个请求在这套方案里到底经历了什么" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>我们把过程拆开来看，就不神秘了。</p>
+<h3 id="客户端这边做什么">客户端这边做什么？<a data-heading-anchor="" href="#客户端这边做什么" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>客户端发请求前，通常会准备这些东西：</p>
+<ol>
+<li><code>token</code>：标识调用方</li>
+<li><code>timestamp</code>：当前时间</li>
+<li><code>nonce</code>：一串随机数</li>
+<li>请求参数本身</li>
+<li>用密钥对这些内容做 HMAC 签名</li>
+</ol>
+<p>最后把它们一起发给服务端。</p>
+<p>比如请求头可能长这样：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="http" class="wrap" style="--ecMaxLine:25ch"><code><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">1</div></div><div class="code"><span style="--0:#1E7734;--1:#85E89D">X-Token</span><span style="--0:#BF3441;--1:#F97583">:</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#032F62;--1:#9ECBFF">app-token-123</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">2</div></div><div class="code"><span style="--0:#1E7734;--1:#85E89D">X-Timestamp</span><span style="--0:#BF3441;--1:#F97583">:</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#032F62;--1:#9ECBFF">1760000000</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">3</div></div><div class="code"><span style="--0:#1E7734;--1:#85E89D">X-Nonce</span><span style="--0:#BF3441;--1:#F97583">:</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#032F62;--1:#9ECBFF">8f6c2d1a9b3e4f77</span></div></div><div class="ec-line"><div class="gutter"><div class="ln" aria-hidden="true">4</div></div><div class="code"><span style="--0:#1E7734;--1:#85E89D">X-Signature</span><span style="--0:#BF3441;--1:#F97583">:</span><span style="--0:#24292E;--1:#E1E4E8"> </span><span style="--0:#032F62;--1:#9ECBFF">3b7a1f...</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="X-Token: app-token-123X-Timestamp: 1760000000X-Nonce: 8f6c2d1a9b3e4f77X-Signature: 3b7a1f..."><div></div></button></div></figure></div>
+<hr>
+<h3 id="服务端这边做什么">服务端这边做什么？<a data-heading-anchor="" href="#服务端这边做什么" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>服务端收到请求后，大致会按这个顺序检查：</p>
+<ol>
+<li><code>token</code> 合不合法</li>
+<li><code>timestamp</code> 有没有过期</li>
+<li><code>nonce</code> 之前有没有见过</li>
+<li><code>signature</code> 能不能验通过</li>
+</ol>
+<p>如果都通过，才执行业务逻辑。</p>
+<p>你会发现，它像一层层筛子：</p>
+<ul>
+<li>第一层看身份</li>
+<li>第二层看时效</li>
+<li>第三层看是否重复</li>
+<li>第四层看内容完整性</li>
+</ul>
+<p>最后才轮到真正的业务代码。</p>
+<p>这其实也是很多成熟系统的思路：</p>
+<p><strong>把风险尽量挡在业务逻辑外面。</strong></p>
+<hr>
+<h2 id="八签名到底签什么这是最容易翻车的地方">八、签名到底签什么？这是最容易翻车的地方<a data-heading-anchor="" href="#八签名到底签什么这是最容易翻车的地方" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>很多人以为“用了 HMAC”就结束了，真正麻烦的其实是：</p>
+<p><strong>你到底拿什么去签？</strong></p>
+<p>如果客户端和服务端对“待签名字符串”的理解不一样，再安全的算法也没用。</p>
+<p>比如下面这些细节，都会影响签名结果：</p>
+<ul>
+<li>Query 参数顺序不同</li>
+<li>JSON 字段顺序不同</li>
+<li>有没有多余空格</li>
+<li>中文编码方式是否一致</li>
+<li>Body 是原文签，还是先做 hash 再签</li>
+</ul>
+<p>所以工程里通常会先定义一套“规范化规则”。</p>
+<p>比如约定按这个顺序拼接：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:19ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">HTTP_METHOD</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">PATH</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">QUERY_STRING_SORTED</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">BODY_SHA256</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">TOKEN</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">TIMESTAMP</span></div></div><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">NONCE</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="HTTP_METHODPATHQUERY_STRING_SORTEDBODY_SHA256TOKENTIMESTAMPNONCE"><div></div></button></div></figure></div>
+<p>这样双方只要遵守同一套规则，就能稳定验签。</p>
+<p>这部分像什么呢？</p>
+<p>像两个人约好密码本的页码规则。</p>
+<p>不是你们的数学不行，而是你翻第 18 页、我翻第 81 页，那永远对不上。</p>
+<p>所以很多接口签名问题，本质不是“算法错了”，而是“规范没对齐”。</p>
+<hr>
+<h2 id="九redis-ttl-为什么几乎是防重放的标配">九、Redis TTL 为什么几乎是防重放的标配？<a data-heading-anchor="" href="#九redis-ttl-为什么几乎是防重放的标配" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>因为它太适合做这件事了。</p>
+<p>防重放需要的不是一个“永久档案馆”，而是一个“短期记忆”：</p>
+<ul>
+<li>我只需要知道这份请求在最近几分钟内有没有出现过</li>
+<li>再久远的记录，其实没必要一直存着</li>
+</ul>
+<p>Redis 正好满足这个特点：</p>
+<ul>
+<li>读写快</li>
+<li>支持高并发</li>
+<li>可以天然设置 TTL</li>
+<li>很适合做短期去重</li>
+</ul>
+<p>比如服务端验签通过后，写入一条记录：</p>
+<div class="expressive-code"><figure class="frame"><figcaption class="header"></figcaption><pre data-language="text" class="wrap" style="--ecMaxLine:34ch"><code><div class="ec-line"><div class="code"><span style="--0:#24292e;--1:#e1e4e8">SET replay:token:nonce 1 EX 300 NX</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="SET replay:token:nonce 1 EX 300 NX"><div></div></button></div></figure></div>
+<p>这条命令的意思可以简单理解成：</p>
+<ul>
+<li>如果这个 key 不存在，就写进去</li>
+<li>5 分钟后自动过期</li>
+<li>如果已经存在，就说明之前登记过了</li>
+</ul>
+<p>它很像门卫说：</p>
+<blockquote>
+<p>这张票我已经见过了，今天这轮你不能再进。</p>
+</blockquote>
+<p>而且因为 Redis 是自动过期的，你不用自己再去做一堆清理逻辑。</p>
+<hr>
+<h2 id="十那是不是做了这些就万无一失了">十、那是不是做了这些就万无一失了？<a data-heading-anchor="" href="#十那是不是做了这些就万无一失了" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>也不能这么说。</p>
+<p>安全这件事很少有“一个方案打天下”，更多是你补哪一层短板。</p>
+<p>这套方案解决得比较好的，是：</p>
+<ul>
+<li>身份识别</li>
+<li>防篡改</li>
+<li>短时间窗口防重放</li>
+</ul>
+<p>但在真实业务里，很多系统还需要额外考虑：</p>
+<ul>
+<li>token 泄漏怎么失效</li>
+<li>secret 怎么轮换</li>
+<li>请求日志里是否泄漏敏感信息</li>
+<li>业务本身是否需要幂等</li>
+</ul>
+<p>这里尤其要说一下：</p>
+<p><strong>防重放，不等于业务幂等。</strong></p>
+<p>这是两个经常被混在一起的概念。</p>
+<p>防重放关注的是：</p>
+<blockquote>
+<p>同一份请求是不是被恶意重复发送了</p>
+</blockquote>
+<p>业务幂等关注的是：</p>
+<blockquote>
+<p>即使重复提交，业务结果也只能生效一次</p>
+</blockquote>
+<p>比如支付接口里，就算你做了签名、防重放，往往还是要有：</p>
+<ul>
+<li>订单号</li>
+<li>幂等号</li>
+<li>状态机控制</li>
+</ul>
+<p>因为安全层拦住的是“可疑重复请求”，业务层兜住的是“重复执行后果”。</p>
+<p>两层都重要，谁也替代不了谁。</p>
+<hr>
+<h2 id="十一接口鉴权还有哪些常见选择">十一、接口鉴权还有哪些常见选择？<a data-heading-anchor="" href="#十一接口鉴权还有哪些常见选择" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>讲到这里，顺便把常见方案也放到一张脑图里。</p>
+<h3 id="1-session--cookie">1. Session / Cookie<a data-heading-anchor="" href="#1-session--cookie" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>适合传统 Web 网站。</p>
+<p>特点是简单，浏览器天然支持，但不太适合开放平台，也不负责请求防篡改。</p>
+<hr>
+<h3 id="2-bearer-token--access-token">2. Bearer Token / Access Token<a data-heading-anchor="" href="#2-bearer-token--access-token" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>适合前后端分离、App、小程序等用户登录态接口。</p>
+<p>优点是好用、生态成熟。<br>
+但它重点仍然是“身份凭证”，不是“请求级别安全”。</p>
+<hr>
+<h3 id="3-jwt">3. JWT<a data-heading-anchor="" href="#3-jwt" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>本质上也是 token 的一种，只不过是“自带信息”的 token。</p>
+<p>适合分布式场景，减少查库压力。<br>
+但别误会，JWT 也不能天然防重放、防参数篡改。</p>
+<hr>
+<h3 id="4-api-key--appkey">4. API Key / AppKey<a data-heading-anchor="" href="#4-api-key--appkey" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>开放平台常见。</p>
+<p>它能帮助服务端知道“你是哪家接入方”，但通常也要搭配签名一起使用，不然只能识别身份，防护不完整。</p>
+<hr>
+<h3 id="5-hmac-签名">5. HMAC 签名<a data-heading-anchor="" href="#5-hmac-签名" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>非常适合开放平台、支付接口、回调验签。</p>
+<p>它在“请求防篡改”这件事上很强，但通常需要和时间戳、nonce、Redis 配套，才能把重放问题也一起收掉。</p>
+<hr>
+<h3 id="6-mtls--双向证书">6. mTLS / 双向证书<a data-heading-anchor="" href="#6-mtls--双向证书" aria-label="Link to this section" tabindex="-1"></a></h3>
+<p>安全性高，但接入和运维复杂度也高。</p>
+<p>更适合银行、政企、强管控内网环境。<br>
+对大部分普通业务团队来说，它不是第一层默认解法。</p>
+<hr>
+<h2 id="十二如果只能记住一句话我希望是这句">十二、如果只能记住一句话，我希望是这句<a data-heading-anchor="" href="#十二如果只能记住一句话我希望是这句" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>很多文章喜欢把安全机制讲得像一堆缩写词比赛：</p>
+<ul>
+<li>Token</li>
+<li>JWT</li>
+<li>HMAC</li>
+<li>Nonce</li>
+<li>TTL</li>
+</ul>
+<p>但你真正该记住的，不是名词，而是它们各自负责的那一小块问题。</p>
+<p>你可以把整件事压缩成一句话：</p>
+<blockquote>
+<p>Token 负责“你是谁”，HMAC 负责“你有没有改内容”，时间戳负责“你是不是过期了”，Nonce + Redis TTL 负责“你是不是拿同一份请求又来了一次”。</p>
+</blockquote>
+<p>一旦这样理解，很多看似复杂的接口鉴权设计，都会变得很清楚。</p>
+<hr>
+<h2 id="十三最后给一个更接地气的判断标准">十三、最后给一个更接地气的判断标准<a data-heading-anchor="" href="#十三最后给一个更接地气的判断标准" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>如果你的接口只是普通的用户查询接口，可能 <code>token</code> 就已经够用了。</p>
+<p>但如果你的接口带着下面这些关键词：</p>
+<ul>
+<li>金额</li>
+<li>扣减</li>
+<li>发券</li>
+<li>核心状态变更</li>
+<li>第三方开放调用</li>
+<li>回调通知</li>
+</ul>
+<p>那你最好别只停留在“带个 token”这一步。</p>
+<p>更稳妥的思路通常是：</p>
+<p><strong>Token + HMAC + 时间戳 + Nonce + Redis TTL</strong></p>
+<p>它不一定是最豪华的方案，但常常是性价比很高、工程落地也比较顺手的一套组合拳。</p>
+<p>因为它不是在赌“别人不会攻击我”，而是在默认：</p>
+<p><strong>请求可能被截获、可能被篡改、可能被重放。</strong></p>
+<p>而好的安全设计，往往就是从这种不侥幸开始的。</p>
+<hr>
+<h2 id="尾声">尾声<a data-heading-anchor="" href="#尾声" aria-label="Link to this section" tabindex="-1"></a></h2>
+<p>刚接触接口安全时，大家很容易把这些机制看成“后端为了折磨前端和客户端发明出来的附加题”。</p>
+<p>但理解得更深一点你会发现，它们并不是为了复杂而复杂。</p>
+<p>它们只是分别在回答几个很朴素的问题：</p>
+<ul>
+<li>你是谁？</li>
+<li>你带来的东西有没有被动过？</li>
+<li>这是不是过期票？</li>
+<li>这张票是不是已经用过了？</li>
+</ul>
+<p>安全方案之所以看起来层层叠叠，不是因为工程师爱堆概念，而是因为现实里的风险，本来就不是一个问题。</p>
+<p>当你把这些问题拆开，一个个去对应，接口鉴权这件事就会从“神秘学”，慢慢变成“常识”。</p>
+<p>如果你愿意，下一篇我们还可以继续聊两个非常实战的话题：</p>
+<ul>
+<li>Spring Boot 里怎么落一套 HMAC + 时间戳 + Nonce 验签中间件</li>
+<li>防重放和业务幂等，到底应该怎么分层设计</li>
+</ul>
+ </prose-content> </article></main> <page-footer data-astro-cid-ju4pidww="true"><footer data-astro-cid-jo6i4kqk> <p data-astro-cid-jo6i4kqk>
+&copy; 2026 jessy </p> <ul data-astro-cid-o2gh7vpa> <li data-astro-cid-o2gh7vpa> <a href="https://github.com/JessyHHH" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> </a> </li><li data-astro-cid-o2gh7vpa> <a href="/rss.xml" data-icon-button target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-astro-cid-o2gh7vpa> <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-o2gh7vpa="true"><path fill="currentColor" fill-rule="evenodd" d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14zm3 2c0-1.414 0-2.121.44-2.56C6.878 9 7.585 9 9 9h6c1.414 0 2.121 0 2.56.44c.44.439.44 1.146.44 2.56v4c0 1.414 0 2.121-.44 2.56c-.439.44-1.146.44-2.56.44H9c-1.414 0-2.121 0-2.56-.44C6 18.122 6 17.415 6 16zm1-6.75a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd" /></svg> </a> </li> </ul> </footer></page-footer> </page-content> </page-grid> </body> </html>
